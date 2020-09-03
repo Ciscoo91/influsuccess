@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
-import { email, helpers, maxLength, minLength, required, sameAs } from 'vuelidate/lib/validators';
+import { email, helpers, maxLength, minLength, required, sameAs, numeric, alpha } from 'vuelidate/lib/validators';
 import LoginService from '@/account/login.service';
 import RegisterService from '@/account/register/register.service';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '@/constants';
@@ -14,6 +14,27 @@ const validations: any = {
       maxLength: maxLength(50),
       pattern: loginPattern,
     },
+    firstName: {
+      required,
+      minLength: minLength(1),
+      alpha
+    },
+    lastName: {
+      required,
+      minLength: minLength(1),
+      alpha
+    },
+    country: {
+      required,
+      minLength: minLength(1),
+     alpha
+    },
+    phone: {
+      required,
+      minLength: minLength(1),
+      maxLength: maxLength(8),
+      numeric
+    },
     email: {
       required,
       minLength: minLength(5),
@@ -22,14 +43,14 @@ const validations: any = {
     },
     password: {
       required,
-      minLength: minLength(4),
+      minLength: minLength(8),
       maxLength: maxLength(254),
     },
   },
   confirmPassword: {
     required,
-    minLength: minLength(4),
-    maxLength: maxLength(50),
+    minLength: minLength(8),
+    maxLength: maxLength(254),
     // prettier-ignore
     sameAsPassword: sameAs(function() {
       return this.registerAccount.password;
@@ -45,6 +66,10 @@ export default class Register extends Vue {
   @Inject('loginService') private loginService: () => LoginService;
   public registerAccount: any = {
     login: undefined,
+    firstName: undefined,
+    lastName: undefined,
+    country: undefined,
+    phone: undefined,
     email: undefined,
     password: undefined,
   };

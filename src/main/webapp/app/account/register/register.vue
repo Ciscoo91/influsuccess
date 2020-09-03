@@ -50,6 +50,27 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="form-control-label" for="firstName" v-text="$t('global.form[\'firstName.label\']')">First Name</label>
+                        <input type="text" class="form-control" v-model="$v.registerAccount.firstName.$model" id="firstName" name="firstName"
+                               :class="{'valid': !$v.registerAccount.firstName.$invalid, 'invalid': $v.registerAccount.firstName.$invalid }"
+                               required minlength="1" pattern="^[a-zA-Z0-9!#$&'*+=?^_`{|}~.-]+@?[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" v-bind:placeholder="$t('global.form[\'firstName.placeholder\']')">
+                        <div v-if="$v.registerAccount.firstName.$anyDirty && $v.registerAccount.firstName.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.firstName.required"
+                                   v-text="$t('register.messages.validate.firstName.required')">
+                                Your first name is required.
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.firstName.minLength"
+                                   v-text="$t('register.messages.validate.firstName.minlength')">
+                                Your first name is required to be at least 1 character.
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.firstName.pattern"
+                                   v-text="$t('register.messages.validate.firstName.pattern')">
+                                Your first name can only contain letters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="form-control-label" for="email" v-text="$t('global.form[\'email.label\']')">Email</label>
                         <input type="email" class="form-control" id="email" name="email"
                                :class="{'valid': !$v.registerAccount.email.$invalid, 'invalid': $v.registerAccount.email.$invalid }"
