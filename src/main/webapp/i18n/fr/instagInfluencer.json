@@ -1,0 +1,22 @@
+{
+  "influSuccessApp": {
+    "instagInfluencer": {
+      "home": {
+        "title": "InstagInfluencers",
+        "createLabel": "Créer un nouveau Instag Influencer",
+        "createOrEditLabel": "Créer ou éditer un Instag Influencer",
+        "notFound": "Aucun Instag Influencer trouvé"
+      },
+      "created": "Un nouveau Instag Influencer a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Instag Influencer avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Instag Influencer avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Instag Influencer {{ id }} ?"
+      },
+      "detail": {
+        "title": "Instag Influencer"
+      },
+      "url": "Url"
+    }
+  }
+}

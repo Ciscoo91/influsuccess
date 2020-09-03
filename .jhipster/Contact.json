@@ -1,0 +1,38 @@
+{
+  "name": "Contact",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "contact",
+      "relationshipName": "user",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "campaign",
+      "otherEntityRelationshipName": "contact",
+      "relationshipName": "compaign",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "instagInfluencer",
+      "otherEntityRelationshipName": "contact",
+      "relationshipName": "instagInfluencer",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200903125243",
+  "entityTableName": "contact",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
