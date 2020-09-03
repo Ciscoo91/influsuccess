@@ -48,6 +48,7 @@
                             </small>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="form-control-label" for="email" v-text="$t('global.form[\'email.label\']')">Email</label>
                         <input type="email" class="form-control" id="email" name="email"

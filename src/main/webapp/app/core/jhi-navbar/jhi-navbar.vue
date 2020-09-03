@@ -1,26 +1,26 @@
 <template>
-    <b-navbar toggleable="md" type="dark" class="jh-navbar">
+    <b-navbar toggleable="md" type="dark" variant="primary" class="jh-navbar">
         <b-navbar-brand class="logo" b-link to="/">
             <span class="logo-img"></span>
             <span v-text="$t('global.title')" class="navbar-title">influSuccess</span> <span class="navbar-version">{{version}}</span>
-        </b-navbar-brand>      
-        <b-navbar-toggle 
-        right 
-        class="jh-navbar-toggler d-lg-none" 
-        href="javascript:void(0);"  
-        data-toggle="collapse" 
-        target="header-tabs" 
-        aria-expanded="false" 
+        </b-navbar-brand>
+        <b-navbar-toggle
+        right
+        class="jh-navbar-toggler d-lg-none"
+        href="javascript:void(0);"
+        data-toggle="collapse"
+        target="header-tabs"
+        aria-expanded="false"
         aria-label="Toggle navigation">
             <font-awesome-icon icon="bars" />
         </b-navbar-toggle>
-           
+
         <b-collapse is-nav id="header-tabs">
             <b-navbar-nav class="ml-auto">
-                <b-nav-item to="/" exact>
+                <b-nav-item to="/" exact >
                     <span>
                         <font-awesome-icon icon="home" />
-                        <span v-text="$t('global.menu.home')">Home</span>
+                        <span class="text-white bold font-weight-bold" v-text="$t('global.menu.home')">Home</span>
                     </span>
                 </b-nav-item>
                 <b-nav-item-dropdown
@@ -30,19 +30,19 @@
                     active-class="active" class="pointer">
                     <span slot="button-content" class="navbar-dropdown-menu">
                         <font-awesome-icon icon="th-list" />
-                        <span v-text="$t('global.menu.entities.main')">Entities</span>
+                        <span class="text-white" v-text="$t('global.menu.entities.main')">Entities</span>
                     </span>
                     <b-dropdown-item to="/user-extra">
                         <font-awesome-icon icon="asterisk" />
-                        <span v-text="$t('global.menu.entities.userExtra')">UserExtra</span>
+                        <span  v-text="$t('global.menu.entities.userExtra')">UserExtra</span>
                     </b-dropdown-item>
                     <b-dropdown-item to="/campaign">
                         <font-awesome-icon icon="asterisk" />
-                        <span v-text="$t('global.menu.entities.campaign')">Campaign</span>
+                        <span  v-text="$t('global.menu.entities.campaign')">Campaign</span>
                     </b-dropdown-item>
                     <b-dropdown-item to="/instag-influencer">
                         <font-awesome-icon icon="asterisk" />
-                        <span v-text="$t('global.menu.entities.instagInfluencer')">InstagInfluencer</span>
+                        <span  v-text="$t('global.menu.entities.instagInfluencer')">InstagInfluencer</span>
                     </b-dropdown-item>
                     <b-dropdown-item to="/contact">
                         <font-awesome-icon icon="asterisk" />
@@ -59,11 +59,11 @@
                     class="pointer">
                     <span slot="button-content" class="navbar-dropdown-menu">
                         <font-awesome-icon icon="cogs" />
-                        <span v-text="$t('global.menu.admin.main')">Administration</span>
+                        <span class="text-white" v-text="$t('global.menu.admin.main')">Administration</span>
                     </span>
                     <b-dropdown-item to="/admin/user-management" active-class="active">
                         <font-awesome-icon icon="user" />
-                        <span v-text="$t('global.menu.admin.userManagement')">User management</span>
+                        <span  v-text="$t('global.menu.admin.userManagement')">User management</span>
                     </b-dropdown-item>
                     <b-dropdown-item  to="/admin/jhi-metrics" active-class="active">
                         <font-awesome-icon icon="tachometer-alt" />
@@ -71,33 +71,33 @@
                     </b-dropdown-item>
                     <b-dropdown-item to="/admin/jhi-health" active-class="active">
                         <font-awesome-icon icon="heart" />
-                        <span v-text="$t('global.menu.admin.health')">Health</span>
+                        <span  v-text="$t('global.menu.admin.health')">Health</span>
                     </b-dropdown-item>
                     <b-dropdown-item  to="/admin/jhi-configuration" active-class="active">
                         <font-awesome-icon icon="list" />
-                        <span v-text="$t('global.menu.admin.configuration')">Configuration</span>
+                        <span  v-text="$t('global.menu.admin.configuration')">Configuration</span>
                     </b-dropdown-item>
                     <b-dropdown-item  to="/admin/audits" active-class="active">
                         <font-awesome-icon icon="bell" />
-                        <span v-text="$t('global.menu.admin.audits')">Audits</span>
+                        <span  v-text="$t('global.menu.admin.audits')">Audits</span>
                     </b-dropdown-item>
                     <b-dropdown-item  to="/admin/logs" active-class="active">
                         <font-awesome-icon icon="tasks" />
-                        <span v-text="$t('global.menu.admin.logs')">Logs</span>
+                        <span  v-text="$t('global.menu.admin.logs')">Logs</span>
                     </b-dropdown-item>
                     <b-dropdown-item v-if="swaggerEnabled"  to="/admin/docs" active-class="active">
                         <font-awesome-icon icon="book" />
-                        <span v-text="$t('global.menu.admin.apidocs')">API</span>
+                        <span  v-text="$t('global.menu.admin.apidocs')">API</span>
                     </b-dropdown-item>
                     <b-dropdown-item v-if="!inProduction"  href='./h2-console' target="_tab">
                         <font-awesome-icon icon="hdd" />
-                        <span v-text="$t('global.menu.admin.database')">Database</span>
+                        <span  v-text="$t('global.menu.admin.database')">Database</span>
                     </b-dropdown-item>
                 </b-nav-item-dropdown>
                 <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
                     <span slot="button-content">
                         <font-awesome-icon icon="flag" />
-                        <span v-text="$t('global.menu.language')">Language</span>
+                        <span class="text-white" v-text="$t('global.menu.language')">Language</span>
                     </span>
                     <b-dropdown-item v-for="(value, key) in languages" :key="`lang-${key}`" v-on:click="changeLanguage(key);"
                         :class="{ active: isActiveLanguage(key)}">
@@ -113,21 +113,21 @@
                     class="pointer">
                     <span slot="button-content" class="navbar-dropdown-menu">
                         <font-awesome-icon icon="user" />
-                        <span v-text="$t('global.menu.account.main')">
+                        <span class="text-white" v-text="$t('global.menu.account.main')">
                             Account
                         </span>
                     </span>
                     <b-dropdown-item to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                         <font-awesome-icon icon="wrench" />
-                        <span v-text="$t('global.menu.account.settings')">Settings</span>
+                        <span class="text-white" v-text="$t('global.menu.account.settings')">Settings</span>
                     </b-dropdown-item>
                     <b-dropdown-item to="/account/password" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                         <font-awesome-icon icon="lock" />
-                        <span v-text="$t('global.menu.account.password')">Password</span>
+                        <span  v-text="$t('global.menu.account.password')">Password</span>
                     </b-dropdown-item>
                     <b-dropdown-item v-if="authenticated"  v-on:click="logout()" id="logout" active-class="active">
                         <font-awesome-icon icon="sign-out-alt" />
-                        <span v-text="$t('global.menu.account.logout')">Sign out</span>
+                        <span  v-text="$t('global.menu.account.logout')">Sign out</span>
                     </b-dropdown-item>
                     <b-dropdown-item v-if="!authenticated"  v-on:click="openLogin()" id="login" active-class="active">
                         <font-awesome-icon icon="sign-in-alt" />
@@ -135,7 +135,7 @@
                     </b-dropdown-item>
                     <b-dropdown-item to="/register" tag="b-dropdown-item" id="register" v-if="!authenticated" active-class="active">
                         <font-awesome-icon icon="user-plus" />
-                        <span v-text="$t('global.menu.account.register')">Register</span>
+                        <span  v-text="$t('global.menu.account.register')">Register</span>
                     </b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -171,7 +171,7 @@
 .jh-navbar .dropdown-item.active,
 .jh-navbar .dropdown-item.active:focus,
 .jh-navbar .dropdown-item.active:hover {
-  background-color: #353d47;
+      background-color: #353d47;
 }
 
 .jh-navbar .dropdown-toggle::after {
@@ -199,6 +199,9 @@
 .jh-navbar .jh-navbar-toggler:hover {
   color: #fff;
 }
+
+
+
 
 @media screen and (min-width: 768px) {
   .jh-navbar-toggler {

@@ -1,10 +1,7 @@
 <template>
-    <div class="home row">
-        <div class="col-md-3">
-            <span class="hipster img-fluid rounded"></span>
-        </div>
-        <div class="col-md-9">
-            <h1 class="display-4" v-text="$t('home.title')">Welcome, Java Hipster!</h1>
+    <div class="home">
+        <div class="col-md-12">
+            <h1 class="display-4 text-center font-weight-bold " v-text="$t('home.title')">InfluSuccess!</h1>
             <p class="lead" v-text="$t('home.subtitle')">This is your homepage</p>
 
             <div>
@@ -37,6 +34,16 @@
             <p>
                 <span v-text="$t('home.like')">If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener" v-text="$t('home.github')">GitHub</a>!
             </p>
+        </div>
+    <div>
+        <div  class="text-center">
+            <b-button class="p-3 m-4 font-weight-bold" pill size="lg" variant="outline-primary" v-text="$t('home.signIn')" v-on:click="openLogin()">
+               Sign in
+            </b-button>
+            <b-button class="p-3 m-4 font-weight-bold" pill size="lg" variant="outline-primary" v-text="$t('home.register')" v-on:click="$router.push('register')" >
+                Register Now
+            </b-button>
+        </div>
         </div>
     </div>
 </template>
