@@ -4,6 +4,7 @@ import { email, helpers, maxLength, minLength, required, sameAs, numeric, alpha 
 import LoginService from '@/account/login.service';
 import RegisterService from '@/account/register/register.service';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '@/constants';
+import { VueTelInput } from 'vue-tel-input'
 
 const loginPattern = helpers.regex('alpha', /^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$/);
 const validations: any = {
@@ -30,9 +31,8 @@ const validations: any = {
      alpha
     },
     phone: {
-      required,
-      minLength: minLength(1),
-      maxLength: maxLength(8),
+      minLength: minLength(10),
+      maxLength: maxLength(10),
       numeric
     },
     email: {
@@ -59,6 +59,9 @@ const validations: any = {
 };
 
 @Component({
+  components:{
+    "vue-tel-input":VueTelInput,
+  },
   validations,
 })
 export default class Register extends Vue {

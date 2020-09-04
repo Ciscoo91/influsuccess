@@ -50,10 +50,31 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="form-control-label" for="lastName" v-text="$t('global.form[\'lastName.label\']')">Last Name</label>
+                        <input type="text" class="form-control" v-model="$v.registerAccount.lastName.$model" id="lastName" name="lastName"
+                               :class="{'valid': !$v.registerAccount.lastName.$invalid, 'invalid': $v.registerAccount.lastName.$invalid }"
+                               required minlength="1"  v-bind:placeholder="$t('global.form[\'lastName.placeholder\']')">
+                        <div v-if="$v.registerAccount.lastName.$anyDirty && $v.registerAccount.lastName.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.lastName.required"
+                                   v-text="$t('register.messages.validate.firstName.required')">
+                                Your last name is required.
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.lastName.minLength"
+                                   v-text="$t('register.messages.validate.lastName.minlength')">
+                                Your last name is required to be at least 1 character.
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.firstName.alpha"
+                                   v-text="$t('register.messages.validate.lastName.alpha')">
+                                Your last name can only contain letters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="form-control-label" for="firstName" v-text="$t('global.form[\'firstName.label\']')">First Name</label>
                         <input type="text" class="form-control" v-model="$v.registerAccount.firstName.$model" id="firstName" name="firstName"
                                :class="{'valid': !$v.registerAccount.firstName.$invalid, 'invalid': $v.registerAccount.firstName.$invalid }"
-                               required minlength="1" pattern="^[a-zA-Z0-9!#$&'*+=?^_`{|}~.-]+@?[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" v-bind:placeholder="$t('global.form[\'firstName.placeholder\']')">
+                               required minlength="1"  v-bind:placeholder="$t('global.form[\'firstName.placeholder\']')">
                         <div v-if="$v.registerAccount.firstName.$anyDirty && $v.registerAccount.firstName.$invalid">
                             <small class="form-text text-danger" v-if="!$v.registerAccount.firstName.required"
                                    v-text="$t('register.messages.validate.firstName.required')">
@@ -63,8 +84,8 @@
                                    v-text="$t('register.messages.validate.firstName.minlength')">
                                 Your first name is required to be at least 1 character.
                             </small>
-                            <small class="form-text text-danger" v-if="!$v.registerAccount.firstName.pattern"
-                                   v-text="$t('register.messages.validate.firstName.pattern')">
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.firstName.alpha"
+                                   v-text="$t('register.messages.validate.firstName.alpha')">
                                 Your first name can only contain letters.
                             </small>
                         </div>
@@ -138,6 +159,51 @@
                                 The password and its confirmation do not match!
                             </small>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="country" v-text="$t('global.form[\'country.label\']')">Country</label>
+                        <input type="text" class="form-control" v-model="$v.registerAccount.country.$model" id="country" name="country"
+                               :class="{'valid': !$v.registerAccount.country.$invalid, 'invalid': $v.registerAccount.country.$invalid }"
+                               required minlength="1"  v-bind:placeholder="$t('global.form[\'country.placeholder\']')">
+                        <div v-if="$v.registerAccount.country.$anyDirty && $v.registerAccount.country.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.country.required"
+                                   v-text="$t('register.messages.validate.country.required')">
+                                Country is required.
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.country.minLength"
+                                   v-text="$t('register.messages.validate.country.minlength')">
+                                Country required to be at least 1 character.
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.country.alpha"
+                                   v-text="$t('register.messages.validate.country.alpha')">
+                                Country can only contain letters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="phone" v-text="$t('global.form[\'phone.label\']')"> Phone </label>
+                            <vue-tel-input  id = "phone" name="phone"
+                                            :class="{'valid': !$v.registerAccount.phone.$invalid, 'invalid': $v.registerAccount.phone.$invalid }"
+                                            v-model="$v.registerAccount.phone.$model"
+                                            placeholder="$t('global.form[\'phone.placeholder\']')"
+                            >
+                            </vue-tel-input>
+                        <div v-if="$v.registerAccount.phone.$anyDirty && $v.registerAccount.phone.$invalid">
+
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.phone.numeric"
+                                   v-text="$t('register.messages.validate.phone.numeric')">
+                                Your phone can only contain digits
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.phone.minLength"
+                                   v-text="$t('register.messages.validate.phone.minlength')">
+                                Your phone must contain 10 digits.
+                            </small>
+                            <small class="form-text text-danger" v-if="!$v.registerAccount.phone.maxLength"
+                                   v-text="$t('register.messages.validate.phone.maxlength')">
+                                Your phone must contain 10 digits.
+                            </small>
                     </div>
 
                     <button type="submit" :disabled="$v.$invalid " class="btn btn-primary" v-text="$t('register.form.button')">Register</button>
