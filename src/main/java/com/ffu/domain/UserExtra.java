@@ -7,9 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
-
-import com.ffu.domain.enumeration.Role;
+import java.time.LocalDate;
 
 /**
  * A UserExtra.
@@ -30,17 +28,11 @@ public class UserExtra implements Serializable {
     @Column(name = "country", nullable = false)
     private String country;
 
-    @NotNull
     @Column(name = "birthday", nullable = false)
-    private Instant birthday;
+    private LocalDate birthday;
 
     @Column(name = "phone")
     private Long phone;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -68,16 +60,16 @@ public class UserExtra implements Serializable {
         this.country = country;
     }
 
-    public Instant getBirthday() {
+        public LocalDate getBirthday() {
         return birthday;
     }
 
-    public UserExtra birthday(Instant birthday) {
+    public UserExtra birthday(LocalDate birthday) {
         this.birthday = birthday;
         return this;
     }
 
-    public void setBirthday(Instant birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -92,19 +84,6 @@ public class UserExtra implements Serializable {
 
     public void setPhone(Long phone) {
         this.phone = phone;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public UserExtra role(Role role) {
-        this.role = role;
-        return this;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public User getUser() {
@@ -145,7 +124,6 @@ public class UserExtra implements Serializable {
             ", country='" + getCountry() + "'" +
             ", birthday='" + getBirthday() + "'" +
             ", phone=" + getPhone() +
-            ", role='" + getRole() + "'" +
             "}";
     }
 }

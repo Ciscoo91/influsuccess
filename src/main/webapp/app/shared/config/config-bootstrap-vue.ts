@@ -25,6 +25,7 @@ import {
   BInputGroup,
   BInputGroupPrepend,
 } from 'bootstrap-vue';
+import Vue from "vue/types/vue";
 
 export function initBootstrapVue(vue) {
   vue.component('b-badge', BBadge);

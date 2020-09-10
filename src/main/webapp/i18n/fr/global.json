@@ -40,6 +40,16 @@
     "form": {
       "username.label": "Nom d'utilisateur",
       "username.placeholder": "Votre nom d'utilisateur",
+      "lastName.label": "Nom",
+      "lastName.placeholder": "Votre nom",
+      "firstName.label": "Prénom",
+      "firstName.placeholder": "Votre prénom",
+      "country.label": "Pays",
+      "country.placeholder": "Votre pays",
+      "phone.label": "Numéro de téléphone",
+      "phone.placeholder": "Votre numéro de téléphone",
+      "birthday.label": "Date de naissance",
+      "birthday.placeholder": "Votre date de naissance",
       "currentpassword.label": "Mot de passe actuel",
       "currentpassword.placeholder": "Mot de passe actuel",
       "newpassword.label": "Nouveau mot de passe",
@@ -52,8 +62,8 @@
     "messages": {
       "info": {
         "authenticated": {
-          "prefix": "Si vous voulez vous ",
-          "link": "connecter",
+          "prefix": "Déja enregistrer ?",
+          "link": "Connectez vous !",
           "suffix": ", vous pouvez utiliser les comptes par défaut : <br/> - Administrateur (nom d'utilisateur=\"admin\" et mot de passe =\"admin\") <br/> - Utilisateur (nom d'utilisateur=\"user\" et mot de passe =\"user\")."
         },
         "register": {
