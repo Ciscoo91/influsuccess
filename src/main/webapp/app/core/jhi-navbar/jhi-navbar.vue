@@ -119,7 +119,7 @@
                     </span>
                     <b-dropdown-item to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                         <font-awesome-icon icon="wrench" />
-                        <span class="text-white" v-text="$t('global.menu.account.settings')">Settings</span>
+                        <span  v-text="$t('global.menu.account.settings')">Settings</span>
                     </b-dropdown-item>
                     <b-dropdown-item to="/account/password" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                         <font-awesome-icon icon="lock" />
