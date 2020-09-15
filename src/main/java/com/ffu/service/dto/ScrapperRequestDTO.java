@@ -8,9 +8,7 @@ public class ScrapperRequestDTO {
 
     private String[] categories;
 
-    private String countries;
-
-    private int age;
+    private String country;
 
     private long minFollowers;
 
@@ -30,20 +28,12 @@ public class ScrapperRequestDTO {
         this.categories = categories;
     }
 
-    public String getCountries() {
-        return countries;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCountries(String countries) {
-        this.countries = countries;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public long getMinFollowers() {

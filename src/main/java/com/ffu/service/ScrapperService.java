@@ -4,6 +4,8 @@ package com.ffu.service;
 import com.ffu.service.dto.ScrapperRequestDTO;
 import com.ffu.service.dto.ScrapperResponseDTO;
 
+import java.util.HashSet;
+
 public interface ScrapperService {
 
     /**
@@ -11,5 +13,5 @@ public interface ScrapperService {
      * @param scrapperRequestDTO
      * @return
      */
-    ScrapperResponseDTO scrape(ScrapperRequestDTO scrapperRequestDTO);
+    HashSet<ScrapperResponseDTO> scrape(ScrapperRequestDTO scrapperRequestDTO);
 }

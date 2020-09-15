@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
+import java.util.HashSet;
 
 /**
  * REST controller for using scrapper
@@ -29,9 +30,9 @@ public class ScrapperResource {
      * @param scrapperRequestDTO
      */
     @PostMapping("/insta")
-    public ResponseEntity<ScrapperResponseDTO> scrape(@Valid @RequestBody ScrapperRequestDTO scrapperRequestDTO) {
+    public ResponseEntity<HashSet<ScrapperResponseDTO>> scrape(@Valid @RequestBody ScrapperRequestDTO scrapperRequestDTO) {
 
-        ScrapperResponseDTO scrapperResponseDTO = scrapperService.scrape(scrapperRequestDTO);
+        HashSet<ScrapperResponseDTO> scrapperResponseDTO = scrapperService.scrape(scrapperRequestDTO);
 
         return ResponseEntity.ok(scrapperResponseDTO);
     }

@@ -5,6 +5,9 @@ import com.ffu.service.dto.ScrapperRequestDTO;
 import com.ffu.service.dto.ScrapperResponseDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 @Service
 public class ScrapperServiceImpl implements ScrapperService {
 
@@ -14,14 +17,15 @@ public class ScrapperServiceImpl implements ScrapperService {
         this.instaScrapper = instaScrapper;
     }
 
-    /**{@inheritDoc}*/
+    /**{@inheritDoc}
+     * @return*/
     @Override
-    public ScrapperResponseDTO scrape(ScrapperRequestDTO scrapperRequestDTO){
+    public HashSet<ScrapperResponseDTO> scrape(ScrapperRequestDTO scrapperRequestDTO){
         switch (scrapperRequestDTO.getSocialNetwork()){
             case "insta":
                 return instaScrapper.scrape(scrapperRequestDTO);
             default:
-                return new ScrapperResponseDTO();
+                return new HashSet<ScrapperResponseDTO>((Collection<? extends ScrapperResponseDTO>) new ScrapperResponseDTO());
         }
     };
 }

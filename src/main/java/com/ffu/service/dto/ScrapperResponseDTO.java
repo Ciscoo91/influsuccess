@@ -6,9 +6,11 @@ public class ScrapperResponseDTO {
 
     private String username;
 
-    private String name;
+    private String followers;
 
-    private Long followers;
+    private String following;
+
+    private String publications;
 
     public String getProfilUrl() {
         return profilUrl;
@@ -26,19 +28,27 @@ public class ScrapperResponseDTO {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getFollowers() {
+    public String getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Long followers) {
+    public void setFollowers(String followers) {
         this.followers = followers;
+    }
+
+    public String getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(String following) {
+        this.following = following;
+    }
+
+    public String getPublications() {
+        return publications;
+    }
+
+    public void setPublications(String publications) {
+        this.publications = publications;
     }
 }
