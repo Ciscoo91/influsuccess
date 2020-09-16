@@ -3,13 +3,12 @@ package com.ffu.service.Impl;
 import com.ffu.service.Scrapper.Scrapper;
 import com.ffu.service.dto.ScrapperRequestDTO;
 import com.ffu.service.dto.ScrapperResponseDTO;
-import com.ffu.web.rest.errors.ScrappingErrorException;
+
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component
@@ -51,6 +50,7 @@ public class InstaScrapper extends Scrapper {
         for (String profileUrl : profileUrls) {
             Document instaProfil = this.getDocumentFromUrl(profileUrl, null);
             if (instaProfil != null) {
+
                 String[] infos = instaProfil.select("meta[property=og:description]").attr("content").split(", ");
                 if (infos.length == 3) {
                     String followers = infos[0].split("\\s")[0];
@@ -66,9 +66,31 @@ public class InstaScrapper extends Scrapper {
                     scrapperResponseDTO.setUsername(linkSplited[linkSplited.length - 1]);
 
                     scrapperResponseDTOS.add(scrapperResponseDTO);
+
+                    // TODO: 16/09/2020 launch and check the error on reading response
+                    /* try {
+
+                    JSONObject response = JsonReader.readJsonFromUrl(profileUrl+"?__a=1");
+                    JSONObject user =  response.getJSONObject("graphql").getJSONObject("user");
+
+                    ScrapperResponseDTO scrapperResponseDTO = new ScrapperResponseDTO();
+                    scrapperResponseDTO.setProfilUrl(profileUrl);
+                    scrapperResponseDTO.setEmail(user.get("business_email").toString());
+                    scrapperResponseDTO.setFollowers(Long.valueOf( user.getJSONObject("edge_followed_by").get("count").toString()));
+                    scrapperResponseDTO.setFollowing(Long.valueOf( user.getJSONObject("edge_follow").get("count").toString()));
+                    scrapperResponseDTO.setUsername( user.get("full_name").toString());
+                    scrapperResponseDTO.setPublications(Long.valueOf(user.getJSONObject("edge_owner_to_timeline_media").get("count").toString()));
+
+                    scrapperResponseDTOS.add(scrapperResponseDTO);
+
+                } catch (IOException e) {
+                    throw new ScrappingErrorException(e.getMessage());
+                }*/
                 }
             }
         }
         return scrapperResponseDTOS;
     }
+
+
 }
