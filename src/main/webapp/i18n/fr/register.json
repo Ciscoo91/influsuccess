@@ -11,14 +11,42 @@
           "minlength": "Votre nom d'utilisateur doit contenir plus d'un caractère.",
           "maxlength": "Votre nom d'utilisateur ne peut pas contenir plus de 50 caractères.",
           "pattern": "Votre nom d'utilisateur est invalide."
+        },
+        "firstName": {
+          "required": "Votre prénom est obligatoire.",
+          "minlength": "Votre prénom doit contenir plus d'un caractère.",
+          "alpha": "Votre prénom ne dois contenir que des lettres."
+        },
+        "lastName": {
+          "required": "Votre nom est obligatoire.",
+          "minlength": "Votre nom doit contenir plus d'un caractère.",
+          "alpha": "Votre nom ne dois contenir que des lettres."
+        },
+        "firstName": {
+          "required": "Votre prénom est obligatoire.",
+          "minlength": "Votre prénom doit contenir plus d'un caractère.",
+          "alpha": "Votre prénom ne dois contenir que des lettres."
+        },
+        "country": {
+          "required": "Le pays est obligatoire.",
+          "minlength": "Le pays doit contenir plus d'un caractère.",
+          "alpha": "Le pays ne dois contenir que des lettres."
+        },
+        "phone": {
+          "minlength": "Votre numéro de téléphone doit contenir 10 chiffres.",
+          "maxlength": "Votre numéro de téléphone doit contenir 10 chiffres.",
+          "numeric": "Votre nuléro de téléphone ne dois avoir que des chiifres."
+        },
+        "birthday": {
+          "required": "La date de naissance est obligatoire."
         }
       },
-      "success": "<strong>Compte enregistré !</strong> Merci de vérifier votre email de confirmation.",
-      "error": {
-        "fail": "<strong>Compte non créé !</strong> Merci d'essayer à nouveau plus tard.",
-        "userexists": "<strong>Ce compte utilisateur existe déjà !</strong> Veuillez en choisir un autre.",
-        "emailexists": "<strong>Cet email est déjà utilisé !</strong> Veuillez en choisir un autre."
+        "success": "<strong>Compte enregistré !</strong> Merci de vérifier votre email de confirmation.",
+        "error": {
+          "fail": "<strong>Compte non créé !</strong> Merci d'essayer à nouveau plus tard.",
+          "userexists": "<strong>Ce compte utilisateur existe déjà !</strong> Veuillez en choisir un autre.",
+          "emailexists": "<strong>Cet email est déjà utilisé !</strong> Veuillez en choisir un autre."
+        }
       }
     }
   }
-}

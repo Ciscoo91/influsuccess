@@ -22,15 +22,19 @@ public class UserDTO {
     @Size(min = 1, max = 50)
     private String login;
 
+    @NotBlank
     @Size(max = 50)
     private String firstName;
 
+    @NotBlank
     @Size(max = 50)
     private String lastName;
 
+    @NotBlank
     @Email
     @Size(min = 5, max = 254)
     private String email;
+
 
     @Size(max = 256)
     private String imageUrl;
@@ -49,6 +53,8 @@ public class UserDTO {
     private Instant lastModifiedDate;
 
     private Set<String> authorities;
+
+    private UserExtraDTO userExtra;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -110,6 +116,14 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserExtraDTO getUserExtra() {
+        return userExtra;
+    }
+
+    public void setUserExtra(UserExtraDTO userExtra) {
+        this.userExtra = userExtra;
     }
 
     public String getImageUrl() {

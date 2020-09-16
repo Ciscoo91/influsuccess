@@ -3,12 +3,15 @@ package com.ffu.service;
 import com.ffu.config.Constants;
 import com.ffu.domain.Authority;
 import com.ffu.domain.User;
+import com.ffu.domain.UserExtra;
 import com.ffu.repository.AuthorityRepository;
+import com.ffu.repository.UserExtraRepository;
 import com.ffu.repository.UserRepository;
 import com.ffu.security.AuthoritiesConstants;
 import com.ffu.security.SecurityUtils;
 import com.ffu.service.dto.UserDTO;
 
+import com.ffu.service.mapper.UserExtraMapper;
 import io.github.jhipster.security.RandomUtil;
 
 import org.slf4j.Logger;
@@ -41,12 +44,15 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
+    private final UserExtraRepository userExtraRepository;
+
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, UserExtraRepository userExtraRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.userExtraRepository = userExtraRepository;
         this.cacheManager = cacheManager;
     }
 
@@ -117,9 +123,15 @@ public class UserService {
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+        authorityRepository.findById(AuthoritiesConstants.OTHER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
+        newUser = userRepository.save(newUser);
+
+        // save userExtra
+        UserExtra userExtra = UserExtraMapper.INSTANCE.userExtraDTOToUserExtra(userDTO.getUserExtra());
+        userExtra.setUser(newUser);
+        userExtraRepository.save(userExtra);
+
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;

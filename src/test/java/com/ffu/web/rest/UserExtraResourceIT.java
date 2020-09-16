@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -35,8 +36,8 @@ public class UserExtraResourceIT {
     private static final String DEFAULT_COUNTRY = "AAAAAAAAAA";
     private static final String UPDATED_COUNTRY = "BBBBBBBBBB";
 
-    private static final Instant DEFAULT_BIRTHDAY = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_BIRTHDAY = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final LocalDate DEFAULT_BIRTHDAY = LocalDate.from(Instant.ofEpochMilli(0L));
+    private static final LocalDate UPDATED_BIRTHDAY = LocalDate.from(Instant.now().truncatedTo(ChronoUnit.MILLIS));
 
     private static final Long DEFAULT_PHONE = 1L;
     private static final Long UPDATED_PHONE = 2L;
@@ -65,8 +66,7 @@ public class UserExtraResourceIT {
         UserExtra userExtra = new UserExtra()
             .country(DEFAULT_COUNTRY)
             .birthday(DEFAULT_BIRTHDAY)
-            .phone(DEFAULT_PHONE)
-            .role(DEFAULT_ROLE);
+            .phone(DEFAULT_PHONE);
         return userExtra;
     }
     /**
@@ -79,8 +79,7 @@ public class UserExtraResourceIT {
         UserExtra userExtra = new UserExtra()
             .country(UPDATED_COUNTRY)
             .birthday(UPDATED_BIRTHDAY)
-            .phone(UPDATED_PHONE)
-            .role(UPDATED_ROLE);
+            .phone(UPDATED_PHONE);
         return userExtra;
     }
 
@@ -106,7 +105,6 @@ public class UserExtraResourceIT {
         assertThat(testUserExtra.getCountry()).isEqualTo(DEFAULT_COUNTRY);
         assertThat(testUserExtra.getBirthday()).isEqualTo(DEFAULT_BIRTHDAY);
         assertThat(testUserExtra.getPhone()).isEqualTo(DEFAULT_PHONE);
-        assertThat(testUserExtra.getRole()).isEqualTo(DEFAULT_ROLE);
     }
 
     @Test
@@ -169,25 +167,6 @@ public class UserExtraResourceIT {
 
     @Test
     @Transactional
-    public void checkRoleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = userExtraRepository.findAll().size();
-        // set the field null
-        userExtra.setRole(null);
-
-        // Create the UserExtra, which fails.
-
-
-        restUserExtraMockMvc.perform(post("/api/user-extras")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(userExtra)))
-            .andExpect(status().isBadRequest());
-
-        List<UserExtra> userExtraList = userExtraRepository.findAll();
-        assertThat(userExtraList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllUserExtras() throws Exception {
         // Initialize the database
         userExtraRepository.saveAndFlush(userExtra);
@@ -202,7 +181,7 @@ public class UserExtraResourceIT {
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.intValue())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getUserExtra() throws Exception {
@@ -242,8 +221,7 @@ public class UserExtraResourceIT {
         updatedUserExtra
             .country(UPDATED_COUNTRY)
             .birthday(UPDATED_BIRTHDAY)
-            .phone(UPDATED_PHONE)
-            .role(UPDATED_ROLE);
+            .phone(UPDATED_PHONE);
 
         restUserExtraMockMvc.perform(put("/api/user-extras")
             .contentType(MediaType.APPLICATION_JSON)
@@ -257,7 +235,6 @@ public class UserExtraResourceIT {
         assertThat(testUserExtra.getCountry()).isEqualTo(UPDATED_COUNTRY);
         assertThat(testUserExtra.getBirthday()).isEqualTo(UPDATED_BIRTHDAY);
         assertThat(testUserExtra.getPhone()).isEqualTo(UPDATED_PHONE);
-        assertThat(testUserExtra.getRole()).isEqualTo(UPDATED_ROLE);
     }
 
     @Test

@@ -16,9 +16,9 @@
       "detail": {
         "title": "User Extra"
       },
-      "country": "Country",
-      "birthday": "Birthday",
-      "phone": "Phone",
+      "country": "Pays",
+      "birthday": "Date de naissance",
+      "phone": "Numéro de téléphone",
       "role": "Role",
       "user": "User"
     }

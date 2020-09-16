@@ -1,9 +1,13 @@
 import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
-import { email, helpers, maxLength, minLength, required, sameAs } from 'vuelidate/lib/validators';
+import { email, helpers, maxLength, minLength, required, sameAs, numeric, alpha } from 'vuelidate/lib/validators';
 import LoginService from '@/account/login.service';
 import RegisterService from '@/account/register/register.service';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '@/constants';
+import { VueTelInput } from 'vue-tel-input'
+import {Authority} from "@/shared/security/authority";
+import {UserExtra} from "@/shared/model/user-extra.model";
+import moment from 'moment';
 
 const loginPattern = helpers.regex('alpha', /^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$/);
 const validations: any = {
@@ -14,6 +18,32 @@ const validations: any = {
       maxLength: maxLength(50),
       pattern: loginPattern,
     },
+    firstName: {
+      required,
+      minLength: minLength(1),
+      alpha
+    },
+    lastName: {
+      required,
+      minLength: minLength(1),
+      alpha
+    },
+    userExtra: {
+      birthday: {
+        required
+      },
+      country: {
+        required,
+        minLength: minLength(1),
+        alpha
+      },
+      phone: {
+        minLength: minLength(10),
+        maxLength: maxLength(10),
+        numeric
+      }
+    },
+
     email: {
       required,
       minLength: minLength(5),
@@ -24,20 +54,23 @@ const validations: any = {
       required,
       minLength: minLength(4),
       maxLength: maxLength(254),
+    }
+  },
+    confirmPassword: {
+      required,
+      minLength: minLength(4),
+      maxLength: maxLength(254),
+      // prettier-ignore
+      sameAsPassword: sameAs(function () {
+        return this.registerAccount.password;
+      })
     },
-  },
-  confirmPassword: {
-    required,
-    minLength: minLength(4),
-    maxLength: maxLength(50),
-    // prettier-ignore
-    sameAsPassword: sameAs(function() {
-      return this.registerAccount.password;
-    })
-  },
 };
 
 @Component({
+  components:{
+    "vue-tel-input":VueTelInput,
+  },
   validations,
 })
 export default class Register extends Vue {
@@ -45,9 +78,15 @@ export default class Register extends Vue {
   @Inject('loginService') private loginService: () => LoginService;
   public registerAccount: any = {
     login: undefined,
+    firstName: undefined,
+    lastName: undefined,
     email: undefined,
     password: undefined,
+    authorities: [],
+    userExtra: new UserExtra()
   };
+
+
   public confirmPassword: any = null;
   public error = '';
   public errorEmailExists = '';
@@ -59,9 +98,12 @@ export default class Register extends Vue {
     this.errorUserExists = null;
     this.errorEmailExists = null;
     this.registerAccount.langKey = this.$store.getters.currentLanguage;
+    this.registerAccount.authorities.push(Authority.OTHER);
+    this.registerAccount.userExtra.birthday = moment().toISOString(this.registerAccount.userExtra.birthday)
     this.registerService()
       .processRegistration(this.registerAccount)
-      .then(() => {
+      .then((res) => {
+
         this.success = true;
       })
       .catch(error => {

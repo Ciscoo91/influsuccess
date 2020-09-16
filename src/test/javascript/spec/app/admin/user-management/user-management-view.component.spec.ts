@@ -48,7 +48,7 @@ describe('UserManagementView Component', () => {
         email: 'first@last.com',
         activated: true,
         langKey: 'en',
-        authorities: [Authority.USER],
+        authorities: [Authority.OTHER],
         createdBy: 'admin',
         createdDate: null,
         lastModifiedBy: null,
