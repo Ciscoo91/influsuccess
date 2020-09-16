@@ -15,9 +15,6 @@ import java.util.stream.Collectors;
 @Component
 public class InstaScrapper extends Scrapper {
 
-
-    private static final Pattern instaUrlPattern = Pattern.compile("^(http|https)://(www.)?instagram.com/");
-
     @Override
     public HashSet<ScrapperResponseDTO> scrape(ScrapperRequestDTO scrapperRequestDTO) {
 
@@ -36,11 +33,12 @@ public class InstaScrapper extends Scrapper {
                             .collect(Collectors.toSet())
                     );
                 }
-                try {
+                // TODO: 16/09/2020 for more results enable thread sleep before the request (to avoid  blocking)
+                /*try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     throw new ScrappingErrorException(e.getMessage());
-                }
+                }*/
             }
         }
 
