@@ -46,7 +46,7 @@
                         <select class="form-control" name="role" :class="{'valid': !$v.userExtra.role.$invalid, 'invalid': $v.userExtra.role.$invalid }" v-model="$v.userExtra.role.$model" id="user-extra-role"  required>
                             <option value="ADMIN" v-bind:label="$t('influSuccessApp.Role.ADMIN')">ADMIN</option>
                             <option value="INFLUENCER" v-bind:label="$t('influSuccessApp.Role.INFLUENCER')">INFLUENCER</option>
-                            <option value="OTHER" v-bind:label="$t('influSuccessApp.Role.OTHER')">OTHER</option>
+                            <option value="ADVERTISER" v-bind:label="$t('influSuccessApp.Role.ADVERTISER')">ADVERTISER</option>
                         </select>
                         <div v-if="$v.userExtra.role.$anyDirty && $v.userExtra.role.$invalid">
                             <small class="form-text text-danger" v-if="!$v.userExtra.role.required" v-text="$t('entity.validation.required')">

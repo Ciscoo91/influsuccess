@@ -121,7 +121,7 @@ public class AccountResourceIT {
         validUser.setEmail("test-register-valid@example.com");
         validUser.setImageUrl("http://placehold.it/50x50");
         validUser.setLangKey(Constants.DEFAULT_LANGUAGE);
-        validUser.setAuthorities(Collections.singleton(AuthoritiesConstants.OTHER));
+        validUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
         assertThat(userRepository.findOneByLogin("test-register-valid").isPresent()).isFalse();
 
         restAccountMockMvc.perform(
@@ -145,7 +145,7 @@ public class AccountResourceIT {
         invalidUser.setActivated(true);
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
-        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.OTHER));
+        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -169,7 +169,7 @@ public class AccountResourceIT {
         invalidUser.setActivated(true);
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
-        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.OTHER));
+        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -193,7 +193,7 @@ public class AccountResourceIT {
         invalidUser.setActivated(true);
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
-        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.OTHER));
+        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -217,7 +217,7 @@ public class AccountResourceIT {
         invalidUser.setActivated(true);
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
-        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.OTHER));
+        invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -241,7 +241,7 @@ public class AccountResourceIT {
         firstUser.setEmail("alice@example.com");
         firstUser.setImageUrl("http://placehold.it/50x50");
         firstUser.setLangKey(Constants.DEFAULT_LANGUAGE);
-        firstUser.setAuthorities(Collections.singleton(AuthoritiesConstants.OTHER));
+        firstUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
 
         // Duplicate login, different email
         ManagedUserVM secondUser = new ManagedUserVM();
@@ -297,7 +297,7 @@ public class AccountResourceIT {
         firstUser.setEmail("test-register-duplicate-email@example.com");
         firstUser.setImageUrl("http://placehold.it/50x50");
         firstUser.setLangKey(Constants.DEFAULT_LANGUAGE);
-        firstUser.setAuthorities(Collections.singleton(AuthoritiesConstants.OTHER));
+        firstUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
 
         // Register first user
         restAccountMockMvc.perform(
@@ -390,7 +390,7 @@ public class AccountResourceIT {
         Optional<User> userDup = userRepository.findOneWithAuthoritiesByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
         assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findById(AuthoritiesConstants.OTHER).get());
+            .containsExactly(authorityRepository.findById(AuthoritiesConstants.ADVERTISER).get());
     }
 
     @Test
