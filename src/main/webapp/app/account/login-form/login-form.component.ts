@@ -2,7 +2,6 @@ import axios from 'axios';
 import Component from 'vue-class-component';
 import { Vue, Inject } from 'vue-property-decorator';
 import AccountService from '@/account/account.service';
-import {Authority} from "@/shared/security/authority";
 @Component({
   watch: {
     $route() {

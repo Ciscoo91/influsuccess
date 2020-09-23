@@ -33,6 +33,7 @@ import UserExtraService from '@/entities/user-extra/user-extra.service';
 import CampaignService from '@/entities/campaign/campaign.service';
 import InstagInfluencerService from '@/entities/instag-influencer/instag-influencer.service';
 import ContactService from '@/entities/contact/contact.service';
+import AdvDashboardService from "@/advertiser/dashboard/advDashboard.service";
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -100,6 +101,7 @@ new Vue({
     contactService: () => new ContactService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
+    advDashboardService: () => new AdvDashboardService()
   },
   i18n,
   store,
