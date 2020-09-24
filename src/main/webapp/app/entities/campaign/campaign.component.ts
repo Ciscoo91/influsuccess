@@ -11,8 +11,7 @@ import CampaignService from './campaign.service';
   mixins: [Vue2Filters.mixin],
 })
 export default class Campaign extends mixins(AlertMixin) {
-  @Inject('campaignService')
-  private campaignService: () => CampaignService;
+  @Inject('campaignService') private campaignService: () => CampaignService;
   private removeId: number = null;
 
   public campaigns: ICampaign[] = [];

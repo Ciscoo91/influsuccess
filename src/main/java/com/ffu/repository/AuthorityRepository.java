@@ -1,7 +1,6 @@
 package com.ffu.repository;
 
 import com.ffu.domain.Authority;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

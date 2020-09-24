@@ -1,0 +1,23 @@
+{
+  "influSuccessApp": {
+    "socialNetwork": {
+      "home": {
+        "title": "Social Networks",
+        "createLabel": "Social Network erstellen",
+        "createOrEditLabel": "Social Network erstellen oder bearbeiten",
+        "notFound": "No Social Networks found"
+      },
+      "created": "Social Network erstellt mit ID {{ param }}",
+      "updated": "Social Network aktualisiert mit ID {{ param }}",
+      "deleted": "Social Network gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Social Network {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Social Network"
+      },
+      "name": "Name",
+      "campaign": "Campaign"
+    }
+  }
+}

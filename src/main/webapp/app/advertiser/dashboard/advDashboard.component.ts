@@ -29,7 +29,6 @@ export default class AdvDashboardComponent extends Vue{
       .then(
         res => {
           this.campaigns = res.data;
-          console.log(JSON.stringify(res.data))
           this.isFetching = false;
         },
         err => {
@@ -42,7 +41,6 @@ export default class AdvDashboardComponent extends Vue{
     if(items.lenght && items.lenght === 0){
       this.rowIsSelected = false;
     }
-    this.rowIsSelected = true;
-    // todo activate buttons action
+    this.rowIsSelected = !this.rowIsSelected;
   }
 }

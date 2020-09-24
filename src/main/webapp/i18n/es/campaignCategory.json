@@ -1,0 +1,24 @@
+{
+  "influSuccessApp": {
+    "campaignCategory": {
+      "home": {
+        "title": "Campaign Categories",
+        "createLabel": "Crear nuevo Campaign Category",
+        "createOrEditLabel": "Crear o editar Campaign Category",
+        "notFound": "Ningún Campaign Categories encontrado"
+      },
+      "created": "Un nuevo Campaign Category ha sido creado con el identificador {{ param }}",
+      "updated": "Un Campaign Category ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Campaign Category ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Campaign Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Campaign Category"
+      },
+      "name": "Name",
+      "influencerInfo": "Influencer Info",
+      "campaign": "Campaign"
+    }
+  }
+}

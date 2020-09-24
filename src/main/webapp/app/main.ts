@@ -31,8 +31,6 @@ import ConfigurationService from '@/admin/configuration/configuration.service';
 
 import UserExtraService from '@/entities/user-extra/user-extra.service';
 import CampaignService from '@/entities/campaign/campaign.service';
-import InstagInfluencerService from '@/entities/instag-influencer/instag-influencer.service';
-import ContactService from '@/entities/contact/contact.service';
 import AdvDashboardService from "@/advertiser/dashboard/advDashboard.service";
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
@@ -97,8 +95,6 @@ new Vue({
     translationService: () => translationService,
     userExtraService: () => new UserExtraService(),
     campaignService: () => new CampaignService(),
-    instagInfluencerService: () => new InstagInfluencerService(),
-    contactService: () => new ContactService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
     advDashboardService: () => new AdvDashboardService()

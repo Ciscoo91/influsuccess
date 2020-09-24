@@ -1,0 +1,24 @@
+{
+  "influSuccessApp": {
+    "influencerInfo": {
+      "home": {
+        "title": "InfluencerInfos",
+        "createLabel": "Créer un nouveau Influencer Info",
+        "createOrEditLabel": "Créer ou éditer un Influencer Info",
+        "notFound": "Aucun Influencer Info trouvé"
+      },
+      "created": "Un nouveau Influencer Info a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Influencer Info avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Influencer Info avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Influencer Info {{ id }} ?"
+      },
+      "detail": {
+        "title": "Influencer Info"
+      },
+      "user": "User",
+      "socialNetworkLinks": "Social Network Links",
+      "categories": "Categories"
+    }
+  }
+}

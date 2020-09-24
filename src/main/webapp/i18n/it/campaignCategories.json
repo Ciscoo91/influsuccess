@@ -1,0 +1,15 @@
+{
+  "influSuccessApp": {
+    "CampaignCategories": {
+      "null": "",
+      "HIGH_TECH": "HIGH_TECH",
+      "BEAUTY": "BEAUTY",
+      "HOME": "HOME",
+      "APPS": "APPS",
+      "SPORT": "SPORT",
+      "HEALTH": "HEALTH",
+      "TRAVEL": "TRAVEL",
+      "CLOTHES": "CLOTHES"
+    }
+  }
+}
