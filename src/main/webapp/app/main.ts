@@ -32,6 +32,12 @@ import ConfigurationService from '@/admin/configuration/configuration.service';
 import UserExtraService from '@/entities/user-extra/user-extra.service';
 import CampaignService from '@/entities/campaign/campaign.service';
 import AdvDashboardService from "@/advertiser/dashboard/advDashboard.service";
+import CampaignCategoryService from "@/entities/campaign-category/campaign-category.service";
+import SocialNetworkService from "@/entities/social-network/social-network.service";
+import DiscussionService from "@/entities/discussion/discussion.service";
+import MessageService from "@/entities/message/message.service";
+import SocialNetworkLinkService from "@/entities/social-network-link/social-network-link.service";
+import InfluencerInfoService from "@/entities/influencer-info/influencer-info.service";
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -54,9 +60,10 @@ const loginService = new LoginService();
 const accountService = new AccountService(store, translationService, router);
 
 router.beforeEach((to, from, next) => {
-  if (!to.matched.length ) {
+  if (!to.matched.length) {
     next('/not-found');
   }
+
   if (to.meta && to.meta.authorities && to.meta.authorities.length > 0) {
     accountService.hasAnyAuthorityAndCheckAuth(to.meta.authorities).then(value => {
       if (!value) {
@@ -93,11 +100,18 @@ new Vue({
     metricsService: () => new MetricsService(),
     alertService: () => alertService,
     translationService: () => translationService,
+    campaignCategoryService: () => new CampaignCategoryService(),
+    socialNetworkService: () => new SocialNetworkService(),
     userExtraService: () => new UserExtraService(),
     campaignService: () => new CampaignService(),
+    influencerInfoService: () => new InfluencerInfoService(),
+    socialNetworkLinkService: () => new SocialNetworkLinkService(),
+    messageService: () => new MessageService(),
+    discussionService: () => new DiscussionService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
-    advDashboardService: () => new AdvDashboardService()
+    advDashboardService: () => new AdvDashboardService(),
+
   },
   i18n,
   store,

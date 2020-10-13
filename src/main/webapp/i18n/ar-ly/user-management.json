@@ -2,7 +2,7 @@
   "userManagement": {
     "home": {
       "title": "المستخدمين",
-      "createLabel": "إنشاء مستخدم جديد",
+      "addLabel": "إنشاء مستخدم جديد",
       "createOrEditLabel": "إنشاء أو تعديل مستخدم"
     },
     "created": "يتم إنشاء مستخدم جديد مع معرف {{ param }}",

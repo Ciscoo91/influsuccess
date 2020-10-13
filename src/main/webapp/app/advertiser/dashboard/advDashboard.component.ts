@@ -2,21 +2,28 @@ import Component from 'vue-class-component';
 import {Inject, Vue} from "vue-property-decorator";
 import {ICampaign} from "@/shared/model/campaign.model";
 import CampaignService from "@/entities/campaign/campaign.service";
+import CampaignUpdate from "@/entities/campaign/campaign-update.vue";
+import DiscussionThreads from "@/discussionThreads/discussionThreads.vue";
 
 @Component({
   components:{
-  }
+    'campaign-update': CampaignUpdate,
+    'discussion-threads': DiscussionThreads
+  },
 })
-export default class AdvDashboardComponent extends Vue{
+export default class AdvDashboard  extends Vue{
+
+  public selectedCampaign: ICampaign = {};
+
   @Inject('campaignService')
   private campaignService: () => CampaignService;
 
   private campaigns :ICampaign[] = [];
   private isFetching: boolean = false;
   private rowIsSelected: boolean = false;
-  private fields :string[]= ['Title','User'];
+  private fields :string[]= ['title','description','status','socialNetworks'];
 
-  mounted(): void {
+  created(): void {
     this.retrieveCampaigns();
   }
 
@@ -38,9 +45,29 @@ export default class AdvDashboardComponent extends Vue{
   }
 
   public onRowSelected(items):void{
-    if(items.lenght && items.lenght === 0){
+    if(Object.keys(items).length && Object.keys(items).length >= 0){
+      this.rowIsSelected = true;
+      this.selectedCampaign = items[0];
+    } else {
       this.rowIsSelected = false;
+      this.selectedCampaign = {};
+
     }
-    this.rowIsSelected = !this.rowIsSelected;
+
+  }
+
+  public removeCampaign(): void {
+    this.campaignService()
+      .delete(this.selectedCampaign.id)
+      .then(() => {
+        this.retrieveCampaigns();
+        this.selectedCampaign = {};
+        this.closeDialogue('removeCampaign');
+      });
+
+  }
+
+  public closeDialogue(idModal: string): void {
+    this.$root.$emit('bv::hide::modal', idModal)
   }
 }

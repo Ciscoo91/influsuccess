@@ -3,7 +3,7 @@
     "instagInfluencer": {
       "home": {
         "title": "Instag Influencers",
-        "createLabel": "Crear nuevo Instag Influencer",
+        "addLabel": "Crear nuevo Instag Influencer",
         "createOrEditLabel": "Crear o editar Instag Influencer",
         "notFound": "Ningún Instag Influencers encontrado"
       },

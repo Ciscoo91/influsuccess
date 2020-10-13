@@ -61,7 +61,17 @@
             </column>
         </createTable>
 
+        <createTable tableName="jhi_user_discussion">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discussion_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
         <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
+        <addPrimaryKey columnNames="user_id, discussion_id" tableName="jhi_user_discussion"/>
 
         <addForeignKeyConstraint baseColumnNames="authority_name"
                                  baseTableName="jhi_user_authority"
@@ -72,6 +82,12 @@
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="jhi_user_authority"
                                  constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="jhi_user_discussion"
+                                 constraintName="fk_user_discussion_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
@@ -98,6 +114,13 @@
                   file="config/liquibase/data/user_authority.csv"
                   separator=";"
                   tableName="jhi_user_authority">
+            <column name="user_id" type="numeric"/>
+        </loadData>
+
+        <loadData
+            file="config/liquibase/data/user_discussion.csv"
+            separator=";"
+            tableName="jhi_user_discussion">
             <column name="user_id" type="numeric"/>
         </loadData>
         <createTable tableName="jhi_persistent_audit_event">

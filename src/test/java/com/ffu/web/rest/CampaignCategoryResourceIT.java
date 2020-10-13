@@ -3,6 +3,7 @@ package com.ffu.web.rest;
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.CampaignCategory;
 import com.ffu.repository.CampaignCategoryRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -140,7 +140,7 @@ public class CampaignCategoryResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(campaignCategory.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
-
+    
     @Test
     @Transactional
     public void getCampaignCategory() throws Exception {

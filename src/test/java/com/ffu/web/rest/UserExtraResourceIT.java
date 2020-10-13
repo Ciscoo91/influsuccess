@@ -3,6 +3,7 @@ package com.ffu.web.rest;
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.UserExtra;
 import com.ffu.repository.UserExtraRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -175,7 +175,7 @@ public class UserExtraResourceIT {
             .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.intValue())));
     }
-
+    
     @Test
     @Transactional
     public void getUserExtra() throws Exception {

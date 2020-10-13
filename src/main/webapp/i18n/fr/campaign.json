@@ -3,7 +3,8 @@
     "campaign": {
       "home": {
         "title": "Campaigns",
-        "createLabel": "Créer un nouveau Campaign",
+        "addLabel": "Créer un nouveau Campaign",
+        "editLabel": "Editer une campagne",
         "createOrEditLabel": "Créer ou éditer un Campaign",
         "notFound": "Aucun Campaign trouvé"
       },

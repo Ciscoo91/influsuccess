@@ -40,7 +40,7 @@ public class Campaign implements Serializable {
     private String title;
 
     @NotNull
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length=10485760)
     private String description;
 
     @NotNull

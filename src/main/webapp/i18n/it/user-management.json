@@ -2,7 +2,7 @@
   "userManagement": {
     "home": {
       "title": "Utenti",
-      "createLabel": "Crea un nuovo utente",
+      "addLabel": "Crea un nuovo utente",
       "createOrEditLabel": "Crea o modifica un utente"
     },
     "created": "È stato creato un nuovo utente con identificativo {{ param }}",

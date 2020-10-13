@@ -5,13 +5,9 @@ export interface IUserExtra {
   country?: string;
   birthday?: Date;
   phone?: number;
+  user?: IUser;
 }
 
 export class UserExtra implements IUserExtra {
-  constructor(
-    public id?: number,
-    public country?: string,
-    public birthday?: Date,
-    public phone?: number,
-  ) {}
+  constructor(public id?: number, public country?: string, public birthday?: Date, public phone?: number, public user?: IUser) {}
 }

@@ -3,7 +3,7 @@
     "influencerInfo": {
       "home": {
         "title": "InfluencerInfos",
-        "createLabel": "Créer un nouveau Influencer Info",
+        "addLabel": "Créer un nouveau Influencer Info",
         "createOrEditLabel": "Créer ou éditer un Influencer Info",
         "notFound": "Aucun Influencer Info trouvé"
       },

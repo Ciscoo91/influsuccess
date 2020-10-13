@@ -26,7 +26,7 @@ import {
   BInputGroupPrepend,
   BSidebar,
   BImg,
-  BTable
+  BTable, BListGroup, BListGroupItem
 } from 'bootstrap-vue';
 
 export function initBootstrapVue(vue) {
@@ -59,4 +59,6 @@ export function initBootstrapVue(vue) {
   vue.component('b-sidebar',BSidebar);
   vue.component('b-img',BImg);
   vue.component('b-table', BTable);
+  vue.component('b-list-group', BListGroup);
+  vue.component('b-list-group-item',BListGroupItem);
 }

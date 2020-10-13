@@ -2,7 +2,7 @@
   "userManagement": {
     "home": {
       "title": "Benutzer",
-      "createLabel": "Neuen Benutzer erstellen",
+      "addLabel": "Neuen Benutzer erstellen",
       "createOrEditLabel": "Benutzer erstellen oder bearbeiten"
     },
     "created": "Ein neuer Benutzer wurde mit ID {{ param }} erstellt",

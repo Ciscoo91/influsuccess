@@ -3,6 +3,7 @@ package com.ffu.web.rest;
 import com.ffu.domain.InfluencerInfo;
 import com.ffu.repository.InfluencerInfoRepository;
 import com.ffu.web.rest.errors.BadRequestAlertException;
+
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;

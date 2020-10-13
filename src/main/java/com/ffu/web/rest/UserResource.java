@@ -4,8 +4,10 @@ import com.ffu.config.Constants;
 import com.ffu.domain.User;
 import com.ffu.repository.UserRepository;
 import com.ffu.security.AuthoritiesConstants;
+import com.ffu.service.DiscussionService;
 import com.ffu.service.MailService;
 import com.ffu.service.UserService;
+import com.ffu.service.dto.DiscussionThreadsDTO;
 import com.ffu.service.dto.UserDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
 import com.ffu.web.rest.errors.EmailAlreadyUsedException;
@@ -71,10 +73,13 @@ public class UserResource {
 
     private final MailService mailService;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    private final DiscussionService discussionService;
+
+    public UserResource(UserService userService, UserRepository userRepository, MailService mailService, DiscussionService discussionService) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.discussionService = discussionService;
     }
 
     /**
@@ -185,5 +190,17 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
+    }
+
+    /**
+     * {@code GET  /discussions} : get all the discussions for an user.
+     * @param id
+     * @return
+     */
+    @GetMapping("/users/{id}/discussions")
+    public ResponseEntity<List<DiscussionThreadsDTO>> getUserDiscussions(@PathVariable Long id) {
+        log.debug("REST request to get all Discussions for an user {}", id);
+        List<DiscussionThreadsDTO> result = discussionService.findAllByUser(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

@@ -21,18 +21,27 @@
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('influSuccessApp.userExtra.birthday')" for="user-extra-birthday">Birthday</label>
-                        <div class="d-flex">
-                            <input id="user-extra-birthday" type="datetime-local" class="form-control" name="birthday" :class="{'valid': !$v.userExtra.birthday.$invalid, 'invalid': $v.userExtra.birthday.$invalid }"
-                             required
-                            :value="convertDateTimeFromServer($v.userExtra.birthday.$model)"
-                            @change="updateInstantField('birthday', $event)"/>
-                        </div>
+                        <b-input-group class="mb-3">
+                            <b-input-group-prepend>
+                                <b-form-datepicker
+                                    aria-controls="user-extra-birthday"
+                                    v-model="$v.userExtra.birthday.$model"
+                                    name="birthday"
+                                    class="form-control"
+                                    :locale="currentLanguage"
+                                    button-only
+                                    today-button
+                                    reset-button
+                                    close-button
+                                >
+                                </b-form-datepicker>
+                            </b-input-group-prepend>
+                            <b-form-input id="user-extra-birthday" type="text" class="form-control" name="birthday"  :class="{'valid': !$v.userExtra.birthday.$invalid, 'invalid': $v.userExtra.birthday.$invalid }"
+                            v-model="$v.userExtra.birthday.$model"  required />
+                        </b-input-group>
                         <div v-if="$v.userExtra.birthday.$anyDirty && $v.userExtra.birthday.$invalid">
                             <small class="form-text text-danger" v-if="!$v.userExtra.birthday.required" v-text="$t('entity.validation.required')">
                                 This field is required.
-                            </small>
-                            <small class="form-text text-danger" v-if="!$v.userExtra.birthday.ZonedDateTimelocal" v-text="$t('entity.validation.ZonedDateTimelocal')">
-                                This field should be a date and time.
                             </small>
                         </div>
                     </div>
@@ -40,19 +49,6 @@
                         <label class="form-control-label" v-text="$t('influSuccessApp.userExtra.phone')" for="user-extra-phone">Phone</label>
                         <input type="number" class="form-control" name="phone" id="user-extra-phone"
                             :class="{'valid': !$v.userExtra.phone.$invalid, 'invalid': $v.userExtra.phone.$invalid }" v-model.number="$v.userExtra.phone.$model" />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-control-label" v-text="$t('influSuccessApp.userExtra.role')" for="user-extra-role">Role</label>
-                        <select class="form-control" name="role" :class="{'valid': !$v.userExtra.role.$invalid, 'invalid': $v.userExtra.role.$invalid }" v-model="$v.userExtra.role.$model" id="user-extra-role"  required>
-                            <option value="ADMIN" v-bind:label="$t('influSuccessApp.Role.ADMIN')">ADMIN</option>
-                            <option value="INFLUENCER" v-bind:label="$t('influSuccessApp.Role.INFLUENCER')">INFLUENCER</option>
-                            <option value="ADVERTISER" v-bind:label="$t('influSuccessApp.Role.ADVERTISER')">ADVERTISER</option>
-                        </select>
-                        <div v-if="$v.userExtra.role.$anyDirty && $v.userExtra.role.$invalid">
-                            <small class="form-text text-danger" v-if="!$v.userExtra.role.required" v-text="$t('entity.validation.required')">
-                                This field is required.
-                            </small>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('influSuccessApp.userExtra.user')" for="user-extra-user">User</label>

@@ -3,7 +3,7 @@
     "socialNetworkLink": {
       "home": {
         "title": "Social Network Links",
-        "createLabel": "Social Network Link erstellen",
+        "addLabel": "Social Network Link erstellen",
         "createOrEditLabel": "Social Network Link erstellen oder bearbeiten",
         "notFound": "No Social Network Links found"
       },

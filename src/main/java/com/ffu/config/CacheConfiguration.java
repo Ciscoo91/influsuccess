@@ -48,16 +48,20 @@ public class CacheConfiguration {
             createCache(cm, com.ffu.domain.User.class.getName());
             createCache(cm, com.ffu.domain.Authority.class.getName());
             createCache(cm, com.ffu.domain.User.class.getName() + ".authorities");
-            createCache(cm, com.ffu.domain.UserExtra.class.getName());
-            createCache(cm, com.ffu.domain.Campaign.class.getName());
-            createCache(cm, com.ffu.domain.InfluencerInfo.class.getName());
-            createCache(cm, com.ffu.domain.SocialNetworkLink.class.getName());
-            createCache(cm, com.ffu.domain.InfluencerInfo.class.getName() + ".socialNetworkLinks");
             createCache(cm, com.ffu.domain.CampaignCategory.class.getName());
             createCache(cm, com.ffu.domain.SocialNetwork.class.getName());
+            createCache(cm, com.ffu.domain.UserExtra.class.getName());
+            createCache(cm, com.ffu.domain.Campaign.class.getName());
             createCache(cm, com.ffu.domain.Campaign.class.getName() + ".categories");
             createCache(cm, com.ffu.domain.Campaign.class.getName() + ".socialNetworks");
+            createCache(cm, com.ffu.domain.InfluencerInfo.class.getName());
+            createCache(cm, com.ffu.domain.InfluencerInfo.class.getName() + ".socialNetworkLinks");
             createCache(cm, com.ffu.domain.InfluencerInfo.class.getName() + ".categories");
+            createCache(cm, com.ffu.domain.SocialNetworkLink.class.getName());
+            createCache(cm, com.ffu.domain.Message.class.getName());
+            createCache(cm, com.ffu.domain.Discussion.class.getName());
+            createCache(cm, com.ffu.domain.Discussion.class.getName() + ".participants");
+            createCache(cm, com.ffu.domain.Discussion.class.getName() + ".messages");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -3,6 +3,7 @@ package com.ffu.web.rest;
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.SocialNetworkLink;
 import com.ffu.repository.SocialNetworkLinkRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -140,7 +140,7 @@ public class SocialNetworkLinkResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(socialNetworkLink.getId().intValue())))
             .andExpect(jsonPath("$.[*].link").value(hasItem(DEFAULT_LINK)));
     }
-
+    
     @Test
     @Transactional
     public void getSocialNetworkLink() throws Exception {

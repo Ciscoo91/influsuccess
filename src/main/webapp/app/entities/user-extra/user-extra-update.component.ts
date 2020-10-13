@@ -1,10 +1,6 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vuelidate/lib/validators';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import parseISO from 'date-fns/parseISO';
-import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
 import UserService from '@/admin/user-management/user-management.service';
 
@@ -21,9 +17,6 @@ const validations: any = {
       required,
     },
     phone: {},
-    role: {
-      required,
-    },
   },
 };
 
@@ -83,34 +76,10 @@ export default class UserExtraUpdate extends Vue {
     }
   }
 
-  public convertDateTimeFromServer(date: Date): string {
-    if (date) {
-      return format(date, DATE_TIME_LONG_FORMAT);
-    }
-    return null;
-  }
-
-  public updateInstantField(field, event) {
-    if (event.target.value) {
-      this.userExtra[field] = parse(event.target.value, DATE_TIME_LONG_FORMAT, new Date());
-    } else {
-      this.userExtra[field] = null;
-    }
-  }
-
-  public updateZonedDateTimeField(field, event) {
-    if (event.target.value) {
-      this.userExtra[field] = parse(event.target.value, DATE_TIME_LONG_FORMAT, new Date());
-    } else {
-      this.userExtra[field] = null;
-    }
-  }
-
   public retrieveUserExtra(userExtraId): void {
     this.userExtraService()
       .find(userExtraId)
       .then(res => {
-        res.birthday = new Date(res.birthday);
         this.userExtra = res;
       });
   }

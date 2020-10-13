@@ -2,9 +2,8 @@ package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.Campaign;
-import com.ffu.domain.enumeration.CampaignStatus;
-import com.ffu.domain.enumeration.LangKey;
 import com.ffu.repository.CampaignRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -23,6 +21,8 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.ffu.domain.enumeration.LangKey;
+import com.ffu.domain.enumeration.CampaignStatus;
 /**
  * Integration tests for the {@link CampaignResource} REST controller.
  */
@@ -279,7 +279,7 @@ public class CampaignResourceIT {
             .andExpect(jsonPath("$.[*].maxFollowers").value(hasItem(DEFAULT_MAX_FOLLOWERS.intValue())))
             .andExpect(jsonPath("$.[*].targetCountries").value(hasItem(DEFAULT_TARGET_COUNTRIES)));
     }
-
+    
     @Test
     @Transactional
     public void getCampaign() throws Exception {

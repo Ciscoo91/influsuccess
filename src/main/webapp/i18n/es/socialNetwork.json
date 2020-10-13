@@ -3,7 +3,7 @@
     "socialNetwork": {
       "home": {
         "title": "Social Networks",
-        "createLabel": "Crear nuevo Social Network",
+        "addLabel": "Crear nuevo Social Network",
         "createOrEditLabel": "Crear o editar Social Network",
         "notFound": "Ningún Social Networks encontrado"
       },

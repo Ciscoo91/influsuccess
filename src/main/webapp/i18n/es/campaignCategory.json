@@ -3,7 +3,7 @@
     "campaignCategory": {
       "home": {
         "title": "Campaign Categories",
-        "createLabel": "Crear nuevo Campaign Category",
+        "addLabel": "Crear nuevo Campaign Category",
         "createOrEditLabel": "Crear o editar Campaign Category",
         "notFound": "Ningún Campaign Categories encontrado"
       },

@@ -14,19 +14,13 @@
                         <span v-text="$t('influSuccessApp.userExtra.birthday')">Birthday</span>
                     </dt>
                     <dd>
-                        <span v-if="userExtra.birthday">{{$d(Date.parse(userExtra.birthday), 'long') }}</span>
+                        <span>{{userExtra.birthday}}</span>
                     </dd>
                     <dt>
                         <span v-text="$t('influSuccessApp.userExtra.phone')">Phone</span>
                     </dt>
                     <dd>
                         <span>{{userExtra.phone}}</span>
-                    </dd>
-                    <dt>
-                        <span v-text="$t('influSuccessApp.userExtra.role')">Role</span>
-                    </dt>
-                    <dd>
-                        <span v-text="$t('influSuccessApp.Role.' + userExtra.role)">{{userExtra.role}}</span>
                     </dd>
                     <dt>
                         <span v-text="$t('influSuccessApp.userExtra.user')">User</span>

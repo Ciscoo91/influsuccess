@@ -3,6 +3,7 @@ package com.ffu.web.rest;
 import com.ffu.domain.SocialNetworkLink;
 import com.ffu.repository.SocialNetworkLinkRepository;
 import com.ffu.web.rest.errors.BadRequestAlertException;
+
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;

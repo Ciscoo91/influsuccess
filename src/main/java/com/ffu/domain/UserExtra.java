@@ -28,6 +28,7 @@ public class UserExtra implements Serializable {
     @Column(name = "country", nullable = false)
     private String country;
 
+    @NotNull
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
@@ -60,7 +61,7 @@ public class UserExtra implements Serializable {
         this.country = country;
     }
 
-        public LocalDate getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 

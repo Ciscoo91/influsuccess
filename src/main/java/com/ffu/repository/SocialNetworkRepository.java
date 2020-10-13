@@ -1,7 +1,8 @@
 package com.ffu.repository;
 
 import com.ffu.domain.SocialNetwork;
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 /**

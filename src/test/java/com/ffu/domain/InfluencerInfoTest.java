@@ -1,9 +1,8 @@
 package com.ffu.domain;
 
-import com.ffu.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import com.ffu.web.rest.TestUtil;
 
 public class InfluencerInfoTest {
 

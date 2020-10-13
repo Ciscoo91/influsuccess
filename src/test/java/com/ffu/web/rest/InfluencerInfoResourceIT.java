@@ -3,6 +3,7 @@ package com.ffu.web.rest;
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.InfluencerInfo;
 import com.ffu.repository.InfluencerInfoRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -114,7 +114,7 @@ public class InfluencerInfoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(influencerInfo.getId().intValue())));
     }
-
+    
     @Test
     @Transactional
     public void getInfluencerInfo() throws Exception {

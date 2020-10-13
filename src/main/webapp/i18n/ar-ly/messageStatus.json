@@ -1,0 +1,10 @@
+{
+  "influSuccessApp": {
+    "MessageStatus": {
+      "null": "",
+      "SENT": "SENT",
+      "DISTRIBUTED": "DISTRIBUTED",
+      "OPENED": "OPENED"
+    }
+  }
+}
