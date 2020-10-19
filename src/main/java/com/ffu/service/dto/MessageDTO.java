@@ -3,6 +3,7 @@ package com.ffu.service.dto;
 import com.ffu.domain.enumeration.MessageStatus;
 
 import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 
 public class MessageDTO {
 
@@ -13,10 +14,17 @@ public class MessageDTO {
     private String content;
     @NotBlank
     private Long senderId;
-    @NotBlank
-    private Long receiverId;
+
     private String senderLogin;
-    private String receiverLogin;
+
+    private String createdBy;
+
+    private Instant createdDate;
+
+    private String lastModifiedBy;
+
+    private Instant lastModifiedDate;
+
 
 
     public Long getId() {
@@ -51,14 +59,6 @@ public class MessageDTO {
         this.senderId = senderId;
     }
 
-    public Long getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(Long receiverId) {
-        this.receiverId = receiverId;
-    }
-
     public String getSenderLogin() {
         return senderLogin;
     }
@@ -67,12 +67,36 @@ public class MessageDTO {
         this.senderLogin = senderLogin;
     }
 
-    public String getReceiverLogin() {
-        return receiverLogin;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setReceiverLogin(String receiverLogin) {
-        this.receiverLogin = receiverLogin;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override
@@ -82,9 +106,7 @@ public class MessageDTO {
             ", status=" + status +
             ", content='" + content + '\'' +
             ", idSender=" + senderId +
-            ", idReceiver=" + receiverId +
             ", loginSender='" + senderLogin + '\'' +
-            ", loginReceiver='" + receiverLogin + '\'' +
             '}';
     }
 }

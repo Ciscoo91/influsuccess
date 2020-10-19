@@ -1,8 +1,11 @@
 package com.ffu.service.Impl;
 
+import com.ffu.domain.Discussion;
 import com.ffu.domain.Message;
+import com.ffu.repository.DiscussionRepository;
 import com.ffu.repository.MessageRepository;
 import com.ffu.service.MessageService;
+import com.ffu.service.dto.MessageChat;
 import com.ffu.service.dto.MessageDTO;
 import com.ffu.service.mapper.MessageMapper;
 import org.springframework.stereotype.Service;
@@ -16,9 +19,11 @@ public class MessageServiceImpl implements MessageService {
 
     private final MessageMapper messageMapper = MessageMapper.INSTANCE;
     private final MessageRepository messageRepository;
+    private final DiscussionRepository discussionRepository;
 
-    public MessageServiceImpl( MessageRepository messageRepository) {
+    public MessageServiceImpl(MessageRepository messageRepository, DiscussionRepository discussionRepository) {
         this.messageRepository = messageRepository;
+        this.discussionRepository = discussionRepository;
     }
 
 
@@ -48,12 +53,20 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageDTO> getLastUserMessageForCampaigns(Long userId) {
-        return messageRepository.getLastUserMessageForCampaigns(userId).stream().map(messageMapper::toDto).collect(Collectors.toList());
+        return messageRepository.getLastUserMessageForDiscussion(userId).stream().map(messageMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
     public Long getCountNewMessages(Long userId, Long campaignId) {
         return messageRepository.getCountNewMessages(userId, campaignId);
+    }
+
+    @Override
+    public MessageChat saveMessageChat(MessageChat messageChat, Long discussionId) {
+        Discussion discussion = discussionRepository.findById(discussionId).get();
+        Message message = messageMapper.toEntity(messageChat, discussion);
+        messageRepository.saveAndFlush(message);
+        return messageChat;
     }
 
 

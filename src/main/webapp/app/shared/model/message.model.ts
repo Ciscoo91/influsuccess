@@ -33,7 +33,8 @@ export class MessageChat {
     public content: string,
     public myself: boolean,
     public participantId: number,
-    public timestamp: Object
+    public timestamp: Object,
+    public discussionId: number
   ){}
 }
 

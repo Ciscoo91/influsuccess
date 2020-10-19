@@ -2,7 +2,6 @@ package com.ffu.repository.custom;
 
 
 import com.ffu.domain.Discussion;
-import com.ffu.domain.Discussion_;
 import com.ffu.domain.User;
 import com.ffu.domain.User_;
 

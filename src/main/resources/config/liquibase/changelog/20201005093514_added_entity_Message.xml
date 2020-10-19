@@ -24,9 +24,6 @@
             <column name="sender_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="receiver_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="discussion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -37,6 +34,22 @@
     <changeSet id="20201005093514-1-relations" author="jhipster">
 
     </changeSet>
+
+
+    <changeSet id="20201310180815" author="MHRO">
+        <addColumn tableName="message">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+
+
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--

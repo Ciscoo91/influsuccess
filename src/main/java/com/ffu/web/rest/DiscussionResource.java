@@ -1,14 +1,15 @@
 package com.ffu.web.rest;
 
-import com.ffu.domain.Discussion;
-import com.ffu.repository.DiscussionRepository;
 import com.ffu.service.DiscussionService;
+import com.ffu.service.dto.ChatDTO;
+import com.ffu.service.dto.DiscussionDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing {@link com.ffu.domain.Discussion}.
+ * REST controller for managing {@link com.ffu.service.dto.DiscussionDTO}.
  */
 @RestController
 @RequestMapping("/api")
@@ -33,12 +34,9 @@ public class DiscussionResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final DiscussionRepository discussionRepository;
-
     private final DiscussionService discussionService;
 
-    public DiscussionResource(DiscussionRepository discussionRepository, DiscussionService discussionService) {
-        this.discussionRepository = discussionRepository;
+    public DiscussionResource(DiscussionService discussionService) {
         this.discussionService = discussionService;
     }
 
@@ -50,12 +48,12 @@ public class DiscussionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/discussions")
-    public ResponseEntity<Discussion> createDiscussion(@RequestBody Discussion discussion) throws URISyntaxException {
-        log.debug("REST request to save Discussion : {}", discussion);
+    public ResponseEntity<DiscussionDTO> createDiscussion(@RequestBody DiscussionDTO discussion) throws URISyntaxException {
+        log.debug("REST request to save DiscussionDTO : {}", discussion);
         if (discussion.getId() != null) {
             throw new BadRequestAlertException("A new discussion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Discussion result = discussionRepository.save(discussion);
+        DiscussionDTO result = discussionService.save(discussion);
         return ResponseEntity.created(new URI("/api/discussions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,12 +69,12 @@ public class DiscussionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/discussions")
-    public ResponseEntity<Discussion> updateDiscussion(@RequestBody Discussion discussion) throws URISyntaxException {
-        log.debug("REST request to update Discussion : {}", discussion);
+    public ResponseEntity<DiscussionDTO> updateDiscussion(@RequestBody DiscussionDTO discussion) throws URISyntaxException {
+        log.debug("REST request to update DiscussionDTO : {}", discussion);
         if (discussion.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Discussion result = discussionRepository.save(discussion);
+        DiscussionDTO result = discussionService.save(discussion);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, discussion.getId().toString()))
             .body(result);
@@ -88,9 +86,9 @@ public class DiscussionResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of discussions in body.
      */
     @GetMapping("/discussions")
-    public List<Discussion> getAllDiscussions() {
+    public List<DiscussionDTO> getAllDiscussions() {
         log.debug("REST request to get all Discussions");
-        return discussionRepository.findAll();
+        return discussionService.findAll();
     }
 
     /**
@@ -100,9 +98,9 @@ public class DiscussionResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the discussion, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/discussions/{id}")
-    public ResponseEntity<Discussion> getDiscussion(@PathVariable Long id) {
-        log.debug("REST request to get Discussion : {}", id);
-        Optional<Discussion> discussion = discussionRepository.findById(id);
+    public ResponseEntity<DiscussionDTO> getDiscussion(@PathVariable Long id) {
+        log.debug("REST request to get DiscussionDTO : {}", id);
+        Optional<DiscussionDTO> discussion = discussionService.findById(id);
         return ResponseUtil.wrapOrNotFound(discussion);
     }
 
@@ -114,8 +112,21 @@ public class DiscussionResource {
      */
     @DeleteMapping("/discussions/{id}")
     public ResponseEntity<Void> deleteDiscussion(@PathVariable Long id) {
-        log.debug("REST request to delete Discussion : {}", id);
-        discussionRepository.deleteById(id);
+        log.debug("REST request to delete DiscussionDTO : {}", id);
+        discussionService.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * {@code GET  /discussions/:id/chat} : get the chat of the  discussion.
+     * @param id the id of the discussion to retrieve.
+     * @param userId
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the discussion, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/discussions/{id}/chat")
+    public ResponseEntity<ChatDTO> getChatDiscussion(@PathVariable Long id, @RequestParam(required = true) Long userId) {
+        log.debug("REST request to get chat discussion : {}{}", id, userId);
+        ChatDTO chat = discussionService.getChatDiscussion(id, userId);
+        return new ResponseEntity<>(chat, HttpStatus.OK);
     }
 }

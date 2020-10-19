@@ -18,7 +18,5 @@ public interface MessageRepository extends JpaRepository<Message, Long>, Message
     @Query("select message from Message message where message.sender.login = ?#{principal.username}")
     List<Message> findBySenderIsCurrentUser();
 
-    @Query("select message from Message message where message.receiver.login = ?#{principal.username}")
-    List<Message> findByReceiverIsCurrentUser();
 
 }

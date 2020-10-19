@@ -9,7 +9,7 @@ public interface MessageRepositoryCustom {
 
     Optional<Message> getLastUserMessageForACampaign(Long userId, Long campaignId);
 
-    List<Message> getLastUserMessageForCampaigns(Long userId);
+    List<Message> getLastUserMessageForDiscussion(Long userId);
 
-    Long getCountNewMessages(Long userId, Long campaignId);
+    Long getCountNewMessages(Long userId, Long discussionId);
 }

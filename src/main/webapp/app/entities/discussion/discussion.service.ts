@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { IDiscussion } from '@/shared/model/discussion.model';
 import {IDiscussionThreads} from "@/shared/model/discussionThreads.model";
+import {IChat} from "@/shared/model/chat.model";
 
 const baseApiUrl = 'api/discussions';
 
@@ -72,10 +73,27 @@ export default class DiscussionService {
   }
 
   public retrieveDiscussionByParticipant(userId: number): Promise<IDiscussionThreads[]>{
-    return new Promise<IDiscussionThreads[]>((resolve, reject) =>{
+    return new Promise<IDiscussionThreads[]>((resolve, reject) => {
       axios
         .get('api/users/' + userId + '/discussions')
-        .then( res =>{
+        .then( res => {
+          resolve(res.data)
+        })
+        .catch(err => {
+          reject(err)
+        });
+    });
+  }
+
+  public retrieveChatDiscussion(discussionId: number, userId:number): Promise<IChat> {
+    return new Promise<IChat>((resolve, reject) => {
+      axios.get(`${baseApiUrl}/${discussionId}/chat`,
+        {
+          params:{
+        userId: userId
+        }
+        })
+        .then ( res => {
           resolve(res.data)
         })
         .catch(err => {

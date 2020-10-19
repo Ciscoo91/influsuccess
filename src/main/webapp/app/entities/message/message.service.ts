@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { IMessage } from '@/shared/model/message.model';
+import {IMessage, MessageChat} from '@/shared/model/message.model';
 
 const baseApiUrl = 'api/messages';
 
@@ -86,5 +86,18 @@ export default class MessageService {
           reject(err);
         });
     })
+  }
+
+ public saveMessageChat(entity: MessageChat, selectedDiscussionId: number) {
+   return new Promise<MessageChat>((resolve, reject) => {
+     axios
+       .post(`${baseApiUrl}/messageChat`, entity,{params:{discussionId: selectedDiscussionId}})
+       .then(res => {
+         resolve(res.data);
+       })
+       .catch(err => {
+         reject(err);
+       });
+   });
   }
 }

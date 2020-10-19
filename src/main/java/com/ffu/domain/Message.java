@@ -16,8 +16,7 @@ import com.ffu.domain.enumeration.MessageStatus;
  */
 @Entity
 @Table(name = "message")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Message implements Serializable {
+public class Message extends AbstractAuditingEntity implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -38,10 +37,6 @@ public class Message implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "messages", allowSetters = true)
     private User sender;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "messages", allowSetters = true)
-    private User receiver;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "messages", allowSetters = true)
@@ -94,19 +89,6 @@ public class Message implements Serializable {
 
     public void setSender(User user) {
         this.sender = user;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public Message receiver(User user) {
-        this.receiver = user;
-        return this;
-    }
-
-    public void setReceiver(User user) {
-        this.receiver = user;
     }
 
     public Discussion getDiscussion() {

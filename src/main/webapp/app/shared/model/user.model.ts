@@ -34,7 +34,7 @@ export class User implements IUser {
 
 export class ParticipantChat{
   constructor(
-    public id: number,
-    public name: string
+    public id?: number,
+    public name?: string
   ){}
 }

@@ -3,6 +3,7 @@ package com.ffu.service.mapper;
 import com.ffu.domain.Discussion;
 import com.ffu.domain.Message;
 import com.ffu.domain.User;
+import com.ffu.service.dto.DiscussionDTO;
 import com.ffu.service.dto.DiscussionThreadsDTO;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper
+@Mapper(uses = UserMapper.class)
 public abstract class DiscussionMapper {
 
     public static DiscussionMapper INSTANCE = Mappers.getMapper(DiscussionMapper.class);
@@ -25,6 +26,11 @@ public abstract class DiscussionMapper {
     @Mapping(source = "campaign.title", target = "campaignTitle")
     @Mapping(target = "countNewMessages", ignore = true)
     public abstract DiscussionThreadsDTO toDiscussionThreadsDTO(Discussion discussion);
+
+    public abstract DiscussionDTO toDTO(Discussion discussion);
+
+    public abstract Discussion toEntity(DiscussionDTO discussionDTO);
+
 
     @AfterMapping
     protected void setParticipantsAndLastMessage(Discussion discussion,@MappingTarget DiscussionThreadsDTO discussionThreadsDTO){
@@ -42,5 +48,14 @@ public abstract class DiscussionMapper {
             discussionThreadsDTO.setLastMessage(optionalMessage.get().getContent());
         }
 
+    }
+
+    public Discussion discussionFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Discussion discussion = new Discussion();
+        discussion.setId(id);
+        return discussion;
     }
 }

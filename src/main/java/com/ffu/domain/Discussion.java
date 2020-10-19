@@ -15,7 +15,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "discussion")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Discussion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,12 +33,12 @@ public class Discussion implements Serializable {
     private Set<User> participants = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "discussion")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Message> messages = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = "discussions", allowSetters = true)
     private Campaign campaign;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {

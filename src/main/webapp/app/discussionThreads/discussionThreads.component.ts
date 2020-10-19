@@ -23,8 +23,12 @@ export default class DiscussionThreads extends Vue {
   private countNewMessages: number;
   private isFetching: boolean = false;
   private participants: ParticipantChat[] = [];
-  private  messages: MessageChat[] = [];
-  private placeholder = 'send your message';
+  private messages: MessageChat[] = [];
+  private myself : ParticipantChat =  new ParticipantChat();
+  private placeholder: string = 'send your message';
+  private selectedDiscussionId: number;
+  private chatInterval: number;
+  private discussionInterval: number;
 
   private colors = {
     header: {
@@ -53,9 +57,15 @@ export default class DiscussionThreads extends Vue {
     bottomLeft: "10px",
     bottomRight: "10px",
   };
-  hideCloseButton = false;
-  submitIconSize = 25;
-  closeButtonIconSize =  "20px";
+  private hideCloseButton = false;
+  private submitIconSize = 25;
+  private closeButtonIconSize =  "20px";
+  private timestampConfig = {
+    format: 'yyyy-MM-dd HH:mm:ss',
+    relative: false
+  }
+  private chatTitle: string = "";
+
 
 
   mounted(): void {
@@ -80,14 +90,44 @@ export default class DiscussionThreads extends Vue {
     }
   }
 
-  public openChat(discussionId: number) {
-    this.$root.$emit('bv::show::modal', 'chatModal')
+
+  public openChat(discussion: IDiscussionThreads) {
+    window.clearInterval(this.discussionInterval);
+    this.chatTitle = discussion.campaignTitle;
+    this.retrievesChatDiscussion(discussion.discussionId);
+            this.chatInterval = window.setInterval(() =>{
+              this.retrievesChatDiscussion(this.selectedDiscussionId)
+            } ,5000)
   }
 
-  public onType (event){
-    //here you can set any behavior
-  }
   public onMessageSubmit(message){
-    //here you can set any behavior
+    this.messageService().saveMessageChat(message, this.selectedDiscussionId);
+
   }
+
+  public  closeChat(){
+    window.clearInterval(this.chatInterval);
+    this.retrievesDiscussions();
+    this.discussionInterval = window.setInterval(()=>{
+      this.retrievesDiscussions();
+    },20000)
+  }
+
+  private retrievesChatDiscussion(discussionId: number)  {
+  this.selectedDiscussionId = discussionId;
+  this.discussionService().retrieveChatDiscussion(discussionId, this.$store.getters.account.id)
+  .then(
+    res => {
+      if (res) {
+        this.myself.id = this.$store.getters.account.id;
+        this.myself.name = this.$store.getters.account.firstName;
+        this.participants = res.participants;
+        this.messages = res.messages;
+        this.$root.$emit('bv::show::modal', 'chatModal')
+      }
+    },
+      err =>{
+      }
+    );
+}
 }

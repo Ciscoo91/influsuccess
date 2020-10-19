@@ -14,12 +14,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="receiver_id"
-                                 baseTableName="message"
-                                 constraintName="fk_message_receiver_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
-
         <addForeignKeyConstraint baseColumnNames="discussion_id"
                                  baseTableName="message"
                                  constraintName="fk_message_discussion_id"

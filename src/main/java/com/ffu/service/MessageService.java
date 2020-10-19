@@ -1,5 +1,6 @@
 package com.ffu.service;
 
+import com.ffu.service.dto.MessageChat;
 import com.ffu.service.dto.MessageDTO;
 import java.util.List;
 import java.util.Optional;
@@ -16,5 +17,7 @@ public interface MessageService {
 
     List<MessageDTO> getLastUserMessageForCampaigns(Long userId);
 
-    Long getCountNewMessages(Long userId, Long campaignId);
+    Long getCountNewMessages(Long userId, Long discussionId);
+
+    MessageChat saveMessageChat(MessageChat messageChat, Long discussionId);
 }

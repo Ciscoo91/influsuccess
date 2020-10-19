@@ -1,6 +1,8 @@
 package com.ffu.web.rest;
 
+import com.ffu.domain.Message;
 import com.ffu.service.MessageService;
+import com.ffu.service.dto.MessageChat;
 import com.ffu.service.dto.MessageDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
 
@@ -120,10 +122,26 @@ public class MessageResource {
     }
 
     @GetMapping("/messages/countNew")
-    public ResponseEntity<Long> getCountNewMessages(@RequestParam(required = true) Long userId, @RequestParam(required = true) Long campaignId){
-        log.debug("REST request to getCountNewMessages : {}{}", userId, campaignId);
-        Long count = messageService.getCountNewMessages(userId, campaignId);
+    public ResponseEntity<Long> getCountNewMessages(@RequestParam(required = true) Long userId, @RequestParam(required = true) Long discussionId){
+        log.debug("REST request to getCountNewMessages : {}{}", userId, discussionId);
+        Long count = messageService.getCountNewMessages(userId, discussionId);
 
         return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    /**
+     * {@code POST  /messages} : Create a new message.
+     *
+     * @param messageChat the message of the chat to save.
+     * @parm discussionId the id of the discussion
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new messageChat, or with status {@code 400 (Bad Request)} if the message has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/messages/messageChat")
+    public ResponseEntity<MessageChat> saveMessageChat(@Valid @RequestBody MessageChat messageChat, @RequestParam(required = true) Long discussionId) throws URISyntaxException {
+        log.debug("REST request to save MessageChat : {}", messageChat);
+        MessageChat result = messageService.saveMessageChat(messageChat, discussionId);
+        return ResponseEntity.created(new URI("/api/messages/messageChat" + result))
+            .body(result);
     }
 }
