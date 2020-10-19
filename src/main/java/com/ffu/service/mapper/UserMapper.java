@@ -2,6 +2,7 @@ package com.ffu.service.mapper;
 
 import com.ffu.domain.Authority;
 import com.ffu.domain.User;
+import com.ffu.service.dto.ParticipantChat;
 import com.ffu.service.dto.UserDTO;
 
 import org.springframework.stereotype.Service;
@@ -77,5 +78,12 @@ public class UserMapper {
         User user = new User();
         user.setId(id);
         return user;
+    }
+
+    public ParticipantChat toParticipantChat(User user) {
+        ParticipantChat participantChat = new ParticipantChat();
+        participantChat.setId(user.getId());
+        participantChat.setName(user.getFirstName());
+        return participantChat;
     }
 }

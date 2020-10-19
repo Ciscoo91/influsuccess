@@ -3,7 +3,7 @@
     "userExtra": {
       "home": {
         "title": "UserExtras",
-        "createLabel": "Créer un nouveau User Extra",
+        "addLabel": "Créer un nouveau User Extra",
         "createOrEditLabel": "Créer ou éditer un User Extra",
         "notFound": "Aucun User Extra trouvé"
       },

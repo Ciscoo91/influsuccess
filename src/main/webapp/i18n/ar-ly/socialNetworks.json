@@ -1,0 +1,14 @@
+{
+  "influSuccessApp": {
+    "SocialNetworks": {
+      "null": "",
+      "INSTAGRAM": "INSTAGRAM",
+      "SNAPCHAT": "SNAPCHAT",
+      "YOUTUBE": "YOUTUBE",
+      "BLOG": "BLOG",
+      "TWITTER": "TWITTER",
+      "FACEBOOK": "FACEBOOK",
+      "LINKEDIN": "LINKEDIN"
+    }
+  }
+}

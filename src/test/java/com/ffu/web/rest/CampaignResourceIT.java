@@ -21,6 +21,8 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.ffu.domain.enumeration.LangKey;
+import com.ffu.domain.enumeration.CampaignStatus;
 /**
  * Integration tests for the {@link CampaignResource} REST controller.
  */
@@ -29,8 +31,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class CampaignResourceIT {
 
+    private static final LangKey DEFAULT_LANG_KEY = LangKey.AR;
+    private static final LangKey UPDATED_LANG_KEY = LangKey.FR;
+
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final CampaignStatus DEFAULT_STATUS = CampaignStatus.CLOSED;
+    private static final CampaignStatus UPDATED_STATUS = CampaignStatus.OPENED;
+
+    private static final Long DEFAULT_MIN_FOLLOWERS = 1L;
+    private static final Long UPDATED_MIN_FOLLOWERS = 2L;
+
+    private static final Long DEFAULT_MAX_FOLLOWERS = 1L;
+    private static final Long UPDATED_MAX_FOLLOWERS = 2L;
+
+    private static final String DEFAULT_TARGET_COUNTRIES = "AAAAAAAAAA";
+    private static final String UPDATED_TARGET_COUNTRIES = "BBBBBBBBBB";
 
     @Autowired
     private CampaignRepository campaignRepository;
@@ -51,7 +71,13 @@ public class CampaignResourceIT {
      */
     public static Campaign createEntity(EntityManager em) {
         Campaign campaign = new Campaign()
-            .title(DEFAULT_TITLE);
+            .langKey(DEFAULT_LANG_KEY)
+            .title(DEFAULT_TITLE)
+            .description(DEFAULT_DESCRIPTION)
+            .status(DEFAULT_STATUS)
+            .minFollowers(DEFAULT_MIN_FOLLOWERS)
+            .maxFollowers(DEFAULT_MAX_FOLLOWERS)
+            .targetCountries(DEFAULT_TARGET_COUNTRIES);
         return campaign;
     }
     /**
@@ -62,7 +88,13 @@ public class CampaignResourceIT {
      */
     public static Campaign createUpdatedEntity(EntityManager em) {
         Campaign campaign = new Campaign()
-            .title(UPDATED_TITLE);
+            .langKey(UPDATED_LANG_KEY)
+            .title(UPDATED_TITLE)
+            .description(UPDATED_DESCRIPTION)
+            .status(UPDATED_STATUS)
+            .minFollowers(UPDATED_MIN_FOLLOWERS)
+            .maxFollowers(UPDATED_MAX_FOLLOWERS)
+            .targetCountries(UPDATED_TARGET_COUNTRIES);
         return campaign;
     }
 
@@ -85,7 +117,13 @@ public class CampaignResourceIT {
         List<Campaign> campaignList = campaignRepository.findAll();
         assertThat(campaignList).hasSize(databaseSizeBeforeCreate + 1);
         Campaign testCampaign = campaignList.get(campaignList.size() - 1);
+        assertThat(testCampaign.getLangKey()).isEqualTo(DEFAULT_LANG_KEY);
         assertThat(testCampaign.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testCampaign.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testCampaign.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testCampaign.getMinFollowers()).isEqualTo(DEFAULT_MIN_FOLLOWERS);
+        assertThat(testCampaign.getMaxFollowers()).isEqualTo(DEFAULT_MAX_FOLLOWERS);
+        assertThat(testCampaign.getTargetCountries()).isEqualTo(DEFAULT_TARGET_COUNTRIES);
     }
 
     @Test
@@ -110,10 +148,105 @@ public class CampaignResourceIT {
 
     @Test
     @Transactional
+    public void checkLangKeyIsRequired() throws Exception {
+        int databaseSizeBeforeTest = campaignRepository.findAll().size();
+        // set the field null
+        campaign.setLangKey(null);
+
+        // Create the Campaign, which fails.
+
+
+        restCampaignMockMvc.perform(post("/api/campaigns")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .andExpect(status().isBadRequest());
+
+        List<Campaign> campaignList = campaignRepository.findAll();
+        assertThat(campaignList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void checkTitleIsRequired() throws Exception {
         int databaseSizeBeforeTest = campaignRepository.findAll().size();
         // set the field null
         campaign.setTitle(null);
+
+        // Create the Campaign, which fails.
+
+
+        restCampaignMockMvc.perform(post("/api/campaigns")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .andExpect(status().isBadRequest());
+
+        List<Campaign> campaignList = campaignRepository.findAll();
+        assertThat(campaignList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkDescriptionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = campaignRepository.findAll().size();
+        // set the field null
+        campaign.setDescription(null);
+
+        // Create the Campaign, which fails.
+
+
+        restCampaignMockMvc.perform(post("/api/campaigns")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .andExpect(status().isBadRequest());
+
+        List<Campaign> campaignList = campaignRepository.findAll();
+        assertThat(campaignList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = campaignRepository.findAll().size();
+        // set the field null
+        campaign.setStatus(null);
+
+        // Create the Campaign, which fails.
+
+
+        restCampaignMockMvc.perform(post("/api/campaigns")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .andExpect(status().isBadRequest());
+
+        List<Campaign> campaignList = campaignRepository.findAll();
+        assertThat(campaignList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkMinFollowersIsRequired() throws Exception {
+        int databaseSizeBeforeTest = campaignRepository.findAll().size();
+        // set the field null
+        campaign.setMinFollowers(null);
+
+        // Create the Campaign, which fails.
+
+
+        restCampaignMockMvc.perform(post("/api/campaigns")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .andExpect(status().isBadRequest());
+
+        List<Campaign> campaignList = campaignRepository.findAll();
+        assertThat(campaignList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkMaxFollowersIsRequired() throws Exception {
+        int databaseSizeBeforeTest = campaignRepository.findAll().size();
+        // set the field null
+        campaign.setMaxFollowers(null);
 
         // Create the Campaign, which fails.
 
@@ -138,7 +271,13 @@ public class CampaignResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(campaign.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
+            .andExpect(jsonPath("$.[*].langKey").value(hasItem(DEFAULT_LANG_KEY.toString())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].minFollowers").value(hasItem(DEFAULT_MIN_FOLLOWERS.intValue())))
+            .andExpect(jsonPath("$.[*].maxFollowers").value(hasItem(DEFAULT_MAX_FOLLOWERS.intValue())))
+            .andExpect(jsonPath("$.[*].targetCountries").value(hasItem(DEFAULT_TARGET_COUNTRIES)));
     }
     
     @Test
@@ -152,7 +291,13 @@ public class CampaignResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(campaign.getId().intValue()))
-            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE));
+            .andExpect(jsonPath("$.langKey").value(DEFAULT_LANG_KEY.toString()))
+            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.minFollowers").value(DEFAULT_MIN_FOLLOWERS.intValue()))
+            .andExpect(jsonPath("$.maxFollowers").value(DEFAULT_MAX_FOLLOWERS.intValue()))
+            .andExpect(jsonPath("$.targetCountries").value(DEFAULT_TARGET_COUNTRIES));
     }
     @Test
     @Transactional
@@ -175,7 +320,13 @@ public class CampaignResourceIT {
         // Disconnect from session so that the updates on updatedCampaign are not directly saved in db
         em.detach(updatedCampaign);
         updatedCampaign
-            .title(UPDATED_TITLE);
+            .langKey(UPDATED_LANG_KEY)
+            .title(UPDATED_TITLE)
+            .description(UPDATED_DESCRIPTION)
+            .status(UPDATED_STATUS)
+            .minFollowers(UPDATED_MIN_FOLLOWERS)
+            .maxFollowers(UPDATED_MAX_FOLLOWERS)
+            .targetCountries(UPDATED_TARGET_COUNTRIES);
 
         restCampaignMockMvc.perform(put("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
@@ -186,7 +337,13 @@ public class CampaignResourceIT {
         List<Campaign> campaignList = campaignRepository.findAll();
         assertThat(campaignList).hasSize(databaseSizeBeforeUpdate);
         Campaign testCampaign = campaignList.get(campaignList.size() - 1);
+        assertThat(testCampaign.getLangKey()).isEqualTo(UPDATED_LANG_KEY);
         assertThat(testCampaign.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testCampaign.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testCampaign.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testCampaign.getMinFollowers()).isEqualTo(UPDATED_MIN_FOLLOWERS);
+        assertThat(testCampaign.getMaxFollowers()).isEqualTo(UPDATED_MAX_FOLLOWERS);
+        assertThat(testCampaign.getTargetCountries()).isEqualTo(UPDATED_TARGET_COUNTRIES);
     }
 
     @Test

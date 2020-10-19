@@ -61,7 +61,17 @@
             </column>
         </createTable>
 
+        <createTable tableName="jhi_user_discussion">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discussion_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
         <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
+        <addPrimaryKey columnNames="user_id, discussion_id" tableName="jhi_user_discussion"/>
 
         <addForeignKeyConstraint baseColumnNames="authority_name"
                                  baseTableName="jhi_user_authority"
@@ -75,34 +85,44 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="jhi_user_discussion"
+                                 constraintName="fk_user_discussion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
         <addNotNullConstraint   columnName="password_hash"
                                 columnDataType="varchar(60)"
                                 tableName="jhi_user"/>
-
         <loadData
-            file="config/liquibase/data/user.csv"
-            separator=";"
-            tableName="jhi_user">
+                  file="config/liquibase/data/user.csv"
+                  separator=";"
+                  tableName="jhi_user">
             <column name="id" type="numeric"/>
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
         <dropDefaultValue tableName="jhi_user" columnName="created_date" columnDataType="datetime"/>
         <loadData
-            file="config/liquibase/data/authority.csv"
-            separator=";"
-            tableName="jhi_authority">
+                  file="config/liquibase/data/authority.csv"
+                  separator=";"
+                  tableName="jhi_authority">
             <column name="name" type="string"/>
         </loadData>
 
         <loadData
-            file="config/liquibase/data/user_authority.csv"
-            separator=";"
-            tableName="jhi_user_authority">
+                  file="config/liquibase/data/user_authority.csv"
+                  separator=";"
+                  tableName="jhi_user_authority">
             <column name="user_id" type="numeric"/>
         </loadData>
 
-
+        <loadData
+            file="config/liquibase/data/user_discussion.csv"
+            separator=";"
+            tableName="jhi_user_discussion">
+            <column name="user_id" type="numeric"/>
+        </loadData>
         <createTable tableName="jhi_persistent_audit_event">
             <column name="event_id" type="bigint" >
                 <constraints primaryKey="true" nullable="false"/>

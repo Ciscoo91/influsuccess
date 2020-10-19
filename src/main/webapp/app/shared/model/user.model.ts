@@ -31,3 +31,10 @@ export class User implements IUser {
     public password?: string
   ) {}
 }
+
+export class ParticipantChat{
+  constructor(
+    public id?: number,
+    public name?: string
+  ){}
+}

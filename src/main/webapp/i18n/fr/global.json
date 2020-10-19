@@ -7,10 +7,14 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entités",
+        "campaignCategory": "Campaign Category",
+        "socialNetwork": "Social Network",
         "userExtra": "User Extra",
         "campaign": "Campaign",
-        "instagInfluencer": "Instag Influencer",
-        "contact": "Contact",
+        "influencerInfo": "Influencer Info",
+        "socialNetworkLink": "Social Network Link",
+        "message": "Message",
+        "discussion": "Discussion",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -62,8 +66,8 @@
     "messages": {
       "info": {
         "authenticated": {
-          "prefix": "Déja enregistrer ?",
-          "link": "Connectez vous !",
+          "prefix": "Si vous voulez vous ",
+          "link": "connecter",
           "suffix": ", vous pouvez utiliser les comptes par défaut : <br/> - Administrateur (nom d'utilisateur=\"admin\" et mot de passe =\"admin\") <br/> - Utilisateur (nom d'utilisateur=\"user\" et mot de passe =\"user\")."
         },
         "register": {

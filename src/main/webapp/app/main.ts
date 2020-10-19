@@ -31,8 +31,13 @@ import ConfigurationService from '@/admin/configuration/configuration.service';
 
 import UserExtraService from '@/entities/user-extra/user-extra.service';
 import CampaignService from '@/entities/campaign/campaign.service';
-import InstagInfluencerService from '@/entities/instag-influencer/instag-influencer.service';
-import ContactService from '@/entities/contact/contact.service';
+import AdvDashboardService from "@/advertiser/dashboard/advDashboard.service";
+import CampaignCategoryService from "@/entities/campaign-category/campaign-category.service";
+import SocialNetworkService from "@/entities/social-network/social-network.service";
+import DiscussionService from "@/entities/discussion/discussion.service";
+import MessageService from "@/entities/message/message.service";
+import SocialNetworkLinkService from "@/entities/social-network-link/social-network-link.service";
+import InfluencerInfoService from "@/entities/influencer-info/influencer-info.service";
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -95,12 +100,18 @@ new Vue({
     metricsService: () => new MetricsService(),
     alertService: () => alertService,
     translationService: () => translationService,
+    campaignCategoryService: () => new CampaignCategoryService(),
+    socialNetworkService: () => new SocialNetworkService(),
     userExtraService: () => new UserExtraService(),
     campaignService: () => new CampaignService(),
-    instagInfluencerService: () => new InstagInfluencerService(),
-    contactService: () => new ContactService(),
+    influencerInfoService: () => new InfluencerInfoService(),
+    socialNetworkLinkService: () => new SocialNetworkLinkService(),
+    messageService: () => new MessageService(),
+    discussionService: () => new DiscussionService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
+    advDashboardService: () => new AdvDashboardService(),
+
   },
   i18n,
   store,

@@ -1,0 +1,24 @@
+{
+  "influSuccessApp": {
+    "socialNetworkLink": {
+      "home": {
+        "title": "SocialNetworkLinks",
+        "addLabel": "Créer un nouveau Social Network Link",
+        "createOrEditLabel": "Créer ou éditer un Social Network Link",
+        "notFound": "Aucun Social Network Link trouvé"
+      },
+      "created": "Un nouveau Social Network Link a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Social Network Link avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Social Network Link avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Social Network Link {{ id }} ?"
+      },
+      "detail": {
+        "title": "Social Network Link"
+      },
+      "link": "Link",
+      "socialNetwork": "Social Network",
+      "influencerInfo": "Influencer Info"
+    }
+  }
+}

@@ -9,6 +9,10 @@ import CampaignUpdateComponent from '@/entities/campaign/campaign-update.vue';
 import CampaignClass from '@/entities/campaign/campaign-update.component';
 import CampaignService from '@/entities/campaign/campaign.service';
 
+import CampaignCategoryService from '@/entities/campaign-category/campaign-category.service';
+
+import SocialNetworkService from '@/entities/social-network/social-network.service';
+
 import UserService from '@/admin/user-management/user-management.service';
 
 const localVue = createLocalVue();
@@ -37,6 +41,10 @@ describe('Component Tests', () => {
         provide: {
           alertService: () => new AlertService(store),
           campaignService: () => campaignServiceStub,
+
+          campaignCategoryService: () => new CampaignCategoryService(),
+
+          socialNetworkService: () => new SocialNetworkService(),
 
           userService: () => new UserService(),
         },

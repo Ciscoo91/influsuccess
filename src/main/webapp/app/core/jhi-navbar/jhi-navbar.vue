@@ -159,6 +159,8 @@
 .jh-navbar {
   background-color: #353d47;
   padding: 0.2em 1em;
+    height: 60px;
+    max-height: 60px;
 }
 
 .jh-navbar .profile-image {

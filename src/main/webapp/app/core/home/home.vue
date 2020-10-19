@@ -36,7 +36,7 @@
             </p>
         </div>
     <div>
-        <div  class="text-center">
+        <div  class="text-center" v-if="!authenticated">
             <b-button class="p-3 m-4 font-weight-bold" pill size="lg" variant="outline-primary" v-text="$t('home.signIn')" v-on:click="openLogin()">
                Sign in
             </b-button>
