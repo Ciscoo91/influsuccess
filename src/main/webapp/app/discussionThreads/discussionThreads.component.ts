@@ -63,7 +63,7 @@ export default class DiscussionThreads extends Vue {
   private timestampConfig = {
     format: 'yyyy-MM-dd HH:mm:ss',
     relative: false
-  }
+  };
   private chatTitle: string = "";
 
 
@@ -110,7 +110,7 @@ export default class DiscussionThreads extends Vue {
     this.retrievesDiscussions();
     this.discussionInterval = window.setInterval(()=>{
       this.retrievesDiscussions();
-    },20000)
+    },10000)
   }
 
   private retrievesChatDiscussion(discussionId: number)  {
@@ -121,7 +121,7 @@ export default class DiscussionThreads extends Vue {
       if (res) {
         this.myself.id = this.$store.getters.account.id;
         this.myself.name = this.$store.getters.account.firstName;
-        this.participants = res.participants;
+        this.participants = res.participants.filter(value => value.id !== this.myself.id && value.name!== this.myself.name);
         this.messages = res.messages;
         this.$root.$emit('bv::show::modal', 'chatModal')
       }

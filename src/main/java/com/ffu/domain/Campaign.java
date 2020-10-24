@@ -20,7 +20,6 @@ import com.ffu.domain.enumeration.CampaignStatus;
  */
 @Entity
 @Table(name = "campaign")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Campaign implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,11 +59,10 @@ public class Campaign implements Serializable {
     private String targetCountries;
 
     @OneToMany(mappedBy = "campaign")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<CampaignCategory> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "campaign")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
     private Set<SocialNetwork> socialNetworks = new HashSet<>();
 
     @ManyToOne

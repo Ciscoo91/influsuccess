@@ -6,12 +6,10 @@ import com.ffu.domain.enumeration.MessageStatus;
 import com.ffu.service.dto.MessageDTO;
 import com.ffu.service.dto.MessageChat;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = UserMapper.class)
+
+@Mapper(uses = UserMapper.class, componentModel = "spring")
 public abstract class MessageMapper {
-
-    public static MessageMapper INSTANCE = Mappers.getMapper(MessageMapper.class);
 
     @Mapping(source = "sender.id", target = "senderId")
     @Mapping(source = "sender.login", target = "senderLogin")

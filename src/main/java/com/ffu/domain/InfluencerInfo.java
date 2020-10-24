@@ -14,7 +14,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "influencer_info")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class InfluencerInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,11 +28,11 @@ public class InfluencerInfo implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "influencerInfo")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
     private Set<SocialNetworkLink> socialNetworkLinks = new HashSet<>();
 
     @OneToMany(mappedBy = "influencerInfo")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
     private Set<CampaignCategory> categories = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

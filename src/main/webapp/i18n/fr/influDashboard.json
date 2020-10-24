@@ -1,0 +1,7 @@
+{
+  "influSuccessApp": {
+    "influDashboard": {
+      "minFollowers": "Au moins {{param}} suiveurs"
+    }
+  }
+}

@@ -5,7 +5,7 @@ import java.util.Set;
 public class DiscussionDTO {
     private Long id;
 
-    private Set<UserDTO> participants;
+    private Set<Long> participantIds;
 
     private Set<MessageDTO> messages;
 
@@ -19,12 +19,12 @@ public class DiscussionDTO {
         this.id = id;
     }
 
-    public Set<UserDTO> getParticipants() {
-        return participants;
+    public Set<Long> getParticipantIds() {
+        return participantIds;
     }
 
-    public void setParticipants(Set<UserDTO> participants) {
-        this.participants = participants;
+    public void setParticipantIds(Set<Long> participants) {
+        this.participantIds = participants;
     }
 
     public Set<MessageDTO> getMessages() {

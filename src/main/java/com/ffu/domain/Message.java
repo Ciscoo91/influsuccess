@@ -43,6 +43,7 @@ public class Message extends AbstractAuditingEntity implements Serializable{
     private Discussion discussion;
 
 
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
