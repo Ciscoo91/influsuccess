@@ -7,12 +7,13 @@
         Added the constraints for entity SocialNetwork.
     -->
     <changeSet id="20201005093014-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="campaign_id"
-                                 baseTableName="social_network"
-                                 constraintName="fk_social_network_campaign_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="campaign"/>
+
+        <addForeignKeyConstraint baseColumnNames="social_network_name"
+                                 baseTableName="campaign_social_network"
+                                 constraintName="fk_campaign_social_network_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="social_network"/>
+
 
     </changeSet>
 </databaseChangeLog>

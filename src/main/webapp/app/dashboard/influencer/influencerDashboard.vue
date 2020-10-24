@@ -8,8 +8,7 @@
                     <span v-text="$t('influSuccessApp.campaigns.home.notFound')">No campaigns found</span>
                 </div>
                 <div class = " cardGroup  d-flex flex-column " v-if="campaigns && campaigns.length > 0">
-                    <div  style="cursor:pointer"
-                          class="mb-3"
+                    <div  class="mb-3"
                           v-for="campaign of campaigns" :key="campaign.id"
                     >
 
@@ -39,11 +38,14 @@
 
                         </template>
                         <b-card-text>
-                            {{campaign.description}}
+                            <p>{{campaign.description}}<p>
+                            <p> <span class="font-weight-bold" v-text="$t('influSuccessApp.influDashboard.targetCountries',{param: campaign.targetCountries})">Country of audience:{{campaign.targetCountries}}</span></p>
                         </b-card-text>
                         <template v-slot:footer>
-                            <div v-for="socialNetwork of campaign.socialNetwork" :key="socialNetwork.id">
-                                <b-button>{{socialNetwork.name}}</b-button>
+                            <div class="d-flex w-100" >
+                            <div v-for="socialNetwork of campaign.socialNetworks" :key="socialNetwork.id">
+                                <b-button :disabled="true" :pill="true" class="mr-3">{{socialNetwork.name}}</b-button>
+                            </div>
                             </div>
                         </template>
                     </b-card>

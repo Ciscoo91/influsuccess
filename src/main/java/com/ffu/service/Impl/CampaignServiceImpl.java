@@ -1,6 +1,7 @@
 package com.ffu.service.Impl;
 
 import com.ffu.domain.Campaign;
+import com.ffu.domain.enumeration.CampaignStatus;
 import com.ffu.repository.CampaignRepository;
 import com.ffu.service.CampaignService;
 import com.ffu.service.dto.CampaignDTO;
@@ -44,5 +45,14 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public void deleteById(Long id) {
         campaignRepository.deleteById(id);
+    }
+
+    /**{@inheritDoc}**/
+    @Override
+    public List<CampaignDTO> getOpenedCampaigns() {
+        return campaignRepository.findAllByStatusOrderByIdAsc(CampaignStatus.OPENED)
+            .stream()
+            .map(campaignMapper::toDto)
+            .collect(Collectors.toList());
     }
 }

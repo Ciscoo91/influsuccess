@@ -24,18 +24,18 @@ export default class AdvDashboard  extends Vue{
   private fields :string[]= ['title','description','status','socialNetworks'];
 
   created(): void {
-    this.retrieveCampaigns();
+    this.retrieveOpenedCampaigns();
   }
 
-  public retrieveCampaigns() :void{
+  public retrieveOpenedCampaigns() :void{
 
     this.isFetching = true;
 
     this.campaignService()
-      .retrieve()
+      .retrieveOpenedCampaigns()
       .then(
         res => {
-          this.campaigns = res.data;
+          this.campaigns = res;
           this.isFetching = false;
         },
         err => {
@@ -60,7 +60,7 @@ export default class AdvDashboard  extends Vue{
     this.campaignService()
       .delete(this.selectedCampaign.id)
       .then(() => {
-        this.retrieveCampaigns();
+        this.retrieveOpenedCampaigns();
         this.selectedCampaign = {};
         this.closeDialogue('removeCampaign');
       });

@@ -1,6 +1,5 @@
 package com.ffu.service;
 
-import com.ffu.service.dto.MessageChat;
 import com.ffu.service.dto.CampaignDTO;
 
 import java.util.List;
@@ -16,4 +15,9 @@ public interface CampaignService {
 
     void deleteById(Long id);
 
+    /**
+     * get all opened the campaigns.
+     * @return
+     */
+    List<CampaignDTO> getOpenedCampaigns();
 }

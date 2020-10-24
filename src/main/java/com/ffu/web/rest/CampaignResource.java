@@ -1,5 +1,6 @@
 package com.ffu.web.rest;
 
+import com.ffu.domain.Campaign;
 import com.ffu.service.CampaignService;
 import com.ffu.service.dto.CampaignDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
@@ -88,12 +89,22 @@ public class CampaignResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of campaigns in body.
      */
     @GetMapping("/campaigns")
-    public ResponseEntity<CampaignDTO> getAllCampaigns() {
+    public ResponseEntity<List<CampaignDTO>> getAllCampaigns() {
         log.debug("REST request to get all Campaigns");
         List<CampaignDTO> result = campaignService.findAll();
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
+    /**
+     * {@code GET  /campaigns/opened} : get all opened the campaigns.
+     * @return
+     */
+    @GetMapping("/campaigns/opened")
+    public ResponseEntity<List<CampaignDTO>> getOpenedCampaigns(){
+        log.debug("REST request to get all opened Campaigns");
+        List<CampaignDTO> resutl = campaignService.getOpenedCampaigns();
+        return new ResponseEntity<>(resutl, HttpStatus.OK);
+    }
     /**
      * {@code GET  /campaigns/:id} : get the "id" campaignDTO.
      *

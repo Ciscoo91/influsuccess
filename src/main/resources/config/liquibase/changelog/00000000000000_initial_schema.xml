@@ -122,6 +122,7 @@
             separator=";"
             tableName="jhi_user_discussion">
             <column name="user_id" type="numeric"/>
+            <column name="discussion_id" type="numeric"/>
         </loadData>
         <createTable tableName="jhi_persistent_audit_event">
             <column name="event_id" type="bigint" >

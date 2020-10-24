@@ -22,6 +22,19 @@
         </createTable>
     </changeSet>
 
+    <!-- audit columns -->
+    <changeSet id="20201310180815" author="MHRO">
+        <addColumn tableName="discussion">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
     <changeSet id="20201005093614-1-relations" author="jhipster">
 
     </changeSet>

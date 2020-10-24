@@ -1,8 +1,6 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -20,7 +18,7 @@ import com.ffu.domain.enumeration.CampaignStatus;
  */
 @Entity
 @Table(name = "campaign")
-public class Campaign implements Serializable {
+public class Campaign extends AbstractAuditingEntity implements Serializable  {
 
     private static final long serialVersionUID = 1L;
 
@@ -61,8 +59,11 @@ public class Campaign implements Serializable {
     @OneToMany(mappedBy = "campaign")
     private Set<CampaignCategory> categories = new HashSet<>();
 
-    @OneToMany(mappedBy = "campaign")
-
+    @ManyToMany
+    @JoinTable(
+        name = "campaign_social_network",
+        joinColumns = {@JoinColumn(name = "campaign_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "social_network_name", referencedColumnName = "name")})
     private Set<SocialNetwork> socialNetworks = new HashSet<>();
 
     @ManyToOne
@@ -203,17 +204,6 @@ public class Campaign implements Serializable {
         return this;
     }
 
-    public Campaign addSocialNetwork(SocialNetwork socialNetwork) {
-        this.socialNetworks.add(socialNetwork);
-        socialNetwork.setCampaign(this);
-        return this;
-    }
-
-    public Campaign removeSocialNetwork(SocialNetwork socialNetwork) {
-        this.socialNetworks.remove(socialNetwork);
-        socialNetwork.setCampaign(null);
-        return this;
-    }
 
     public void setSocialNetworks(Set<SocialNetwork> socialNetworks) {
         this.socialNetworks = socialNetworks;

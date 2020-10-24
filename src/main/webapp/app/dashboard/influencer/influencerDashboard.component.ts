@@ -85,18 +85,18 @@ private  currentUser: IUser ;
 
   created(): void {
   this.currentUser = this.$store.getters.account;
-    this.retrieveCampaigns();
+    this.retrieveOpenedCampaigns();
   }
 
-  public retrieveCampaigns() :void{
+  public retrieveOpenedCampaigns() :void{
 
     this.isFetching = true;
 
     this.campaignService()
-      .retrieve()
+      .retrieveOpenedCampaigns()
       .then(
         res => {
-          this.campaigns = res.data;
+          this.campaigns = res;
           this.isFetching = false;
         },
         err => {
@@ -131,7 +131,6 @@ private  currentUser: IUser ;
   }
 
   public onMessageSubmit(message){
-    console.log(JSON.stringify(message))
   if (this.selectedDiscussionId) {
     this.messageService().saveMessageChat(message, this.selectedDiscussionId).then(
       res =>{
