@@ -1,6 +1,5 @@
 import { ICampaignCategory } from '@/shared/model/campaign-category.model';
 import { ISocialNetwork } from '@/shared/model/social-network.model';
-import { IUser } from '@/shared/model/user.model';
 
 export const enum LangKey {
   AR = 'AR',
@@ -27,7 +26,8 @@ export interface ICampaign {
   targetCountries?: string;
   categories?: ICampaignCategory[];
   socialNetworks?: ISocialNetwork[];
-  user?: IUser;
+  userId?: number;
+  userLogin?: string;
 }
 
 export class Campaign implements ICampaign {
@@ -42,6 +42,7 @@ export class Campaign implements ICampaign {
     public targetCountries?: string,
     public categories?: ICampaignCategory[],
     public socialNetworks?: ISocialNetwork[],
-    public user?: IUser
+    public userId?: number,
+    public userLogin?: string
   ) {}
 }

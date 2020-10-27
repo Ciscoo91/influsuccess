@@ -35,7 +35,7 @@
 
     </changeSet>
 
-
+<!-- audit columns -->
     <changeSet id="20201310180815" author="MHRO">
         <addColumn tableName="message">
             <column name="created_by" type="varchar(50)">

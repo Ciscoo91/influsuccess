@@ -6,8 +6,9 @@ export interface IChat {
   chatTitle?: string;
   participants?: ParticipantChat[];
   messages?: MessageChat[];
+  discussionId?:number;
 }
 
 export class Chat implements IChat {
-  constructor(public chatTitle?: string, public participants?: ParticipantChat[], public messages?: MessageChat[]) {}
+  constructor(public chatTitle?: string, public participants?: ParticipantChat[], public messages?: MessageChat[], public  discussionId?: number) {}
 }

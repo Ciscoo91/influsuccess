@@ -1,0 +1,8 @@
+{
+  "influSuccessApp": {
+    "influDashboard": {
+      "minFollowers": "Au moins {{param}} suiveurs",
+      "targetCountries": "Pays de l'audience: {{param}}"
+    }
+  }
+}

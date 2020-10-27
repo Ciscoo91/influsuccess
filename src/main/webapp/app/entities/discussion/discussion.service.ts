@@ -46,7 +46,7 @@ export default class DiscussionService {
     });
   }
 
-  public create(entity: IDiscussion): Promise<IDiscussion> {
+  public save(entity: IDiscussion): Promise<IDiscussion> {
     return new Promise<IDiscussion>((resolve, reject) => {
       axios
         .post(`${baseApiUrl}`, entity)
@@ -94,6 +94,19 @@ export default class DiscussionService {
         }
         })
         .then ( res => {
+          resolve(res.data)
+        })
+        .catch(err => {
+          reject(err)
+        });
+    });
+  }
+
+  public isAlreadyExistByParticipantAndCampaign(userId: number,campaignId:number): Promise<IChat>{
+    return new Promise<IChat>((resolve, reject) => {
+      axios
+        .get('api/discussions/existByParticipantAndCampaign',{params:{userId:userId,campaignId:campaignId}})
+        .then( res => {
           resolve(res.data)
         })
         .catch(err => {

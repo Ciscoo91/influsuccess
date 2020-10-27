@@ -17,11 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class MessageServiceImpl implements MessageService {
 
-    private final MessageMapper messageMapper = MessageMapper.INSTANCE;
+    private final MessageMapper messageMapper;
     private final MessageRepository messageRepository;
     private final DiscussionRepository discussionRepository;
 
-    public MessageServiceImpl(MessageRepository messageRepository, DiscussionRepository discussionRepository) {
+    public MessageServiceImpl(MessageMapper messageMapper, MessageRepository messageRepository, DiscussionRepository discussionRepository) {
+        this.messageMapper = messageMapper;
         this.messageRepository = messageRepository;
         this.discussionRepository = discussionRepository;
     }

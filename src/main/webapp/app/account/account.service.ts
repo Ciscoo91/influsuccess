@@ -40,6 +40,7 @@ export default class AccountService {
             }
             if(sessionStorage.getItem("login")){
               const authorities :any[] = account.authorities;
+
               if (authorities && authorities.includes(Authority.ADMIN)){
                 this.router.replace("/admin/dashboard")
               } else{

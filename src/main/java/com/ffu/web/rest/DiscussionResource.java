@@ -129,4 +129,17 @@ public class DiscussionResource {
         ChatDTO chat = discussionService.getChatDiscussion(id, userId);
         return new ResponseEntity<>(chat, HttpStatus.OK);
     }
+
+    /**
+     * {@code GET  /discussions/existByParticipantAndCampaign} : get the chat of the  discussion if it exists.
+     * @param userId
+     * @param campaignId
+     * @return
+     */
+    @GetMapping("discussions/existByParticipantAndCampaign")
+    public ResponseEntity<ChatDTO> isAlreadyExistByParticipantAndCampaign(@RequestParam(required = true) Long userId, @RequestParam(required = true) Long campaignId){
+        log.debug("REST request to get chat discussion by participant and campaign : {}{}", campaignId, userId);
+        ChatDTO chat = discussionService.isAlreadyExistByParticipantAndCampaign(userId, campaignId);
+        return new ResponseEntity<>(chat, HttpStatus.OK);
+    }
 }

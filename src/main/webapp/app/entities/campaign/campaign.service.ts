@@ -31,6 +31,18 @@ export default class CampaignService {
     });
   }
 
+  public retrieveOpenedCampaigns(): Promise<ICampaign[]>{
+    return new Promise<ICampaign[]>((resolve,reject) =>{
+      axios
+        .get(baseApiUrl + '/opened')
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   public delete(id: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

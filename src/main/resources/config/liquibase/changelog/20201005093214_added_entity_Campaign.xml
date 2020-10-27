@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity Campaign.
     -->
@@ -37,10 +37,35 @@
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+
+        <createTable tableName="campaign_social_network">
+            <column name="campaign_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="social_network_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="campaign_id, social_network_name" tableName="campaign_social_network"/>
+    </changeSet>
+
+    <!-- audit columns -->
+    <changeSet id="20201310180815" author="MHRO">
+        <addColumn tableName="campaign">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="20201005093214-1-relations" author="jhipster">
@@ -71,6 +96,15 @@
             <column name="target_countries" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
+        <loadData
+            file="config/liquibase/data/campaign_social_network.csv"
+            separator=";"
+            tableName="campaign_social_network">
+            <column name="campaign_id" type="numeric"/>
+            <column name="social_network_name" type="string"/>
+        </loadData>
     </changeSet>
+
+
 
 </databaseChangeLog>

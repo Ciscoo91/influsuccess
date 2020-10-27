@@ -15,7 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "discussion")
-public class Discussion implements Serializable {
+public class Discussion extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,6 @@ public class Discussion implements Serializable {
         name = "jhi_user_discussion",
         joinColumns = {@JoinColumn(name = "discussion_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<User> participants = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "discussion")
