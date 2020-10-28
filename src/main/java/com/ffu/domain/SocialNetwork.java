@@ -14,32 +14,19 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "social_network")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SocialNetwork implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 50)
+    @Id
+    @Column(length = 50)
     private String name;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = "socialNetworks", allowSetters = true)
-    private Campaign campaign;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -54,18 +41,8 @@ public class SocialNetwork implements Serializable {
         this.name = name;
     }
 
-    public Campaign getCampaign() {
-        return campaign;
-    }
 
-    public SocialNetwork campaign(Campaign campaign) {
-        this.campaign = campaign;
-        return this;
-    }
 
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -76,7 +53,7 @@ public class SocialNetwork implements Serializable {
         if (!(o instanceof SocialNetwork)) {
             return false;
         }
-        return id != null && id.equals(((SocialNetwork) o).id);
+        return name != null && name.equals(((SocialNetwork) o).name);
     }
 
     @Override
@@ -88,7 +65,6 @@ public class SocialNetwork implements Serializable {
     @Override
     public String toString() {
         return "SocialNetwork{" +
-            "id=" + getId() +
             ", name='" + getName() + "'" +
             "}";
     }

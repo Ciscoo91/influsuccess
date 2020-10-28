@@ -14,7 +14,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "social_network_link")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SocialNetworkLink implements Serializable {
 
     private static final long serialVersionUID = 1L;

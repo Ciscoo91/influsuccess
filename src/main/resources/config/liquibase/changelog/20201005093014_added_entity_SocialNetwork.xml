@@ -6,20 +6,14 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity SocialNetwork.
     -->
     <changeSet id="20201005093014-1" author="jhipster">
         <createTable tableName="social_network">
-            <column name="id" type="bigint">
+            <column name="name" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-            <column name="campaign_id" type="bigint">
-                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -40,10 +34,9 @@
     -->
     <changeSet id="20201005093014-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/social_network.csv"
+                  file="config/liquibase/data/social_network.csv"
                   separator=";"
                   tableName="social_network">
-            <column name="id" type="numeric"/>
             <column name="name" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

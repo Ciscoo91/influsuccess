@@ -94,7 +94,7 @@ public class SocialNetworkResourceIT {
         int databaseSizeBeforeCreate = socialNetworkRepository.findAll().size();
 
         // Create the SocialNetwork with an existing ID
-        socialNetwork.setId(1L);
+       socialNetwork.setName("1L");
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSocialNetworkMockMvc.perform(post("/api/social-networks")
@@ -137,10 +137,10 @@ public class SocialNetworkResourceIT {
         restSocialNetworkMockMvc.perform(get("/api/social-networks?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(socialNetwork.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(socialNetwork.getName())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
-    
+
     @Test
     @Transactional
     public void getSocialNetwork() throws Exception {
@@ -148,10 +148,10 @@ public class SocialNetworkResourceIT {
         socialNetworkRepository.saveAndFlush(socialNetwork);
 
         // Get the socialNetwork
-        restSocialNetworkMockMvc.perform(get("/api/social-networks/{id}", socialNetwork.getId()))
+        restSocialNetworkMockMvc.perform(get("/api/social-networks/{id}", socialNetwork.getName()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(socialNetwork.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(socialNetwork.getName()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
     @Test
@@ -171,7 +171,7 @@ public class SocialNetworkResourceIT {
         int databaseSizeBeforeUpdate = socialNetworkRepository.findAll().size();
 
         // Update the socialNetwork
-        SocialNetwork updatedSocialNetwork = socialNetworkRepository.findById(socialNetwork.getId()).get();
+        SocialNetwork updatedSocialNetwork = socialNetworkRepository.findById(socialNetwork.getName()).get();
         // Disconnect from session so that the updates on updatedSocialNetwork are not directly saved in db
         em.detach(updatedSocialNetwork);
         updatedSocialNetwork
@@ -214,7 +214,7 @@ public class SocialNetworkResourceIT {
         int databaseSizeBeforeDelete = socialNetworkRepository.findAll().size();
 
         // Delete the socialNetwork
-        restSocialNetworkMockMvc.perform(delete("/api/social-networks/{id}", socialNetwork.getId())
+        restSocialNetworkMockMvc.perform(delete("/api/social-networks/{id}", socialNetwork.getName())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

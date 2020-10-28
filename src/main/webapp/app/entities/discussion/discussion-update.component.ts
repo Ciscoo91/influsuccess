@@ -65,7 +65,7 @@ export default class DiscussionUpdate extends Vue {
         });
     } else {
       this.discussionService()
-        .create(this.discussion)
+        .save(this.discussion)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);

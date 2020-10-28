@@ -14,7 +14,6 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "user_extra")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserExtra implements Serializable {
 
     private static final long serialVersionUID = 1L;

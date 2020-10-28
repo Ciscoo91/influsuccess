@@ -21,4 +21,5 @@ public interface DiscussionService {
 
     void deleteById(Long id);
 
+    ChatDTO isAlreadyExistByParticipantAndCampaign(Long userId, Long campaignId);
 }

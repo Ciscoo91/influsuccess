@@ -50,12 +50,12 @@ public class SocialNetworkResource {
     @PostMapping("/social-networks")
     public ResponseEntity<SocialNetwork> createSocialNetwork(@Valid @RequestBody SocialNetwork socialNetwork) throws URISyntaxException {
         log.debug("REST request to save SocialNetwork : {}", socialNetwork);
-        if (socialNetwork.getId() != null) {
+        if (socialNetwork.getName() != null) {
             throw new BadRequestAlertException("A new socialNetwork cannot already have an ID", ENTITY_NAME, "idexists");
         }
         SocialNetwork result = socialNetworkRepository.save(socialNetwork);
-        return ResponseEntity.created(new URI("/api/social-networks/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+        return ResponseEntity.created(new URI("/api/social-networks/" + result.getName()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getName().toString()))
             .body(result);
     }
 
@@ -71,12 +71,12 @@ public class SocialNetworkResource {
     @PutMapping("/social-networks")
     public ResponseEntity<SocialNetwork> updateSocialNetwork(@Valid @RequestBody SocialNetwork socialNetwork) throws URISyntaxException {
         log.debug("REST request to update SocialNetwork : {}", socialNetwork);
-        if (socialNetwork.getId() == null) {
+        if (socialNetwork.getName() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         SocialNetwork result = socialNetworkRepository.save(socialNetwork);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, socialNetwork.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, socialNetwork.getName().toString()))
             .body(result);
     }
 
@@ -98,7 +98,7 @@ public class SocialNetworkResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the socialNetwork, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/social-networks/{id}")
-    public ResponseEntity<SocialNetwork> getSocialNetwork(@PathVariable Long id) {
+    public ResponseEntity<SocialNetwork> getSocialNetwork(@PathVariable String id) {
         log.debug("REST request to get SocialNetwork : {}", id);
         Optional<SocialNetwork> socialNetwork = socialNetworkRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(socialNetwork);
@@ -111,7 +111,7 @@ public class SocialNetworkResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/social-networks/{id}")
-    public ResponseEntity<Void> deleteSocialNetwork(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteSocialNetwork(@PathVariable String id) {
         log.debug("REST request to delete SocialNetwork : {}", id);
         socialNetworkRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

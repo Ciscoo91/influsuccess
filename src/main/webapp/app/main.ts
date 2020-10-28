@@ -31,13 +31,14 @@ import ConfigurationService from '@/admin/configuration/configuration.service';
 
 import UserExtraService from '@/entities/user-extra/user-extra.service';
 import CampaignService from '@/entities/campaign/campaign.service';
-import AdvDashboardService from "@/advertiser/dashboard/advDashboard.service";
-import CampaignCategoryService from "@/entities/campaign-category/campaign-category.service";
-import SocialNetworkService from "@/entities/social-network/social-network.service";
-import DiscussionService from "@/entities/discussion/discussion.service";
-import MessageService from "@/entities/message/message.service";
-import SocialNetworkLinkService from "@/entities/social-network-link/social-network-link.service";
-import InfluencerInfoService from "@/entities/influencer-info/influencer-info.service";
+import AdvDashboardService from '@/dashboard/advertiser/advDashboard.service';
+import CampaignCategoryService from '@/entities/campaign-category/campaign-category.service';
+import SocialNetworkService from '@/entities/social-network/social-network.service';
+import DiscussionService from '@/entities/discussion/discussion.service';
+import MessageService from '@/entities/message/message.service';
+import SocialNetworkLinkService from '@/entities/social-network-link/social-network-link.service';
+import InfluencerInfoService from '@/entities/influencer-info/influencer-info.service';
+import InfluencerDashboardService from '@/dashboard/influencer/influencerDashboard.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -111,7 +112,7 @@ new Vue({
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
     advDashboardService: () => new AdvDashboardService(),
-
+    influencerDashboardService: () => new InfluencerDashboardService(),
   },
   i18n,
   store,

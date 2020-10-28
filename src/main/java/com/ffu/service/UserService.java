@@ -8,7 +8,6 @@ import com.ffu.repository.AuthorityRepository;
 import com.ffu.repository.UserExtraRepository;
 import com.ffu.repository.UserRepository;
 import com.ffu.security.AuthoritiesConstants;
-import com.ffu.security.CurrentUser;
 import com.ffu.security.SecurityUtils;
 import com.ffu.service.dto.UserDTO;
 
@@ -21,8 +20,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,13 +48,17 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, UserExtraRepository userExtraRepository, CacheManager cacheManager) {
+    private final UserExtraMapper userExtraMapper;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, UserExtraRepository userExtraRepository, CacheManager cacheManager, UserExtraMapper userExtraMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.userExtraRepository = userExtraRepository;
         this.cacheManager = cacheManager;
+        this.userExtraMapper = userExtraMapper;
     }
+
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -131,7 +132,7 @@ public class UserService {
         newUser = userRepository.save(newUser);
 
         // save userExtra
-        UserExtra userExtra = UserExtraMapper.INSTANCE.userExtraDTOToUserExtra(userDTO.getUserExtra());
+        UserExtra userExtra = userExtraMapper.userExtraDTOToUserExtra(userDTO.getUserExtra());
         userExtra.setUser(newUser);
         userExtraRepository.save(userExtra);
 
@@ -317,4 +318,14 @@ public class UserService {
         }
     }
 
+    public Set<User>  getUsersFromIds(Set<Long> participantIds) {
+
+        int i =0;
+        return participantIds
+           .stream()
+           .map(userRepository::findById)
+           .filter(Optional::isPresent)
+           .map(Optional::get)
+           .collect(Collectors.toSet());
+    }
 }

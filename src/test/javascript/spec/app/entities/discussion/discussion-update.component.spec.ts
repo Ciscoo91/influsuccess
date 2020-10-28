@@ -68,14 +68,14 @@ describe('Component Tests', () => {
         // GIVEN
         const entity = {};
         comp.discussion = entity;
-        discussionServiceStub.create.resolves(entity);
+        discussionServiceStub.save.resolves(entity);
 
         // WHEN
         comp.save();
         await comp.$nextTick();
 
         // THEN
-        expect(discussionServiceStub.create.calledWith(entity)).toBeTruthy();
+        expect(discussionServiceStub.save.calledWith(entity)).toBeTruthy();
         expect(comp.isSaving).toEqual(false);
       });
     });

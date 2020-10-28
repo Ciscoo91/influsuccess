@@ -24,22 +24,24 @@ public class DiscussionServiceImpl implements DiscussionService {
 
     private final DiscussionRepository discussionRepository;
     private final MessageRepository messageRepository;
-    private final DiscussionMapper discussionMapper = DiscussionMapper.INSTANCE;
+    private final DiscussionMapper discussionMapper;
     private final MessageService messageService;
-    private final MessageMapper messageMapper = MessageMapper.INSTANCE;
+    private final MessageMapper messageMapper ;
     private final UserMapper userMapper;
 
-    public DiscussionServiceImpl(DiscussionRepository discussionRepository, MessageRepository messageRepository, MessageService messageService, UserMapper userMapper) {
+    public DiscussionServiceImpl(DiscussionRepository discussionRepository, MessageRepository messageRepository, DiscussionMapper discussionMapper, MessageService messageService, MessageMapper messageMapper, UserMapper userMapper) {
         this.discussionRepository = discussionRepository;
         this.messageRepository = messageRepository;
+        this.discussionMapper = discussionMapper;
         this.messageService = messageService;
+        this.messageMapper = messageMapper;
         this.userMapper = userMapper;
     }
 
     @Override
     public DiscussionDTO save(DiscussionDTO discussionDTO) {
         Discussion discussion = discussionMapper.toEntity(discussionDTO);
-        return discussionMapper.toDTO(discussionRepository.save(discussion));
+        return discussionMapper.toDTO(discussionRepository.saveAndFlush(discussion));
     }
 
     @Override
@@ -61,27 +63,14 @@ public class DiscussionServiceImpl implements DiscussionService {
     }
 
     @Override
-    public ChatDTO getChatDiscussion(Long discussionId, Long userId ) {
-        ChatDTO chat = new ChatDTO();
+    public ChatDTO isAlreadyExistByParticipantAndCampaign(Long userId, Long campaignId) {
+        Optional<Discussion> discussion = discussionRepository.findByParticipantAndCampaign(userId, campaignId);
+        return discussion.isPresent() ? this.toChatDto(discussion,userId): null;
+    }
 
-        Optional<Discussion> discussion = discussionRepository.findById(discussionId);
-        if(discussion.isPresent()){
-            chat.setChatTitle(discussion.get().getCampaign().getTitle());
-            chat.setMessages(
-                discussion.get().getMessages()
-                    .stream().
-                    map(message -> messageMapper.toChatMessage(message, userId))
-                    .collect(Collectors.toList())
-            );
-            chat.setParticipants(discussion.get().getParticipants().stream().map(userMapper::toParticipantChat).collect(Collectors.toList()));
-        }
-        discussion.get().getMessages().stream()
-            .filter(message -> !message.getSender().getId().equals(userId))
-            .forEach(message -> {
-                message.setStatus(MessageStatus.OPENED);
-                messageRepository.saveAndFlush(message);
-            });
-        return chat;
+    @Override
+    public ChatDTO getChatDiscussion(Long discussionId, Long userId ) {
+      return this.toChatDto(discussionRepository.findById(discussionId),userId);
     }
 
     @Override
@@ -99,4 +88,29 @@ public class DiscussionServiceImpl implements DiscussionService {
         return result;
     }
 
+
+    private ChatDTO toChatDto(Optional<Discussion> discussionOptional, Long userId){
+        ChatDTO chat = new ChatDTO();
+        if(discussionOptional.isPresent()){
+            Discussion discussion = discussionOptional.get();
+            chat.setDiscussionId(discussion.getId());
+            chat.setChatTitle(discussion.getCampaign().getTitle());
+            chat.setMessages(
+                discussion.getMessages()
+                    .stream()
+                    .map(message -> messageMapper.toChatMessage(message, userId))
+                    .collect(Collectors.toList())
+            );
+            chat.setParticipants(discussion.getParticipants().stream().map(userMapper::toParticipantChat).collect(Collectors.toList()));
+
+            // change status of message to opened
+            discussion.getMessages().stream()
+                .filter(message -> !message.getSender().getId().equals(userId))
+                .forEach(message -> {
+                    message.setStatus(MessageStatus.OPENED);
+                    messageRepository.saveAndFlush(message);
+                });
+        }
+        return chat;
+    }
 }

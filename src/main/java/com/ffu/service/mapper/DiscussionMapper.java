@@ -3,23 +3,21 @@ package com.ffu.service.mapper;
 import com.ffu.domain.Discussion;
 import com.ffu.domain.Message;
 import com.ffu.domain.User;
+import com.ffu.service.UserService;
 import com.ffu.service.dto.DiscussionDTO;
 import com.ffu.service.dto.DiscussionThreadsDTO;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
-
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(uses = UserMapper.class)
+@Mapper(uses = {UserMapper.class}, componentModel = "spring")
 public abstract class DiscussionMapper {
 
-    public static DiscussionMapper INSTANCE = Mappers.getMapper(DiscussionMapper.class);
+    @Autowired
+    protected UserService userService;
 
     @Mapping(source = "id", target = "discussionId")
     @Mapping(source = "campaign.id", target = "campaignId")
@@ -29,6 +27,7 @@ public abstract class DiscussionMapper {
 
     public abstract DiscussionDTO toDTO(Discussion discussion);
 
+    @Mapping(target = "participants",  expression = "java(userService.getUsersFromIds(discussionDTO.getParticipantIds()))")
     public abstract Discussion toEntity(DiscussionDTO discussionDTO);
 
 

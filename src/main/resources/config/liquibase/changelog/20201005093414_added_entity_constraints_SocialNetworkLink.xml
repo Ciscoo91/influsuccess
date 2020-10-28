@@ -7,11 +7,11 @@
         Added the constraints for entity SocialNetworkLink.
     -->
     <changeSet id="20201005093414-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="social_network_id"
+
+        <addForeignKeyConstraint baseColumnNames="social_network_name"
                                  baseTableName="social_network_link"
-                                 constraintName="fk_social_network_link_social_network_id"
-                                 referencedColumnNames="id"
+                                 constraintName="fk_social_network_link_social_network_name"
+                                 referencedColumnNames="name"
                                  referencedTableName="social_network"/>
 
         <addForeignKeyConstraint baseColumnNames="influencer_info_id"

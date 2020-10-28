@@ -31,6 +31,7 @@ import {
   BListGroupItem,
   BCard,
   BCardText,
+  BCardGroup,
 } from 'bootstrap-vue';
 
 export function initBootstrapVue(vue) {
@@ -67,4 +68,5 @@ export function initBootstrapVue(vue) {
   vue.component('b-list-group-item', BListGroupItem);
   vue.component('b-card', BCard);
   vue.component('b-card-text', BCardText);
+  vue.component('b-card-group', BCardGroup);
 }
