@@ -1,17 +1,25 @@
 import Component from 'vue-class-component';
 import { Inject, Vue } from 'vue-property-decorator';
+import DiscussionThreads from '@/discussionThreads/discussionThreads.vue';
+import SideNavBarComponent from '@/core/sideNavBar/sideNavBar.vue';
+import SearchForm from '@/dashboard/partials/searchForm.vue';
+import CampaignCard from '@/dashboard/partials/campaignCard.vue';
 import { ICampaign } from '@/shared/model/campaign.model';
 import CampaignService from '@/entities/campaign/campaign.service';
 import CampaignUpdate from '@/entities/campaign/campaign-update.vue';
-import DiscussionThreads from '@/discussionThreads/discussionThreads.vue';
 
 @Component({
   components: {
-    'campaign-update': CampaignUpdate,
+    'side-navbar': SideNavBarComponent,
+    'search-form': SearchForm,
+    'campaign-card': CampaignCard,
     'discussion-threads': DiscussionThreads,
+    'campaign-update': CampaignUpdate,
   },
 })
 export default class AdvDashboard extends Vue {
+  private currentComponent: string = 'search-form';
+
   public selectedCampaign: ICampaign = {};
 
   @Inject('campaignService')
@@ -64,5 +72,21 @@ export default class AdvDashboard extends Vue {
 
   public closeDialogue(idModal: string): void {
     this.$root.$emit('bv::hide::modal', idModal);
+  }
+
+  public setCurrentComponent(component: string) {
+    switch (component) {
+      case 'search':
+        this.currentComponent = 'search-form';
+        return this.currentComponent;
+      case 'discussion':
+        this.currentComponent = 'discussion-threads';
+        return this.currentComponent;
+      case 'campaign':
+        this.currentComponent = 'campaign-card';
+        return this.currentComponent;
+      default:
+        break;
+    }
   }
 }

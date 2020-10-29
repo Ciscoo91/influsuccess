@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container mt-5">
     <div class="alert alert-warning" v-if="!isFetching && discussions && discussions.length === 0">
       <span v-text="$t('influSuccessApp.discussion.home.notFound')">No discussions found</span>
     </div>

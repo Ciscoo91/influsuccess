@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="dark" class="jh-navbar">
+  <b-navbar toggleable="md" type="dark" variant="primary" class="jh-navbar">
     <b-navbar-brand class="logo" b-link to="/">
       <!-- <span class="logo-img"></span> -->
       <span v-text="$t('global.title')" class="navbar-title">influSuccess</span>
@@ -25,29 +25,13 @@
             <span class="text-white bold font-weight-bold" v-text="$t('global.menu.home')">Home</span>
           </span>
         </b-nav-item>
-        <b-nav-item-dropdown right id="entity-menu" v-if="authenticated" active-class="active" class="pointer">
-          <span slot="button-content" class="navbar-dropdown-menu">
-            <!-- <font-awesome-icon icon="th-list" /> -->
-            <span class="text-white" v-text="$t('global.menu.entities.main')">Entities</span>
+        <b-nav-item to="/advertisers/dashboard" exact>
+          <span>
+            <!-- <font-awesome-icon icon="home" /> -->
+            <span class="text-white bold font-weight-bold" v-text="$t('global.menu.dashboard')">Dashboard</span>
           </span>
-          <b-dropdown-item to="/user-extra">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.userExtra')">UserExtra</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/campaign">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.campaign')">Campaign</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/instag-influencer">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.instagInfluencer')">InstagInfluencer</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/contact">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.contact')">Contact</span>
-          </b-dropdown-item>
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-        </b-nav-item-dropdown>
+        </b-nav-item>
+
         <b-nav-item-dropdown
           right
           id="admin-menu"
