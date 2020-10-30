@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <side-navbar v-on:currentComponent="setCurrentComponent"></side-navbar>
-      <keep-alive class="col-10">
+      <keep-alive>
         <component :is="currentComponent"></component>
       </keep-alive>
     </div>

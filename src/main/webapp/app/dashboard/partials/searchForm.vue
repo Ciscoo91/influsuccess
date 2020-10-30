@@ -1,7 +1,7 @@
 <template>
   <div class="form col-10">
-    <div class="container">
-      <form class="row mt-5 needs-validation" novalidate v-on:submit.prevent="onSubmit">
+    <div class="container d-flex flex-column">
+      <form class="row mt-5 needs-validation align-self-center" novalidate v-on:submit.prevent="onSubmit">
         <div class="col-md-3 mb-3">
           <label for="validationCustom01" class="form-label">City</label>
           <select class="custom-select shadow-sm border-border-primary" id="validationCustom01" aria-label="Default select example">
@@ -35,7 +35,7 @@
       </form>
       <div id="searchResult">
         <div class="row mt-4 d-flex justify-content-between" v-if="showResults">
-          <div class="card col-md-3" style="width: 18rem;" v-for="item in results" :key="item.id">
+          <div class="card col-md-3 py-2" style="width: 18rem;" v-for="item in results" :key="item.id">
             <img v-bind:src="item.image" class="card-img-top" v-bind:alt="item" />
             <div class="card-body">
               <h5 class="card-title">{{ item.name }}</h5>

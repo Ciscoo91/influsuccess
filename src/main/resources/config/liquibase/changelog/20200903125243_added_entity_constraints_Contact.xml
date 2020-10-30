@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Contact.
+    -->
+    <changeSet id="20200903125243-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="contact"
+                                 constraintName="fk_contact_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="compaign_id"
+                                 baseTableName="contact"
+                                 constraintName="fk_contact_compaign_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="campaign"/>
+
+        <addForeignKeyConstraint baseColumnNames="instag_influencer_id"
+                                 baseTableName="contact"
+                                 constraintName="fk_contact_instag_influencer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="instag_influencer"/>
+
+    </changeSet>
+</databaseChangeLog>

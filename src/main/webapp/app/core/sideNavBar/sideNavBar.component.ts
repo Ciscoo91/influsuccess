@@ -5,7 +5,7 @@ export default class SideNavBarComponent extends Vue {
   @Prop()
   menu: any[];
 
-  menuItems: string[] = ['search', 'campaign', 'discussion'];
+  menuItems: string[] = ['search', 'campaigns', 'discussions'];
 
   onClickItem(item) {
     this.$emit('currentComponent', item);

@@ -20,13 +20,13 @@ export default class AdvDashboard extends Vue {
     switch (component) {
       case 'search':
         this.currentComponent = 'search-form';
-        return this.currentComponent;
-      case 'discussion':
+        break;
+      case 'discussions':
         this.currentComponent = 'discussion-threads';
-        return this.currentComponent;
-      case 'campaign':
+        break;
+      case 'campaigns':
         this.currentComponent = 'campaign-card';
-        return this.currentComponent;
+        break;
       default:
         break;
     }
