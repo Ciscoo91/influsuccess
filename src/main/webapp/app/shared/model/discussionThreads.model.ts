@@ -4,9 +4,16 @@ export interface IDiscussionThreads {
   campaignTitle?: string;
   loginParticipants?: string[];
   lastMessage?: string;
-  countNewMessage?:number;
+  countNewMessage?: number;
 }
 
 export class DiscussionThreads implements IDiscussionThreads {
-  constructor(public discussionId?: number, public campaignId?: number, public campaignTitle?: string, public loginParticipants?: string[], public lastMessage?:string, public countNewMessages?: number) {}
+  constructor(
+    public discussionId?: number,
+    public campaignId?: number,
+    public campaignTitle?: string,
+    public loginParticipants?: string[],
+    public lastMessage?: string,
+    public countNewMessages?: number
+  ) {}
 }

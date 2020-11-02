@@ -1,3 +1,1 @@
-export default class InfluencerDashboardService{
-
-}
+export default class InfluencerDashboardService {}

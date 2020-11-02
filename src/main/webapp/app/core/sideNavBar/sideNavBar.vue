@@ -1,45 +1,27 @@
 <template>
-    <nav class="sidenav">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+  <div class="shadow-lg min-vh-100 col-2 d-flex flex-column justify-content-between">
+    <nav class="sidenav d-flex flex-column">
+      <button
+        v-for="item in menuItems"
+        :key="item"
+        class="bg-white side-nav-item text-primary mx-2 py-3 border-0"
+        @click="onClickItem(item)"
+      >
+        {{ item.charAt(0).toUpperCase() + item.slice(1) }}
+      </button>
     </nav>
+    <button class="bg-white text-dark border-0">Contact</button>
+  </div>
 </template>
 
 <script lang="ts" src="./sideNavBar.component.ts"></script>
 
 <style scoped>
-    .sidenav {
-        height: 100%;
-        width: 200px;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        background-color: #111;
-        overflow-x: hidden;
-        padding-top: 20px;
-    }
+.side-nav-item {
+  outline: none;
+}
 
-    .sidenav a {
-        padding: 6px 6px 6px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-    }
-
-    .sidenav a:hover {
-        color: #f1f1f1;
-    }
-
-    .main {
-        margin-left: 200px; /* Same as the width of the sidenav */
-    }
-
-    @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 15px;}
-        .sidenav a {font-size: 18px;}
-    }
-
+.side-nav-item:hover {
+  background: #bbdefb;
+}
 </style>

@@ -31,8 +31,8 @@ export default class CampaignService {
     });
   }
 
-  public retrieveOpenedCampaigns(): Promise<ICampaign[]>{
-    return new Promise<ICampaign[]>((resolve,reject) =>{
+  public retrieveOpenedCampaigns(): Promise<ICampaign[]> {
+    return new Promise<ICampaign[]>((resolve, reject) => {
       axios
         .get(baseApiUrl + '/opened')
         .then(res => {
