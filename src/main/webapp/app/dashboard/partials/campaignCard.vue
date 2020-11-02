@@ -10,7 +10,7 @@
       <div v-if="campaigns && campaigns.length > 0" class="row">
         <div class="cardGroup row w-100" v-if="campaigns && campaigns.length > 0">
           <div class="mb-3 selectableCard col-md-6" v-for="campaign of campaigns" :key="campaign.id">
-            <b-card border-variant="primary" header-bg-variant="primary" header-text-variant="white" @click="onSelect(campaign, $event)">
+            <b-card border-variant="primary" header-bg-variant="primary" header-text-variant="white">
               <template v-slot:header>
                 <div>
                   <div class="d-flex w-100 justify-content-between">

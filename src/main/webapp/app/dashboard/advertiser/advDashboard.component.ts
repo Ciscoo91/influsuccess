@@ -1,5 +1,5 @@
 import Component from 'vue-class-component';
-import { Inject, Vue } from 'vue-property-decorator';
+import { Vue } from 'vue-property-decorator';
 import DiscussionThreads from '@/discussionThreads/discussionThreads.vue';
 import SideNavBarComponent from '@/core/sideNavBar/sideNavBar.vue';
 import SearchForm from '@/dashboard/partials/searchForm.vue';

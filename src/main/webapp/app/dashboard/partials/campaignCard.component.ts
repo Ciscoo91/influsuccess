@@ -17,19 +17,9 @@ export default class CampaignCard extends Vue {
 
   private campaigns: ICampaign[] = [];
   private isFetching: boolean = false;
-  private rowIsSelected: boolean = false;
-  private fields: string[] = ['title', 'description', 'status', 'socialNetworks'];
 
-  public isSelected = false;
   created(): void {
     this.retrieveOpenedCampaigns();
-  }
-
-  public onSelect(instance: ICampaign, event): void {
-    this.isSelected = true;
-    this.selectedCampaign = instance;
-
-    console.log(JSON.stringify(event.target));
   }
 
   public retrieveOpenedCampaigns(): void {
@@ -46,16 +36,6 @@ export default class CampaignCard extends Vue {
           this.isFetching = false;
         }
       );
-  }
-
-  public onRowSelected(items): void {
-    if (Object.keys(items).length && Object.keys(items).length >= 0) {
-      this.rowIsSelected = true;
-      this.selectedCampaign = items[0];
-    } else {
-      this.rowIsSelected = false;
-      this.selectedCampaign = {};
-    }
   }
 
   public removeCampaign(): void {
