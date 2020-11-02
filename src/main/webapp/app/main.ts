@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.common with an alias.
 import Vue from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
 import App from './app.vue';
 import Vue2Filters from 'vue2-filters';
 import router from './router';
@@ -51,6 +53,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
 Vue.component('infinite-loading', InfiniteLoading);
+
+/* add fa to library font-awesone */
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+library.add(faEdit);
 
 const i18n = config.initI18N(Vue);
 const store = config.initVueXStore(Vue);

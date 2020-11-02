@@ -10,7 +10,7 @@
           v-on:click="openChat(discussion)"
           :button="true"
           active
-          class="text-secondary bg-secondary border-0 shadow-sm my-2 w-100"
+          class="text-secondary bg-secondary border-0 shadow-sm mb-2 w-100"
         >
           <div class="d-flex flex-column justify-content-between w-100">
             <h5 class="mb-1 d-flex justify-content-between align-items-center">

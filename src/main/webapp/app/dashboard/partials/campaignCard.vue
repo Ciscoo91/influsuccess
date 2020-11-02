@@ -1,10 +1,8 @@
 <template>
-  <div class="col-9 mx-auto">
+  <div class="col-9 mx-auto px-0 bg-transparent">
     <div id="campaigns" class="d-flex flex-column">
-      <h1>My campaigns</h1>
-      <div class="dataGridBtnActions d-flex flex-row mb-1 responsive">
+      <div class="dataGridBtnActions d-flex flex-row justify-content-between align-self-end my-3 responsive w-100">
         <b-button class="mr-1" v-b-modal.newCampaign variant="primary"> Add new campaign</b-button>
-        <b-button :disabled="!isSelected" v-b-modal.removeCampaign class="mr-1" variant="danger"> Delete campaign</b-button>
       </div>
       <div class="alert alert-warning" v-if="!isFetching && campaigns && campaigns.length === 0">
         <span v-text="$t('influSuccessApp.campaigns.home.notFound')">No campaigns found</span>
@@ -12,13 +10,7 @@
       <div v-if="campaigns && campaigns.length > 0" class="row">
         <div class="cardGroup row w-100" v-if="campaigns && campaigns.length > 0">
           <div class="mb-3 selectableCard col-md-6" v-for="campaign of campaigns" :key="campaign.id">
-            <b-card
-              border-variant="primary"
-              header-bg-variant="primary"
-              header-text-variant="white"
-              v-b-modal.editCampaign
-              @click="onSelect(campaign, $event)"
-            >
+            <b-card border-variant="primary" header-bg-variant="primary" header-text-variant="white" @click="onSelect(campaign, $event)">
               <template v-slot:header>
                 <div>
                   <div class="d-flex w-100 justify-content-between">
@@ -40,7 +32,6 @@
               </template>
               <b-card-text>
                 <p>{{ campaign.description }}</p>
-                <p></p>
                 <p>
                   <span
                     class="font-weight-bold"
@@ -56,7 +47,10 @@
                       <b-button :disabled="true" :pill="true" class="mr-3">{{ socialNetwork.name }}</b-button>
                     </div>
                   </div>
-                  <font-awesome-icon icon="trash" class="text-danger" />
+                  <div>
+                    <font-awesome-icon icon="edit" class="text-warning hover mr-2" v-b-modal.editCampaign />
+                    <font-awesome-icon icon="trash" class="text-danger hover" v-b-modal.removeCampaign />
+                  </div>
                 </div>
               </template>
             </b-card>
@@ -118,5 +112,14 @@
 
 .cardSelected {
   background: #0d47a1;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+.hover:visited,
+.hover:active {
+  outline: none;
 }
 </style>

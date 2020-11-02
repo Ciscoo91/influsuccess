@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row mt-5">
       <div id="campaigns" class="col-6">
-        <h1>My campaigns</h1>
+        <h2 class="mb-5">My campaigns</h2>
 
         <div class="alert alert-warning" v-if="!isFetching && campaigns && campaigns.length === 0">
           <span v-text="$t('influSuccessApp.campaigns.home.notFound')">No campaigns found</span>
         </div>
-        <div class="cardGroup d-flex flex-column" v-if="campaigns && campaigns.length > 0">
+        <div class="cardGroup d-flex flex-column mt-4" v-if="campaigns && campaigns.length > 0">
           <div class="mb-3" v-for="campaign of campaigns" :key="campaign.id">
             <b-card border-variant="primary" header-bg-variant="primary" header-text-variant="white">
               <template v-slot:header>
@@ -57,7 +57,6 @@
             :myself="myself"
             :messages="messages"
             @onMessageSubmit="onMessageSubmit"
-            @onClose=""
             onCloseChat
             :chatTitle="chatTitle"
             :placeholder="placeholder"
