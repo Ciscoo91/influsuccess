@@ -7,9 +7,10 @@ import com.ffu.repository.dto.CampaignSearchDTO;
 import com.ffu.service.CampaignService;
 import com.ffu.service.dto.CampaignDTO;
 import com.ffu.service.mapper.CampaignMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,10 +60,8 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public List<CampaignDTO> getCampaignSearchPageable(CampaignSearchDTO campaignSearchDTO, Pageable pageable) {
+    public Page<CampaignDTO> getCampaignSearchPageable(CampaignSearchDTO campaignSearchDTO, Pageable pageable) {
            return campaignRepository.getCampaignPageable(campaignSearchDTO, pageable)
-                .stream()
-                .map(campaignMapper::toDto)
-               .collect(Collectors.toList());
+                .map(campaignMapper::toDto);
     }
 }

@@ -2,11 +2,11 @@ package com.ffu.repository.custom;
 
 import com.ffu.domain.Campaign;
 import com.ffu.repository.dto.CampaignSearchDTO;
+import org.springframework.data.domain.Page;
 
-import java.awt.print.Pageable;
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface CampaignRepositoryCustom {
 
-    List<Campaign> getCampaignPageable(CampaignSearchDTO campaignSearchDTO, Pageable pageable);
+    Page<Campaign> getCampaignPageable(CampaignSearchDTO campaignSearchDTO, Pageable pageable);
 }

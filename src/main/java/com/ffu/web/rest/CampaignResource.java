@@ -1,6 +1,5 @@
 package com.ffu.web.rest;
 
-import com.ffu.domain.Campaign;
 import com.ffu.repository.dto.CampaignSearchDTO;
 import com.ffu.service.CampaignService;
 import com.ffu.service.dto.CampaignDTO;
@@ -11,13 +10,14 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -134,9 +134,9 @@ public class CampaignResource {
     }
 
     @PostMapping("/campaign/pageable/")
-    public ResponseEntity<List<CampaignDTO>> getCampaignPageable(@RequestBody CampaignSearchDTO campaignSearchDTO, Pageable pageable){
+    public ResponseEntity<Page<CampaignDTO>> getCampaignPageable(@RequestBody CampaignSearchDTO campaignSearchDTO, Pageable pageable){
         log.debug("Rest request to get filtered and paginated campaigns");
-        List<CampaignDTO> result = campaignService.getCampaignSearchPageable(campaignSearchDTO, pageable);
+        Page<CampaignDTO> result = (Page<CampaignDTO>) campaignService.getCampaignSearchPageable(campaignSearchDTO, pageable);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
