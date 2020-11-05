@@ -48,6 +48,10 @@
             <font-awesome-icon icon="user" />
             <span v-text="$t('global.menu.admin.userManagement')">User management</span>
           </b-dropdown-item>
+          <b-dropdown-item to="/admin/campaign-management" active-class="active">
+            <font-awesome-icon icon="table" />
+            <span v-text="$t('global.menu.admin.campaignManagement')">Campaign management</span>
+          </b-dropdown-item>
           <b-dropdown-item to="/admin/jhi-metrics" active-class="active">
             <font-awesome-icon icon="tachometer-alt" />
             <span v-text="$t('global.menu.admin.metrics')">Metrics</span>

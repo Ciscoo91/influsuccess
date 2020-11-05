@@ -1,6 +1,7 @@
 package com.ffu.web.rest;
 
 import com.ffu.domain.Campaign;
+import com.ffu.repository.dto.CampaignSearchDTO;
 import com.ffu.service.CampaignService;
 import com.ffu.service.dto.CampaignDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.awt.print.Pageable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -129,5 +131,12 @@ public class CampaignResource {
         log.debug("REST request to delete CampaignDTO : {}", id);
         campaignService.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/campaign/pageable/")
+    public ResponseEntity<List<CampaignDTO>> getCampaignPageable(@RequestBody CampaignSearchDTO campaignSearchDTO, Pageable pageable){
+        log.debug("Rest request to get filtered and paginated campaigns");
+        List<CampaignDTO> result = campaignService.getCampaignSearchPageable(campaignSearchDTO, pageable);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

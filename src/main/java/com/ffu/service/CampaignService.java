@@ -1,7 +1,9 @@
 package com.ffu.service;
 
+import com.ffu.repository.dto.CampaignSearchDTO;
 import com.ffu.service.dto.CampaignDTO;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +22,7 @@ public interface CampaignService {
      * @return
      */
     List<CampaignDTO> getOpenedCampaigns();
+
+
+    List<CampaignDTO> getCampaignSearchPageable(CampaignSearchDTO campaignSearchDTO, Pageable pageable);
 }
