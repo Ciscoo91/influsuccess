@@ -53,5 +53,5 @@ export class Campaign implements ICampaign {
 }
 
 export class CampaignFilter {
-  constructor(public title?: string, public userLogin?: string, public status?: CampaignStatus) {}
+  constructor(public title?: string, public userLogin?: string, public status?: string) {}
 }

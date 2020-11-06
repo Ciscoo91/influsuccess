@@ -31,8 +31,9 @@
         show-empty
         :items="campaigns"
         :current-page="currentPage"
-        :filter-included-fields="fields"
-        ></b-table>
+        :fields="fields"
+        >
+        </b-table>
                 <b-pagination
             v-model="currentPage"
             :total-rows="rows"
@@ -40,7 +41,7 @@
             aria-controls="campaignTable"
             @change="pageChange"
         ></b-pagination>
-        
+
     </div>
 </template>
 <script src="./campaign-management.component.ts"></script>

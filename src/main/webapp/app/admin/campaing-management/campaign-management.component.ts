@@ -29,7 +29,7 @@ export default class CampaignManagementComponent extends Vue {
   public title: string = '';
   public userLogin: string = '';
   public status: CampaignStatus = CampaignStatus.OPENED;
-  public sort: Sort = Sort.ASC;
+  public sort: string = `id,${Sort.ASC}`;
 
   public campaignPageable = null;
   private campaignSelected: ICampaign;
@@ -62,16 +62,18 @@ export default class CampaignManagementComponent extends Vue {
   public retrievePaginatedCampaigns(): void {
     this.isFetching = true;
 
-    const requestBody = { title: this.title, status: this.status, userLogin: this.userLogin };
+    const campaignFilter: CampaignFilter = new CampaignFilter();
+    campaignFilter.status = this.status + '*';
+    campaignFilter.userLogin = this.userLogin + '*';
+    campaignFilter.title = this.title + '*';
 
     const pageable = new URLSearchParams({
       page: (this.currentPage - 1).toString(),
       size: this.perPage.toString(),
-      sort: this.sort,
     });
 
     this.campaignService()
-      .retrievePaginatedCampaigns(requestBody, pageable)
+      .retrievePaginatedCampaigns(campaignFilter, pageable)
       .then(
         res => {
           this.campaigns = res.content;
