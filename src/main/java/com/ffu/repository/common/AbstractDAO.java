@@ -26,14 +26,13 @@ public  class AbstractDAO  {
         typedQuery.setFirstResult(pageable.getPageNumber()* pageable.getPageSize());
         typedQuery.setMaxResults(pageable.getPageSize());
 
-
         return new PageImpl(typedQuery.getResultList(),pageable, count);
     }
 
     protected void addPredicate(List<Predicate> predicates, Expression<String> field, String filter, CriteriaBuilder builder) {
         if(filter.contains("*")){
             filter = filter.substring(0, filter.length() - 1);
-            predicates.add(builder.like(field,filter));
+            predicates.add(builder.like(field, filter));
         } else {
             predicates.add(builder.equal(field, filter));
         }
