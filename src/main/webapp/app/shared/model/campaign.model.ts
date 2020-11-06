@@ -15,6 +15,11 @@ export const enum CampaignStatus {
   OPENED = 'OPENED',
 }
 
+export const enum Sort {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
 export interface ICampaign {
   id?: number;
   langKey?: LangKey;
@@ -45,4 +50,8 @@ export class Campaign implements ICampaign {
     public userId?: number,
     public userLogin?: string
   ) {}
+}
+
+export class CampaignFilter {
+  constructor(public title?: string, public userLogin?: string, public status?: CampaignStatus) {}
 }

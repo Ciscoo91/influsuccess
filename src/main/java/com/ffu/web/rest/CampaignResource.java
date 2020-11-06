@@ -133,7 +133,7 @@ public class CampaignResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    @PostMapping("/campaign/pageable/")
+    @PostMapping("/campaigns/page")
     public ResponseEntity<Page<CampaignDTO>> getCampaignPageable(@RequestBody CampaignSearchDTO campaignSearchDTO, Pageable pageable){
         log.debug("Rest request to get filtered and paginated campaigns");
         Page<CampaignDTO> result = (Page<CampaignDTO>) campaignService.getCampaignSearchPageable(campaignSearchDTO, pageable);

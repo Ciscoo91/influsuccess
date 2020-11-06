@@ -33,6 +33,7 @@ import {
   BCardText,
   BCardGroup,
   BSpinner,
+  BFormSelect,
 } from 'bootstrap-vue';
 
 export function initBootstrapVue(vue) {
@@ -71,4 +72,5 @@ export function initBootstrapVue(vue) {
   vue.component('b-card-text', BCardText);
   vue.component('b-card-group', BCardGroup);
   vue.component('b-spinner', BSpinner);
+  vue.component('b-form-select', BFormSelect);
 }
