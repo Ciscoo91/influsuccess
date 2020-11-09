@@ -63,9 +63,9 @@ export default class CampaignManagementComponent extends Vue {
     this.isFetching = true;
 
     const campaignFilter: CampaignFilter = new CampaignFilter();
-    campaignFilter.status = this.status + '*';
-    campaignFilter.userLogin = this.userLogin + '*';
-    campaignFilter.title = this.title + '*';
+    campaignFilter.status = `${this.status}*`;
+    campaignFilter.userLogin = `${this.userLogin}*`;
+    campaignFilter.title = `${this.title}*`;
 
     const pageable = new URLSearchParams({
       page: (this.currentPage - 1).toString(),
@@ -85,6 +85,7 @@ export default class CampaignManagementComponent extends Vue {
         }
       );
   }
+
   public pageChange(value) {
     this.currentPage = value;
     this.retrievePaginatedCampaigns();

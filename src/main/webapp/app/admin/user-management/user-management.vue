@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex flex-column align-items-center">
     <h2>
       <span id="user-management-page-heading" v-text="$t('userManagement.home.title')">Users</span>
       <router-link tag="button" class="btn btn-primary float-right jh-create-entity" :to="{ name: 'JhiUserCreate' }">
@@ -15,6 +15,23 @@
     >
       {{ alertMessage }}
     </b-alert>
+    <form @submit.prevent="onSubmit" class="d-flex justify-content-between align-items-center w-50 mt-5">
+        <b-form-group>
+            <label for="perPage">Items per page</label>
+            <b-form-select v-model="perPage" :options="optionsPerPage" id="perPage"/>
+        </b-form-group>
+        <b-form-group>
+            <label for="title">Filter by title</label>
+            <b-form-input placeholder="Search by title" v-model="title" id="title" />
+        </b-form-group>
+        <b-form-group>
+            <label for="userLogin">Filter by user login</label>
+            <b-form-input placeholder="Search by user login" v-model="userLogin" id="userLogin" />
+        </b-form-group>
+        <b-form-group>
+            <button type="submit" class="btn btn-primary mt-4">Search</button>
+        </b-form-group>
+    </form>
     <div class="table-responsive" v-if="users">
       <table class="table table-striped">
         <thead>
