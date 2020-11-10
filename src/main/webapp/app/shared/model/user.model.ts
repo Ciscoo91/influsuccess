@@ -32,9 +32,10 @@ export class User implements IUser {
   ) {}
 }
 
-export class ParticipantChat{
-  constructor(
-    public id?: number,
-    public name?: string
-  ){}
+export class ParticipantChat {
+  constructor(public id?: number, public name?: string) {}
+}
+
+export class UserFilter {
+  constructor(public login?: string, public email?: string, public firstName?: string, public lastName?: string) {}
 }

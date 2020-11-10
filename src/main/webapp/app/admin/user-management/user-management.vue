@@ -1,8 +1,8 @@
 <template>
-  <div class="d-flex flex-column align-items-center">
+  <div class="d-flex flex-column">
     <h2>
       <span id="user-management-page-heading" v-text="$t('userManagement.home.title')">Users</span>
-      <router-link tag="button" class="btn btn-primary float-right jh-create-entity" :to="{ name: 'JhiUserCreate' }">
+      <router-link tag="button" class="btn btn-primary float-right jh-create-entity align-self-end" :to="{ name: 'JhiUserCreate' }">
         <font-awesome-icon icon="plus"></font-awesome-icon> <span v-text="$t('userManagement.home.createLabel')">Create a new User</span>
       </router-link>
     </h2>
@@ -15,18 +15,26 @@
     >
       {{ alertMessage }}
     </b-alert>
-    <form @submit.prevent="onSubmit" class="d-flex justify-content-between align-items-center w-50 mt-5">
+    <form @submit.prevent="onSubmit" class="d-flex justify-content-around align-self-center w-100 my-4">
         <b-form-group>
             <label for="perPage">Items per page</label>
-            <b-form-select v-model="perPage" :options="optionsPerPage" id="perPage"/>
+            <b-form-select v-model="itemsPerPage" :options="optionsPerPage" id="perPage"/>
         </b-form-group>
         <b-form-group>
-            <label for="title">Filter by title</label>
-            <b-form-input placeholder="Search by title" v-model="title" id="title" />
+            <label for="title">Filter by email</label>
+            <b-form-input placeholder="Search by email" v-model="email" id="email" />
         </b-form-group>
         <b-form-group>
             <label for="userLogin">Filter by user login</label>
-            <b-form-input placeholder="Search by user login" v-model="userLogin" id="userLogin" />
+            <b-form-input placeholder="Search by user login" v-model="login" id="userLogin" />
+        </b-form-group>
+        <b-form-group>
+            <label for="userLogin">Filter by user firstname</label>
+            <b-form-input placeholder="Search by user firstname" v-model="firstName" id="userLogin" />
+        </b-form-group>
+        <b-form-group>
+            <label for="userLogin">Filter by user lastname</label>
+            <b-form-input placeholder="Search by user lastname" v-model="lastName" id="userLogin" />
         </b-form-group>
         <b-form-group>
             <button type="submit" class="btn btn-primary mt-4">Search</button>

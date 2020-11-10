@@ -27,4 +27,13 @@ export default class UserManagementService {
   public retrieveAuthorities(): Promise<any> {
     return axios.get('api/users/authorities');
   }
+
+  public retriveFilteredAndPaginatedUsers(requestBody, params): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(`api/users/page?${params}`, requestBody)
+        .then(res => resolve(res.data))
+        .catch(err => reject(err));
+    });
+  }
 }
