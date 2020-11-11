@@ -3,9 +3,12 @@ package com.ffu.web.rest;
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.Authority;
 import com.ffu.domain.User;
+import com.ffu.domain.UserExtra;
 import com.ffu.repository.UserRepository;
 import com.ffu.security.AuthoritiesConstants;
 import com.ffu.service.dto.UserDTO;
+import com.ffu.service.dto.UserExtraDTO;
+import com.ffu.service.mapper.UserExtraMapper;
 import com.ffu.service.mapper.UserMapper;
 import com.ffu.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -62,11 +65,16 @@ public class UserResourceIT {
     private static final String DEFAULT_LANGKEY = "en";
     private static final String UPDATED_LANGKEY = "fr";
 
+    private  UserExtra userExtra;
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserExtraMapper userExtraMapper;
 
     @Autowired
     private EntityManager em;
@@ -107,6 +115,9 @@ public class UserResourceIT {
     @BeforeEach
     public void initTest() {
         user = createEntity(em);
+        userExtra = UserExtraResourceIT.createEntity(em);
+        em.persist(userExtra);
+        user.setUserExtra(userExtra);
         user.setLogin(DEFAULT_LOGIN);
         user.setEmail(DEFAULT_EMAIL);
     }
@@ -127,6 +138,7 @@ public class UserResourceIT {
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         restUserMockMvc.perform(post("/api/users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -143,6 +155,7 @@ public class UserResourceIT {
             assertThat(testUser.getEmail()).isEqualTo(DEFAULT_EMAIL);
             assertThat(testUser.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);
             assertThat(testUser.getLangKey()).isEqualTo(DEFAULT_LANGKEY);
+            assertThat(testUser.getUserExtra()).isEqualTo(userExtra);
         });
     }
 
@@ -162,7 +175,7 @@ public class UserResourceIT {
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
-
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserMockMvc.perform(post("/api/users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -190,6 +203,7 @@ public class UserResourceIT {
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -218,6 +232,7 @@ public class UserResourceIT {
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -302,6 +317,7 @@ public class UserResourceIT {
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -317,6 +333,7 @@ public class UserResourceIT {
             assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
             assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
             assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
+            assertThat(testUser.getUserExtra()).isEqualTo(userExtra);
         });
     }
 
@@ -345,6 +362,7 @@ public class UserResourceIT {
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -361,6 +379,7 @@ public class UserResourceIT {
             assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
             assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
             assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
+            assertThat(testUser.getUserExtra()).isEqualTo(userExtra);
         });
     }
 
@@ -379,6 +398,7 @@ public class UserResourceIT {
         anotherUser.setLastName("hipster");
         anotherUser.setImageUrl("");
         anotherUser.setLangKey("en");
+        anotherUser.setUserExtra(userExtra);
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
@@ -399,6 +419,7 @@ public class UserResourceIT {
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -421,6 +442,7 @@ public class UserResourceIT {
         anotherUser.setLastName("hipster");
         anotherUser.setImageUrl("");
         anotherUser.setLangKey("en");
+        anotherUser.setUserExtra(userExtra);
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
@@ -441,6 +463,7 @@ public class UserResourceIT {
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        managedUserVM.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -479,6 +502,7 @@ public class UserResourceIT {
     }
 
     @Test
+    @Transactional
     public void testUserEquals() throws Exception {
         TestUtil.equalsVerifier(User.class);
         User user1 = new User();
@@ -493,6 +517,7 @@ public class UserResourceIT {
     }
 
     @Test
+    @Transactional
     public void testUserDTOtoUser() {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(DEFAULT_ID);
@@ -506,6 +531,7 @@ public class UserResourceIT {
         userDTO.setCreatedBy(DEFAULT_LOGIN);
         userDTO.setLastModifiedBy(DEFAULT_LOGIN);
         userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        userDTO.setUserExtra(userExtraMapper.userExtraToUserExtraDTO(userExtra));
 
         User user = userMapper.userDTOToUser(userDTO);
         assertThat(user.getId()).isEqualTo(DEFAULT_ID);
@@ -521,9 +547,11 @@ public class UserResourceIT {
         assertThat(user.getLastModifiedBy()).isNull();
         assertThat(user.getLastModifiedDate()).isNotNull();
         assertThat(user.getAuthorities()).extracting("name").containsExactly(AuthoritiesConstants.ADVERTISER);
+        assertThat(user.getUserExtra()).isEqualTo(userExtra);
     }
 
     @Test
+    @Transactional
     public void testUserToUserDTO() {
         user.setId(DEFAULT_ID);
         user.setCreatedBy(DEFAULT_LOGIN);
@@ -555,6 +583,7 @@ public class UserResourceIT {
     }
 
     @Test
+    @Transactional
     public void testAuthorityEquals() {
         Authority authorityA = new Authority();
         assertThat(authorityA).isEqualTo(authorityA);

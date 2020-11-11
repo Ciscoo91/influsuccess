@@ -1,9 +1,14 @@
 package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
+import com.ffu.domain.Campaign;
 import com.ffu.domain.Discussion;
+import com.ffu.domain.User;
 import com.ffu.repository.DiscussionRepository;
 
+import com.ffu.service.dto.DiscussionDTO;
+import com.ffu.service.mapper.DiscussionMapper;
+import liquibase.pro.packaged.D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,6 +38,9 @@ public class DiscussionResourceIT {
 
     @Autowired
     private DiscussionRepository discussionRepository;
+
+    @Autowired
+    private DiscussionMapper discussionMapper;
 
     @Autowired
     private EntityManager em;
@@ -64,16 +74,26 @@ public class DiscussionResourceIT {
     @BeforeEach
     public void initTest() {
         discussion = createEntity(em);
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+
+        Campaign campaign = CampaignResourceIT.createEntity(em);
+        campaign.setUser(user);
+        em.persist(campaign);
+
+        discussion.setParticipants(new HashSet<User>(Arrays.asList(user)));
+        discussion.setCampaign(campaign);
     }
 
     @Test
     @Transactional
     public void createDiscussion() throws Exception {
         int databaseSizeBeforeCreate = discussionRepository.findAll().size();
+        DiscussionDTO discussionDTO = discussionMapper.toDTO(discussion);
         // Create the Discussion
         restDiscussionMockMvc.perform(post("/api/discussions")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(discussion)))
+            .content(TestUtil.convertObjectToJsonBytes(discussionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Discussion in the database
@@ -93,7 +113,7 @@ public class DiscussionResourceIT {
         // An entity with an existing ID cannot be created, so this API call must fail
         restDiscussionMockMvc.perform(post("/api/discussions")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(discussion)))
+            .content(TestUtil.convertObjectToJsonBytes(discussionMapper.toDTO(discussion))))
             .andExpect(status().isBadRequest());
 
         // Validate the Discussion in the database
@@ -114,7 +134,7 @@ public class DiscussionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(discussion.getId().intValue())));
     }
-    
+
     @Test
     @Transactional
     public void getDiscussion() throws Exception {
@@ -148,9 +168,11 @@ public class DiscussionResourceIT {
         // Disconnect from session so that the updates on updatedDiscussion are not directly saved in db
         em.detach(updatedDiscussion);
 
+        DiscussionDTO updatedDiscussionDTO = discussionMapper.toDTO(updatedDiscussion);
+
         restDiscussionMockMvc.perform(put("/api/discussions")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedDiscussion)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedDiscussionDTO)))
             .andExpect(status().isOk());
 
         // Validate the Discussion in the database
@@ -167,7 +189,7 @@ public class DiscussionResourceIT {
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restDiscussionMockMvc.perform(put("/api/discussions")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(discussion)))
+            .content(TestUtil.convertObjectToJsonBytes(discussionMapper.toDTO(discussion))))
             .andExpect(status().isBadRequest());
 
         // Validate the Discussion in the database

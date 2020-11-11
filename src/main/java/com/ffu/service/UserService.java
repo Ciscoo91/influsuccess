@@ -129,13 +129,11 @@ public class UserService {
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.ADVERTISER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
-        newUser = userRepository.save(newUser);
-
         // save userExtra
         UserExtra userExtra = userExtraMapper.userExtraDTOToUserExtra(userDTO.getUserExtra());
-        userExtra.setUser(newUser);
-        userExtraRepository.save(userExtra);
-
+        userExtra = userExtraRepository.save(userExtra);
+        newUser.setUserExtra(userExtra);
+        newUser = userRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -178,7 +176,13 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
-        userRepository.save(user);
+        // save userExtra
+        UserExtra userExtra = userExtraMapper.userExtraDTOToUserExtra(userDTO.getUserExtra());
+        userExtra = userExtraRepository.save(userExtra);
+
+        user.setUserExtra(userExtra);
+        user = userRepository.save(user);
+
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -215,9 +219,12 @@ public class UserService {
                     .forEach(managedAuthorities::add);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
+                user.getUserExtra().setBirthday(userDTO.getUserExtra().getBirthday());
+                user.getUserExtra().setCountry(userDTO.getUserExtra().getCountry());
+                user.getUserExtra().setPhone(userDTO.getUserExtra().getPhone());
                 return user;
             })
-            .map(UserDTO::new);
+            .map(user -> new UserDTO(user, userDTO.getUserExtra()));
     }
 
     public void deleteUser(String login) {
@@ -271,18 +278,21 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
-        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    public Page<UserDTO> getAllManagedUsers(Pageable pageable)
+    {
+        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(user -> new UserDTO(user, userExtraMapper.userExtraToUserExtraDTO(user.getUserExtra())));
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthoritiesByLogin(String login) {
-        return userRepository.findOneWithAuthoritiesByLogin(login);
+    public Optional<UserDTO> getUserWithAuthoritiesByLogin(String login) {
+        return userRepository.findOneWithAuthoritiesByLogin(login).map(user -> new UserDTO(user, userExtraMapper.userExtraToUserExtraDTO(user.getUserExtra())));
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthorities() {
-        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+    public Optional<UserDTO> getUserWithAuthorities() {
+        return SecurityUtils.getCurrentUserLogin()
+            .flatMap(userRepository::findOneWithAuthoritiesByLogin)
+            .map(user -> new UserDTO(user, userExtraMapper.userExtraToUserExtraDTO(user.getUserExtra())));
     }
 
     /**
@@ -319,8 +329,6 @@ public class UserService {
     }
 
     public Set<User>  getUsersFromIds(Set<Long> participantIds) {
-
-        int i =0;
         return participantIds
            .stream()
            .map(userRepository::findById)

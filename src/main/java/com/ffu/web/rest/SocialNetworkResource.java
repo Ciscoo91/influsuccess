@@ -50,33 +50,12 @@ public class SocialNetworkResource {
     @PostMapping("/social-networks")
     public ResponseEntity<SocialNetwork> createSocialNetwork(@Valid @RequestBody SocialNetwork socialNetwork) throws URISyntaxException {
         log.debug("REST request to save SocialNetwork : {}", socialNetwork);
-        if (socialNetwork.getName() != null) {
-            throw new BadRequestAlertException("A new socialNetwork cannot already have an ID", ENTITY_NAME, "idexists");
+        if (socialNetworkRepository.findById(socialNetwork.getName()).isPresent() ) {
+            throw new BadRequestAlertException("already name exist ", ENTITY_NAME, "idexist");
         }
         SocialNetwork result = socialNetworkRepository.save(socialNetwork);
         return ResponseEntity.created(new URI("/api/social-networks/" + result.getName()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getName().toString()))
-            .body(result);
-    }
-
-    /**
-     * {@code PUT  /social-networks} : Updates an existing socialNetwork.
-     *
-     * @param socialNetwork the socialNetwork to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated socialNetwork,
-     * or with status {@code 400 (Bad Request)} if the socialNetwork is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the socialNetwork couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PutMapping("/social-networks")
-    public ResponseEntity<SocialNetwork> updateSocialNetwork(@Valid @RequestBody SocialNetwork socialNetwork) throws URISyntaxException {
-        log.debug("REST request to update SocialNetwork : {}", socialNetwork);
-        if (socialNetwork.getName() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        SocialNetwork result = socialNetworkRepository.save(socialNetwork);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, socialNetwork.getName().toString()))
             .body(result);
     }
 

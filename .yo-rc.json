@@ -48,6 +48,9 @@
         "name": "generator-jhipster-vuejs",
         "version": "1.9.1"
       }
-    ]
+    ],
+    "appsFolders": ["influsuccess"],
+    "directoryPath": "../",
+    "monitoring": "prometheus"
   }
 }

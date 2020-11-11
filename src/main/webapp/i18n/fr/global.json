@@ -43,6 +43,7 @@
       "language": "Langue"
     },
     "form": {
+      "role": "Je suis un ?",
       "username.label": "Nom d'utilisateur",
       "username.placeholder": "Votre nom d'utilisateur",
       "lastName.label": "Nom",

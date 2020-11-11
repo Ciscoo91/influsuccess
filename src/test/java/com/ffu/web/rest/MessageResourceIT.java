@@ -1,9 +1,13 @@
 package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
+import com.ffu.domain.Campaign;
+import com.ffu.domain.Discussion;
 import com.ffu.domain.Message;
+import com.ffu.domain.User;
 import com.ffu.repository.MessageRepository;
 
+import com.ffu.service.mapper.MessageMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,6 +44,9 @@ public class MessageResourceIT {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Autowired
     private EntityManager em;
@@ -75,6 +84,17 @@ public class MessageResourceIT {
     @BeforeEach
     public void initTest() {
         message = createEntity(em);
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        Campaign campaign = CampaignResourceIT.createEntity(em);
+        campaign.setUser(user);
+        em.persist(campaign);
+        Discussion discussion = DiscussionResourceIT.createEntity(em);
+        discussion.setParticipants(new HashSet<>(Arrays.asList(user)));
+        discussion.setCampaign(campaign);
+        em.persist(discussion);
+        message.setSender(user);
+        message.setDiscussion(discussion);
     }
 
     @Test
@@ -84,7 +104,7 @@ public class MessageResourceIT {
         // Create the Message
         restMessageMockMvc.perform(post("/api/messages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(message)))
+            .content(TestUtil.convertObjectToJsonBytes(messageMapper.toDto(message))))
             .andExpect(status().isCreated());
 
         // Validate the Message in the database
@@ -106,7 +126,7 @@ public class MessageResourceIT {
         // An entity with an existing ID cannot be created, so this API call must fail
         restMessageMockMvc.perform(post("/api/messages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(message)))
+            .content(TestUtil.convertObjectToJsonBytes(messageMapper.toDto(message))))
             .andExpect(status().isBadRequest());
 
         // Validate the Message in the database
@@ -127,7 +147,7 @@ public class MessageResourceIT {
 
         restMessageMockMvc.perform(post("/api/messages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(message)))
+            .content(TestUtil.convertObjectToJsonBytes(messageMapper.toDto(message))))
             .andExpect(status().isBadRequest());
 
         List<Message> messageList = messageRepository.findAll();
@@ -146,7 +166,7 @@ public class MessageResourceIT {
 
         restMessageMockMvc.perform(post("/api/messages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(message)))
+            .content(TestUtil.convertObjectToJsonBytes(messageMapper.toDto(message))))
             .andExpect(status().isBadRequest());
 
         List<Message> messageList = messageRepository.findAll();
@@ -167,7 +187,7 @@ public class MessageResourceIT {
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT)));
     }
-    
+
     @Test
     @Transactional
     public void getMessage() throws Exception {
@@ -208,7 +228,7 @@ public class MessageResourceIT {
 
         restMessageMockMvc.perform(put("/api/messages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedMessage)))
+            .content(TestUtil.convertObjectToJsonBytes(messageMapper.toDto(updatedMessage))))
             .andExpect(status().isOk());
 
         // Validate the Message in the database
@@ -227,7 +247,7 @@ public class MessageResourceIT {
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMessageMockMvc.perform(put("/api/messages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(message)))
+            .content(TestUtil.convertObjectToJsonBytes(messageMapper.toDto(message))))
             .andExpect(status().isBadRequest());
 
         // Validate the Message in the database

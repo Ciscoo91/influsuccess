@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(uses = {UserMapper.class}, componentModel = "spring")
+@Mapper(uses = {UserMapper.class}, componentModel = "spring", imports = {User.class, Collectors.class})
 public abstract class DiscussionMapper {
 
     @Autowired
@@ -25,6 +25,7 @@ public abstract class DiscussionMapper {
     @Mapping(target = "countNewMessages", ignore = true)
     public abstract DiscussionThreadsDTO toDiscussionThreadsDTO(Discussion discussion);
 
+    @Mapping(target = "participantIds", expression = "java(discussion.getParticipants().stream().map(User::getId).collect(Collectors.toSet()))")
     public abstract DiscussionDTO toDTO(Discussion discussion);
 
     @Mapping(target = "participants",  expression = "java(userService.getUsersFromIds(discussionDTO.getParticipantIds()))")

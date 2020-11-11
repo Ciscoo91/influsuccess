@@ -6,6 +6,9 @@
     },
     "messages": {
       "validate": {
+        "role": {
+          "required": "Votre status est obligatoire."
+        },
         "login": {
           "required": "Votre nom d'utilisateur est obligatoire.",
           "minlength": "Votre nom d'utilisateur doit contenir plus d'un caractère.",
@@ -41,12 +44,16 @@
           "required": "La date de naissance est obligatoire."
         }
       },
-        "success": "<strong>Compte enregistré !</strong> Merci de vérifier votre email de confirmation.",
-        "error": {
-          "fail": "<strong>Compte non créé !</strong> Merci d'essayer à nouveau plus tard.",
-          "userexists": "<strong>Ce compte utilisateur existe déjà !</strong> Veuillez en choisir un autre.",
-          "emailexists": "<strong>Cet email est déjà utilisé !</strong> Veuillez en choisir un autre."
-        }
+      "success": "<strong>Compte enregistré !</strong> Merci de vérifier votre email de confirmation.",
+      "error": {
+        "fail": "<strong>Compte non créé !</strong> Merci d'essayer à nouveau plus tard.",
+        "userexists": "<strong>Ce compte utilisateur existe déjà !</strong> Veuillez en choisir un autre.",
+        "emailexists": "<strong>Cet email est déjà utilisé !</strong> Veuillez en choisir un autre."
       }
+    },
+    "authorities": {
+      "advertiser": "Annonceur",
+      "influencer": "Influenceur"
     }
   }
+}

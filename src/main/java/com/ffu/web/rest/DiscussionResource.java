@@ -6,6 +6,7 @@ import com.ffu.service.dto.DiscussionDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.undertow.util.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +49,7 @@ public class DiscussionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/discussions")
-    public ResponseEntity<DiscussionDTO> createDiscussion(@RequestBody DiscussionDTO discussion) throws URISyntaxException {
+    public ResponseEntity<DiscussionDTO> createDiscussion(@RequestBody DiscussionDTO discussion) throws URISyntaxException, BadRequestException {
         log.debug("REST request to save DiscussionDTO : {}", discussion);
         if (discussion.getId() != null) {
             throw new BadRequestAlertException("A new discussion cannot already have an ID", ENTITY_NAME, "idexists");
@@ -69,7 +70,7 @@ public class DiscussionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/discussions")
-    public ResponseEntity<DiscussionDTO> updateDiscussion(@RequestBody DiscussionDTO discussion) throws URISyntaxException {
+    public ResponseEntity<DiscussionDTO> updateDiscussion(@RequestBody DiscussionDTO discussion) throws URISyntaxException, BadRequestException {
         log.debug("REST request to update DiscussionDTO : {}", discussion);
         if (discussion.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

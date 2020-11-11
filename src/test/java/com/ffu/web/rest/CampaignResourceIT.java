@@ -2,8 +2,11 @@ package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.Campaign;
+import com.ffu.domain.User;
 import com.ffu.repository.CampaignRepository;
 
+import com.ffu.service.mapper.CampaignMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +59,9 @@ public class CampaignResourceIT {
     private CampaignRepository campaignRepository;
 
     @Autowired
+    private CampaignMapper campaignMapper;
+
+    @Autowired
     private EntityManager em;
 
     @Autowired
@@ -101,6 +107,9 @@ public class CampaignResourceIT {
     @BeforeEach
     public void initTest() {
         campaign = createEntity(em);
+        User user =UserResourceIT.createEntity(em);
+        em.persist(user);
+        campaign.setUser(user);
     }
 
     @Test
@@ -110,7 +119,7 @@ public class CampaignResourceIT {
         // Create the Campaign
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isCreated());
 
         // Validate the Campaign in the database
@@ -137,7 +146,7 @@ public class CampaignResourceIT {
         // An entity with an existing ID cannot be created, so this API call must fail
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         // Validate the Campaign in the database
@@ -158,7 +167,7 @@ public class CampaignResourceIT {
 
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         List<Campaign> campaignList = campaignRepository.findAll();
@@ -177,7 +186,7 @@ public class CampaignResourceIT {
 
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         List<Campaign> campaignList = campaignRepository.findAll();
@@ -196,7 +205,7 @@ public class CampaignResourceIT {
 
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         List<Campaign> campaignList = campaignRepository.findAll();
@@ -215,7 +224,7 @@ public class CampaignResourceIT {
 
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         List<Campaign> campaignList = campaignRepository.findAll();
@@ -234,7 +243,7 @@ public class CampaignResourceIT {
 
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         List<Campaign> campaignList = campaignRepository.findAll();
@@ -253,7 +262,7 @@ public class CampaignResourceIT {
 
         restCampaignMockMvc.perform(post("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         List<Campaign> campaignList = campaignRepository.findAll();
@@ -279,7 +288,7 @@ public class CampaignResourceIT {
             .andExpect(jsonPath("$.[*].maxFollowers").value(hasItem(DEFAULT_MAX_FOLLOWERS.intValue())))
             .andExpect(jsonPath("$.[*].targetCountries").value(hasItem(DEFAULT_TARGET_COUNTRIES)));
     }
-    
+
     @Test
     @Transactional
     public void getCampaign() throws Exception {
@@ -330,7 +339,7 @@ public class CampaignResourceIT {
 
         restCampaignMockMvc.perform(put("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCampaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(updatedCampaign))))
             .andExpect(status().isOk());
 
         // Validate the Campaign in the database
@@ -354,7 +363,7 @@ public class CampaignResourceIT {
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCampaignMockMvc.perform(put("/api/campaigns")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(campaign)))
+            .content(TestUtil.convertObjectToJsonBytes(campaignMapper.toDto(campaign))))
             .andExpect(status().isBadRequest());
 
         // Validate the Campaign in the database
