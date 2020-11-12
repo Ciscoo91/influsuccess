@@ -1,0 +1,56 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.ffu",
+      "nativeLanguage": "fr"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "monolith",
+    "baseName": "influSuccess",
+    "packageName": "com.ffu",
+    "packageFolder": "com/ffu",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NmQ1MmEyMTUzZDA0NzUwNWI3ZDhiNjdhZWRiNzc5Y2Q3ODI2Yjc3Y2FkZWEwOWJjYmVmNzI4ZmQ0ZWYwMjBiOGYyZWE2ZmE5YmUxYWMzYmUzMDVhMTVmZTExYTljZGRhNTdkZjA3ZDUzY2Q5MjkwYWI0OWFhMzBlNjE1ZDM4NzM=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "vue",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1599134662962,
+    "testFrameworks": ["cucumber"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-vuejs",
+        "version": "1.9.1"
+      }
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "fr",
+    "languages": ["fr", "ar-ly", "en", "de", "it", "es"],
+    "blueprints": [
+      {
+        "name": "generator-jhipster-vuejs",
+        "version": "1.9.1"
+      }
+    ],
+    "appsFolders": ["influsuccess"],
+    "directoryPath": "../",
+    "monitoring": "prometheus"
+  }
+}

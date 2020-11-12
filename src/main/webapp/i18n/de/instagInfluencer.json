@@ -1,0 +1,22 @@
+{
+  "influSuccessApp": {
+    "instagInfluencer": {
+      "home": {
+        "title": "Instag Influencers",
+        "createLabel": "Instag Influencer erstellen",
+        "createOrEditLabel": "Instag Influencer erstellen oder bearbeiten",
+        "notFound": "No Instag Influencers found"
+      },
+      "created": "Instag Influencer erstellt mit ID {{ param }}",
+      "updated": "Instag Influencer aktualisiert mit ID {{ param }}",
+      "deleted": "Instag Influencer gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Instag Influencer {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Instag Influencer"
+      },
+      "url": "Url"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "influSuccessApp": {
+    "contact": {
+      "home": {
+        "title": "Contacts",
+        "createLabel": "Contact erstellen",
+        "createOrEditLabel": "Contact erstellen oder bearbeiten",
+        "notFound": "No Contacts found"
+      },
+      "created": "Contact erstellt mit ID {{ param }}",
+      "updated": "Contact aktualisiert mit ID {{ param }}",
+      "deleted": "Contact gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Contact {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Contact"
+      },
+      "user": "User",
+      "compaign": "Compaign",
+      "instagInfluencer": "Instag Influencer"
+    }
+  }
+}

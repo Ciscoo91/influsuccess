@@ -1,0 +1,10 @@
+{
+  "influSuccessApp": {
+    "Role": {
+      "null": "",
+      "ADMIN": "ADMIN",
+      "INFLUENCER": "INFLUENCER",
+      "OTHER": "OTHER"
+    }
+  }
+}
