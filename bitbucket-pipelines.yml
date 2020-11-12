@@ -13,7 +13,7 @@ pipelines:
           caches:
             - maven
           script: # Modify the commands below to build your repository.
-            - mvn -B package # -B batch mode makes Maven less verbose
+            - mvn -B -Pprod clean package # -B batch mode makes Maven less verbose
           artifacts: # defining the artifacts to be passed to each future step.
             - target/**
 
