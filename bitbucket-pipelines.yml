@@ -10,6 +10,8 @@ pipelines:
     master:
       - step: #Its working
           name: Create Artifact
+          services:
+            - docker
           caches:
             - maven
           script: # Modify the commands below to build your repository.
@@ -20,8 +22,6 @@ pipelines:
       - step:
           name: Push docker image to the Heroku
           deployment: Production
-          services:
-            - docker
           script:
             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
             - heroku container:login
