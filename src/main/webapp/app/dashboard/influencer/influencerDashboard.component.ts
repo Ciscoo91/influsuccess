@@ -10,7 +10,7 @@ import { Message, MessageChat } from '@/shared/model/message.model';
 import { Chat } from 'vue-quick-chat';
 import 'vue-quick-chat/dist/vue-quick-chat.css';
 import MessageService from '@/entities/message/message.service';
-import { Discussion, IDiscussion } from '@/shared/model/discussion.model';
+import { Discussion } from '@/shared/model/discussion.model';
 
 @Component({
   components: {
@@ -38,8 +38,6 @@ export default class InfluDashboard extends Vue {
   private myself: ParticipantChat = new ParticipantChat();
   private placeholder = 'send your message';
   private selectedDiscussionId: number;
-  private chatInterval: number;
-  private discussionInterval: number;
 
   private colors = {
     header: {
@@ -151,9 +149,7 @@ export default class InfluDashboard extends Vue {
                   this.discussionThreadKeyRender++;
                 });
             },
-            err => {
-              console.log(err);
-            }
+            () => {}
           );
       }
     }
