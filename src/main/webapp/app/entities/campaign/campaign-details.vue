@@ -5,10 +5,46 @@
                 <h2 class="jh-entity-heading"><span v-text="$t('influSuccessApp.campaign.detail.title')">Campaign</span> {{campaign.id}}</h2>
                 <dl class="row jh-entity-details">
                     <dt>
+                        <span v-text="$t('influSuccessApp.campaign.langKey')">Lang Key</span>
+                    </dt>
+                    <dd>
+                        <span v-text="$t('influSuccessApp.LangKey.' + campaign.langKey)">{{campaign.langKey}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('influSuccessApp.campaign.title')">Title</span>
                     </dt>
                     <dd>
                         <span>{{campaign.title}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('influSuccessApp.campaign.description')">Description</span>
+                    </dt>
+                    <dd>
+                        <span>{{campaign.description}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('influSuccessApp.campaign.status')">Status</span>
+                    </dt>
+                    <dd>
+                        <span v-text="$t('influSuccessApp.CampaignStatus.' + campaign.status)">{{campaign.status}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('influSuccessApp.campaign.minFollowers')">Min Followers</span>
+                    </dt>
+                    <dd>
+                        <span>{{campaign.minFollowers}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('influSuccessApp.campaign.maxFollowers')">Max Followers</span>
+                    </dt>
+                    <dd>
+                        <span>{{campaign.maxFollowers}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('influSuccessApp.campaign.targetCountries')">Target Countries</span>
+                    </dt>
+                    <dd>
+                        <span>{{campaign.targetCountries}}</span>
                     </dd>
                     <dt>
                         <span v-text="$t('influSuccessApp.campaign.user')">User</span>

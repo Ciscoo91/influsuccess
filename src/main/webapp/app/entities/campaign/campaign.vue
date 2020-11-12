@@ -25,7 +25,13 @@
                 <thead>
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
+                    <th><span v-text="$t('influSuccessApp.campaign.langKey')">Lang Key</span></th>
                     <th><span v-text="$t('influSuccessApp.campaign.title')">Title</span></th>
+                    <th><span v-text="$t('influSuccessApp.campaign.description')">Description</span></th>
+                    <th><span v-text="$t('influSuccessApp.campaign.status')">Status</span></th>
+                    <th><span v-text="$t('influSuccessApp.campaign.minFollowers')">Min Followers</span></th>
+                    <th><span v-text="$t('influSuccessApp.campaign.maxFollowers')">Max Followers</span></th>
+                    <th><span v-text="$t('influSuccessApp.campaign.targetCountries')">Target Countries</span></th>
                     <th><span v-text="$t('influSuccessApp.campaign.user')">User</span></th>
                     <th></th>
                 </tr>
@@ -36,7 +42,13 @@
                     <td>
                         <router-link :to="{name: 'CampaignView', params: {campaignId: campaign.id}}">{{campaign.id}}</router-link>
                     </td>
+                    <td v-text="$t('influSuccessApp.LangKey.' + campaign.langKey)">{{campaign.langKey}}</td>
                     <td>{{campaign.title}}</td>
+                    <td>{{campaign.description}}</td>
+                    <td v-text="$t('influSuccessApp.CampaignStatus.' + campaign.status)">{{campaign.status}}</td>
+                    <td>{{campaign.minFollowers}}</td>
+                    <td>{{campaign.maxFollowers}}</td>
+                    <td>{{campaign.targetCountries}}</td>
                     <td>
                         {{campaign.user ? campaign.user.id : ''}}
                     </td>

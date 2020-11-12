@@ -3,7 +3,7 @@
     "contact": {
       "home": {
         "title": "Contacts",
-        "createLabel": "Genera un nuovo Contact",
+        "addLabel": "Genera un nuovo Contact",
         "createOrEditLabel": "Genera o modifica un Contact",
         "notFound": "No Contacts found"
       },

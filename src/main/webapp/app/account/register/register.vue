@@ -25,6 +25,21 @@
             <div class="col-md-8">
                 <form id="register-form" name="registerForm" role="form" v-on:submit.prevent="register()" v-if="!success" no-validate>
                     <div class="form-group">
+                        <label class="form-control-label" for="role" v-text="$t('global.form[\'role\']')">I'am an ?</label>
+                        <select type="text" class="form-control" v-model="$v.role.$model" id="role" name="role"
+                                :class="{'valid': !$v.role.$invalid, 'invalid': $v.role.$invalid }" >
+                            <option :value=Authority.ADVERTISER v-text="$t('register.authorities.advertiser')">Advertiser</option>
+                            <option :value=Authority.INFLUENCER v-text="$t('register.authorities.influencer')">Influencer</option>
+                        </select>
+                        <div v-if="$v.role.$anyDirty && $v.role.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.role.required"
+                                   v-text="$t('register.messages.validate.role.required')">
+                                Your status is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="form-control-label" for="username" v-text="$t('global.form[\'username.label\']')">Username</label>
                         <input type="text" class="form-control" v-model="$v.registerAccount.login.$model" id="username" name="login"
                                :class="{'valid': !$v.registerAccount.login.$invalid, 'invalid': $v.registerAccount.login.$invalid }"

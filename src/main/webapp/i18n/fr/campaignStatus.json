@@ -1,0 +1,9 @@
+{
+  "influSuccessApp": {
+    "CampaignStatus": {
+      "null": "",
+      "CLOSED": "CLOSED",
+      "OPENED": "OPENED"
+    }
+  }
+}

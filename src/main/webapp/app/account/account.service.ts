@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Store } from 'vuex';
 import VueRouter from 'vue-router';
 import TranslationService from '@/locale/translation.service';
+import { Authority } from '@/shared/security/authority';
 
 export default class AccountService {
   constructor(private store: Store<any>, private translationService: TranslationService, private router: VueRouter) {
@@ -36,6 +37,22 @@ export default class AccountService {
             if (sessionStorage.getItem('requested-url')) {
               this.router.replace(sessionStorage.getItem('requested-url'));
               sessionStorage.removeItem('requested-url');
+            }
+            if (sessionStorage.getItem('login')) {
+              const authorities: any[] = account.authorities;
+
+              if (authorities && authorities.includes(Authority.ADMIN)) {
+                this.router.replace('/admin/dashboard');
+              } else {
+                if (authorities && authorities.includes(Authority.ADVERTISER)) {
+                  this.router.replace('/advertisers/dashboard');
+                } else {
+                  if (authorities && authorities.includes(Authority.INFLUENCER)) {
+                    this.router.replace('/influencers/dashboard');
+                  }
+                }
+              }
+              sessionStorage.removeItem('login');
             }
           } else {
             this.store.commit('logout');

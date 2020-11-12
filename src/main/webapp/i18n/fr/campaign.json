@@ -3,7 +3,8 @@
     "campaign": {
       "home": {
         "title": "Campaigns",
-        "createLabel": "Créer un nouveau Campaign",
+        "addLabel": "Créer un nouveau Campaign",
+        "editLabel": "Editer une campagne",
         "createOrEditLabel": "Créer ou éditer un Campaign",
         "notFound": "Aucun Campaign trouvé"
       },
@@ -16,7 +17,15 @@
       "detail": {
         "title": "Campaign"
       },
+      "langKey": "Lang Key",
       "title": "Title",
+      "description": "Description",
+      "status": "Status",
+      "minFollowers": "Min Followers",
+      "maxFollowers": "Max Followers",
+      "targetCountries": "Target Countries",
+      "categories": "Categories",
+      "socialNetwork": "Social Network",
       "user": "User"
     }
   }

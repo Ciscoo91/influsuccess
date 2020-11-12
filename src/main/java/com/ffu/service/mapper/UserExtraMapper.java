@@ -5,13 +5,23 @@ import com.ffu.service.dto.UserExtraDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserExtraMapper {
 
-    UserExtraMapper INSTANCE = Mappers.getMapper(UserExtraMapper.class);
 
     UserExtra userExtraDTOToUserExtra(UserExtraDTO userExtraDTO);
 
     UserExtraDTO userExtraToUserExtraDTO(UserExtra userExtra);
+
+    public default UserExtra userExtraFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        else {
+            UserExtra userExtra = new UserExtra();
+            userExtra.setId(id);
+            return userExtra;
+        }
+    }
 
 }

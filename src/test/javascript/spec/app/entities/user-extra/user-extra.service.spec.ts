@@ -3,9 +3,9 @@ import axios from 'axios';
 import { format } from 'date-fns';
 
 import * as config from '@/shared/config/config';
-import { DATE_TIME_FORMAT } from '@/shared/date/filters';
+import { DATE_FORMAT } from '@/shared/date/filters';
 import UserExtraService from '@/entities/user-extra/user-extra.service';
-import { UserExtra, Role } from '@/shared/model/user-extra.model';
+import { UserExtra } from '@/shared/model/user-extra.model';
 
 const mockedAxios: any = axios;
 const error = {
@@ -33,14 +33,14 @@ describe('Service Tests', () => {
       service = new UserExtraService();
       currentDate = new Date();
 
-      elemDefault = new UserExtra(0, 'AAAAAAA', currentDate, 0, Role.ADMIN);
+      elemDefault = new UserExtra(0, 'AAAAAAA', currentDate, 0);
     });
 
     describe('Service methods', () => {
       it('should find an element', async () => {
         const returnedFromService = Object.assign(
           {
-            birthday: format(currentDate, DATE_TIME_FORMAT),
+            birthday: format(currentDate, DATE_FORMAT),
           },
           elemDefault
         );
@@ -65,7 +65,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
-            birthday: format(currentDate, DATE_TIME_FORMAT),
+            birthday: format(currentDate, DATE_FORMAT),
           },
           elemDefault
         );
@@ -97,9 +97,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             country: 'BBBBBB',
-            birthday: format(currentDate, DATE_TIME_FORMAT),
+            birthday: format(currentDate, DATE_FORMAT),
             phone: 1,
-            role: 'BBBBBB',
           },
           elemDefault
         );
@@ -132,9 +131,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             country: 'BBBBBB',
-            birthday: format(currentDate, DATE_TIME_FORMAT),
+            birthday: format(currentDate, DATE_FORMAT),
             phone: 1,
-            role: 'BBBBBB',
           },
           elemDefault
         );

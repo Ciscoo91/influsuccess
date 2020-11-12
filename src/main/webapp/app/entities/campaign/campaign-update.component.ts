@@ -2,6 +2,12 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vuelidate/lib/validators';
 
+import CampaignCategoryService from '../campaign-category/campaign-category.service';
+import { ICampaignCategory } from '@/shared/model/campaign-category.model';
+
+import SocialNetworkService from '../social-network/social-network.service';
+import { ISocialNetwork } from '@/shared/model/social-network.model';
+
 import UserService from '@/admin/user-management/user-management.service';
 
 import AlertService from '@/shared/alert/alert.service';
@@ -10,9 +16,27 @@ import CampaignService from './campaign.service';
 
 const validations: any = {
   campaign: {
+    langKey: {
+      required,
+    },
     title: {
       required,
     },
+    description: {
+      required,
+    },
+    status: {
+      required,
+    },
+    minFollowers: {
+      required,
+      numeric,
+    },
+    maxFollowers: {
+      required,
+      numeric,
+    },
+    targetCountries: {},
   },
 };
 
@@ -23,6 +47,14 @@ export default class CampaignUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('campaignService') private campaignService: () => CampaignService;
   public campaign: ICampaign = new Campaign();
+
+  @Inject('campaignCategoryService') private campaignCategoryService: () => CampaignCategoryService;
+
+  public campaignCategories: ICampaignCategory[] = [];
+
+  @Inject('socialNetworkService') private socialNetworkService: () => SocialNetworkService;
+
+  public socialNetworks: ISocialNetwork[] = [];
 
   @Inject('userService') private userService: () => UserService;
 
@@ -85,6 +117,16 @@ export default class CampaignUpdate extends Vue {
   }
 
   public initRelationships(): void {
+    this.campaignCategoryService()
+      .retrieve()
+      .then(res => {
+        this.campaignCategories = res.data;
+      });
+    this.socialNetworkService()
+      .retrieve()
+      .then(res => {
+        this.socialNetworks = res.data;
+      });
     this.userService()
       .retrieve()
       .then(res => {

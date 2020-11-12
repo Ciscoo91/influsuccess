@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.common with an alias.
 import Vue from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
 import App from './app.vue';
 import Vue2Filters from 'vue2-filters';
 import router from './router';
@@ -31,8 +33,14 @@ import ConfigurationService from '@/admin/configuration/configuration.service';
 
 import UserExtraService from '@/entities/user-extra/user-extra.service';
 import CampaignService from '@/entities/campaign/campaign.service';
-import InstagInfluencerService from '@/entities/instag-influencer/instag-influencer.service';
-import ContactService from '@/entities/contact/contact.service';
+import AdvDashboardService from '@/dashboard/advertiser/advDashboard.service';
+import CampaignCategoryService from '@/entities/campaign-category/campaign-category.service';
+import SocialNetworkService from '@/entities/social-network/social-network.service';
+import DiscussionService from '@/entities/discussion/discussion.service';
+import MessageService from '@/entities/message/message.service';
+import SocialNetworkLinkService from '@/entities/social-network-link/social-network-link.service';
+import InfluencerInfoService from '@/entities/influencer-info/influencer-info.service';
+import InfluencerDashboardService from '@/dashboard/influencer/influencerDashboard.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -45,6 +53,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
 Vue.component('infinite-loading', InfiniteLoading);
+
+/* add fa to library font-awesone */
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+library.add(faEdit);
 
 const i18n = config.initI18N(Vue);
 const store = config.initVueXStore(Vue);
@@ -95,12 +107,18 @@ new Vue({
     metricsService: () => new MetricsService(),
     alertService: () => alertService,
     translationService: () => translationService,
+    campaignCategoryService: () => new CampaignCategoryService(),
+    socialNetworkService: () => new SocialNetworkService(),
     userExtraService: () => new UserExtraService(),
     campaignService: () => new CampaignService(),
-    instagInfluencerService: () => new InstagInfluencerService(),
-    contactService: () => new ContactService(),
+    influencerInfoService: () => new InfluencerInfoService(),
+    socialNetworkLinkService: () => new SocialNetworkLinkService(),
+    messageService: () => new MessageService(),
+    discussionService: () => new DiscussionService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
+    advDashboardService: () => new AdvDashboardService(),
+    influencerDashboardService: () => new InfluencerDashboardService(),
   },
   i18n,
   store,

@@ -28,7 +28,6 @@
                     <th><span v-text="$t('influSuccessApp.userExtra.country')">Country</span></th>
                     <th><span v-text="$t('influSuccessApp.userExtra.birthday')">Birthday</span></th>
                     <th><span v-text="$t('influSuccessApp.userExtra.phone')">Phone</span></th>
-                    <th><span v-text="$t('influSuccessApp.userExtra.role')">Role</span></th>
                     <th><span v-text="$t('influSuccessApp.userExtra.user')">User</span></th>
                     <th></th>
                 </tr>
@@ -40,9 +39,8 @@
                         <router-link :to="{name: 'UserExtraView', params: {userExtraId: userExtra.id}}">{{userExtra.id}}</router-link>
                     </td>
                     <td>{{userExtra.country}}</td>
-                    <td>{{userExtra.birthday ? $d(Date.parse(userExtra.birthday), 'short') : ''}}</td>
+                    <td>{{userExtra.birthday}}</td>
                     <td>{{userExtra.phone}}</td>
-                    <td v-text="$t('influSuccessApp.Role.' + userExtra.role)">{{userExtra.role}}</td>
                     <td>
                         {{userExtra.user ? userExtra.user.id : ''}}
                     </td>

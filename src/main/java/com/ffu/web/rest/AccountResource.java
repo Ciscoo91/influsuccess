@@ -7,6 +7,7 @@ import com.ffu.service.MailService;
 import com.ffu.service.UserService;
 import com.ffu.service.dto.PasswordChangeDTO;
 import com.ffu.service.dto.UserDTO;
+import com.ffu.service.mapper.UserExtraMapper;
 import com.ffu.web.rest.errors.*;
 import com.ffu.web.rest.vm.KeyAndPasswordVM;
 import com.ffu.web.rest.vm.ManagedUserVM;
@@ -102,7 +103,6 @@ public class AccountResource {
     @GetMapping("/account")
     public UserDTO getAccount() {
         return userService.getUserWithAuthorities()
-            .map(UserDTO::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
 

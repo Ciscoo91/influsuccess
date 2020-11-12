@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as config from '@/shared/config/config';
 import {} from '@/shared/date/filters';
 import CampaignService from '@/entities/campaign/campaign.service';
-import { Campaign } from '@/shared/model/campaign.model';
+import { Campaign, LangKey, CampaignStatus } from '@/shared/model/campaign.model';
 
 const mockedAxios: any = axios;
 const error = {
@@ -30,7 +30,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new CampaignService();
 
-      elemDefault = new Campaign(0, 'AAAAAAA');
+      elemDefault = new Campaign(0, LangKey.AR, 'AAAAAAA', 'AAAAAAA', CampaignStatus.CLOSED, 0, 0, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -82,7 +82,13 @@ describe('Service Tests', () => {
       it('should update a Campaign', async () => {
         const returnedFromService = Object.assign(
           {
+            langKey: 'BBBBBB',
             title: 'BBBBBB',
+            description: 'BBBBBB',
+            status: 'BBBBBB',
+            minFollowers: 1,
+            maxFollowers: 1,
+            targetCountries: 'BBBBBB',
           },
           elemDefault
         );
@@ -109,7 +115,13 @@ describe('Service Tests', () => {
       it('should return a list of Campaign', async () => {
         const returnedFromService = Object.assign(
           {
+            langKey: 'BBBBBB',
             title: 'BBBBBB',
+            description: 'BBBBBB',
+            status: 'BBBBBB',
+            minFollowers: 1,
+            maxFollowers: 1,
+            targetCountries: 'BBBBBB',
           },
           elemDefault
         );
