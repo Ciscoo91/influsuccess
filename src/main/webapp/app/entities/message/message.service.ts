@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {IMessage, MessageChat} from '@/shared/model/message.model';
+import { IMessage, MessageChat } from '@/shared/model/message.model';
 
 const baseApiUrl = 'api/messages';
 
@@ -70,14 +70,14 @@ export default class MessageService {
     });
   }
 
-  public getCountNewMessages(userId: number, campaignId: number):Promise<number>{
+  public getCountNewMessages(userId: number, campaignId: number): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       axios
-        .get(`${baseApiUrl}`+'/countNew', {
+        .get(`${baseApiUrl}` + '/countNew', {
           params: {
             userId: userId,
-            campaignId: campaignId
-          }
+            campaignId: campaignId,
+          },
         })
         .then(res => {
           resolve(res.data);
@@ -85,19 +85,23 @@ export default class MessageService {
         .catch(err => {
           reject(err);
         });
-    })
+    });
   }
 
- public saveMessageChat(entity: MessageChat, selectedDiscussionId: number) {
-   return new Promise<MessageChat>((resolve, reject) => {
-     axios
-       .post(`${baseApiUrl}/messageChat`, entity,{params:{discussionId: selectedDiscussionId}})
-       .then(res => {
-         resolve(res.data);
-       })
-       .catch(err => {
-         reject(err);
-       });
-   });
+  public saveMessageChat(entity: MessageChat, selectedDiscussionId: number) {
+    return new Promise<MessageChat>((resolve, reject) => {
+      axios
+        .post(`${baseApiUrl}/messageChat`, entity, {
+          params: {
+            discussionId: selectedDiscussionId,
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   }
 }

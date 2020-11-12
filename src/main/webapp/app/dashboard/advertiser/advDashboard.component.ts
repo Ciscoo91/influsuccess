@@ -14,7 +14,7 @@ import CampaignCard from '@/dashboard/partials/campaignCard.vue';
   },
 })
 export default class AdvDashboard extends Vue {
-  private currentComponent: string = 'search-form';
+  private currentComponent = 'search-form';
 
   public setCurrentComponent(component: string) {
     switch (component) {

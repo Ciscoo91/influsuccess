@@ -7,11 +7,14 @@ import Register from '@/account/register/register.vue';
 import RegisterClass from '@/account/register/register.component';
 import RegisterService from '@/account/register/register.service';
 import LoginService from '@/account/login.service';
+import { UserExtra } from '@/shared/model/user-extra.model';
+import moment from 'moment';
 
 const localVue = createLocalVue();
 const mockedAxios: any = axios;
 
 config.initVueApp(localVue);
+
 const i18n = config.initI18N(localVue);
 const store = config.initVueXStore(localVue);
 
@@ -23,7 +26,16 @@ jest.mock('axios', () => ({
 describe('Register Component', () => {
   let wrapper: Wrapper<RegisterClass>;
   let register: RegisterClass;
-  const filledRegisterAccount = { email: 'jhi@pster.net', langKey: 'fr', login: 'jhi', password: 'jhipster' };
+  const filledRegisterAccount = {
+    firstName: 'test',
+    lastName: 'test',
+    email: 'jhi@pster.net',
+    langKey: 'fr',
+    login: 'jhi',
+    password: 'jhipster',
+    authorities: [],
+    userExtra: new UserExtra(),
+  };
 
   beforeEach(() => {
     mockedAxios.get.mockReset();
@@ -68,12 +80,15 @@ describe('Register Component', () => {
     register.confirmPassword = filledRegisterAccount.password;
     register.register();
     await register.$nextTick();
-
     expect(mockedAxios.post).toHaveBeenCalledWith('api/register', {
+      firstName: 'test',
+      lastName: 'test',
       email: 'jhi@pster.net',
       langKey: 'fr',
       login: 'jhi',
       password: 'jhipster',
+      authorities: register.registerAccount.authorities,
+      userExtra: register.registerAccount.userExtra,
     });
     expect(register.success).toBe(true);
     expect(register.error).toBe(null);
@@ -90,10 +105,14 @@ describe('Register Component', () => {
     await register.$nextTick();
 
     expect(mockedAxios.post).toHaveBeenCalledWith('api/register', {
+      firstName: 'test',
+      lastName: 'test',
       email: 'jhi@pster.net',
       langKey: 'fr',
       login: 'jhi',
       password: 'jhipster',
+      authorities: register.registerAccount.authorities,
+      userExtra: register.registerAccount.userExtra,
     });
     await register.$nextTick();
     expect(register.success).toBe(null);
@@ -111,10 +130,14 @@ describe('Register Component', () => {
     await register.$nextTick();
 
     expect(mockedAxios.post).toHaveBeenCalledWith('api/register', {
+      firstName: 'test',
+      lastName: 'test',
       email: 'jhi@pster.net',
       langKey: 'fr',
       login: 'jhi',
       password: 'jhipster',
+      authorities: register.registerAccount.authorities,
+      userExtra: register.registerAccount.userExtra,
     });
     await register.$nextTick();
     expect(register.success).toBe(null);
@@ -132,10 +155,14 @@ describe('Register Component', () => {
     await register.$nextTick();
 
     expect(mockedAxios.post).toHaveBeenCalledWith('api/register', {
+      firstName: 'test',
+      lastName: 'test',
       email: 'jhi@pster.net',
       langKey: 'fr',
       login: 'jhi',
       password: 'jhipster',
+      authorities: register.registerAccount.authorities,
+      userExtra: register.registerAccount.userExtra,
     });
     await register.$nextTick();
     expect(register.success).toBe(null);

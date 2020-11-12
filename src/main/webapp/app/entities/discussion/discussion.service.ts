@@ -114,17 +114,4 @@ export default class DiscussionService {
         });
     });
   }
-
-  public isAlreadyExistByParticipantAndCampaign(userId: number, campaignId: number): Promise<IChat> {
-    return new Promise<IChat>((resolve, reject) => {
-      axios
-        .get('api/discussions/existByParticipantAndCampaign', { params: { userId: userId, campaignId: campaignId } })
-        .then(res => {
-          resolve(res.data);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
 }

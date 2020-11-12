@@ -64,7 +64,7 @@ const validations: any = {
     minLength: minLength(4),
     maxLength: maxLength(254),
     // prettier-ignore
-    sameAsPassword: sameAs(function () {
+    sameAsPassword: sameAs(function() {
         return this.registerAccount.password;
       })
   },
