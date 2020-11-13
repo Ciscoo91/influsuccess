@@ -11,8 +11,6 @@ import MessageService from '@/entities/message/message.service';
 
 import UserService from '@/admin/user-management/user-management.service';
 
-import UserService from '@/admin/user-management/user-management.service';
-
 import DiscussionService from '@/entities/discussion/discussion.service';
 
 const localVue = createLocalVue();

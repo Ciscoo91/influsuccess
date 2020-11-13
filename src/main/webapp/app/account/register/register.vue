@@ -28,8 +28,8 @@
                         <label class="form-control-label" for="role" v-text="$t('global.form[\'role\']')">I'am an ?</label>
                         <select type="text" class="form-control" v-model="$v.role.$model" id="role" name="role"
                                 :class="{'valid': !$v.role.$invalid, 'invalid': $v.role.$invalid }" >
-                            <option :value=Authority.ADVERTISER v-text="$t('register.authorities.advertiser')">Advertiser</option>
-                            <option :value=Authority.INFLUENCER v-text="$t('register.authorities.influencer')">Influencer</option>
+                            <option value="ROLE_INFLUENCER" v-text="$t('register.authorities.advertiser')">Advertiser</option>
+                            <option value="ROLE_ADVERTISER" v-text="$t('register.authorities.influencer')">Influencer</option>
                         </select>
                         <div v-if="$v.role.$anyDirty && $v.role.$invalid">
                             <small class="form-text text-danger" v-if="!$v.role.required"

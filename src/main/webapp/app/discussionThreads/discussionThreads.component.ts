@@ -10,7 +10,7 @@ import { MessageChat } from '@/shared/model/message.model';
 
 @Component({
   components: {
-    Chat: Chat,
+    'Chat': Chat,
   },
 })
 export default class DiscussionThreads extends Vue {
@@ -22,11 +22,11 @@ export default class DiscussionThreads extends Vue {
 
   private discussions: IDiscussionThreads[] = [];
   private countNewMessages: number;
-  private isFetching: boolean = false;
+  private isFetching = false;
   private participants: ParticipantChat[] = [];
   private messages: MessageChat[] = [];
   private myself: ParticipantChat = new ParticipantChat();
-  private placeholder: string = 'send your message';
+  private placeholder = 'send your message';
   private selectedDiscussionId: number;
   private chatInterval: number;
   private discussionInterval: number;
@@ -65,7 +65,7 @@ export default class DiscussionThreads extends Vue {
     format: 'yyyy-MM-dd HH:mm:ss',
     relative: false,
   };
-  private chatTitle: string = '';
+  private chatTitle = '';
 
   mounted(): void {
     this.retrievesDiscussions();

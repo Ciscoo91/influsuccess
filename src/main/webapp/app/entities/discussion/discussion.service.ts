@@ -90,7 +90,7 @@ export default class DiscussionService {
       axios
         .get(`${baseApiUrl}/${discussionId}/chat`, {
           params: {
-            userId: userId,
+            'userId': userId,
           },
         })
         .then(res => {
@@ -105,20 +105,7 @@ export default class DiscussionService {
   public isAlreadyExistByParticipantAndCampaign(userId: number, campaignId: number): Promise<IChat> {
     return new Promise<IChat>((resolve, reject) => {
       axios
-        .get('api/discussions/existByParticipantAndCampaign', { params: { userId: userId, campaignId: campaignId } })
-        .then(res => {
-          resolve(res.data);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
-
-  public isAlreadyExistByParticipantAndCampaign(userId: number, campaignId: number): Promise<IChat> {
-    return new Promise<IChat>((resolve, reject) => {
-      axios
-        .get('api/discussions/existByParticipantAndCampaign', { params: { userId: userId, campaignId: campaignId } })
+        .get('api/discussions/existByParticipantAndCampaign', { params: { 'userId': userId, 'campaignId': campaignId } })
         .then(res => {
           resolve(res.data);
         })

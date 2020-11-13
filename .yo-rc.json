@@ -51,6 +51,9 @@
     ],
     "appsFolders": ["influsuccess"],
     "directoryPath": "../",
-    "monitoring": "prometheus"
+    "monitoring": "prometheus",
+    "herokuAppName": "influ-success",
+    "herokuDeployType": "jar",
+    "herokuJavaVersion": "11"
   }
 }

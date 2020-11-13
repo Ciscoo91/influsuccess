@@ -4,8 +4,6 @@ import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vue
 
 import UserService from '@/admin/user-management/user-management.service';
 
-import UserService from '@/admin/user-management/user-management.service';
-
 import DiscussionService from '../discussion/discussion.service';
 import { IDiscussion } from '@/shared/model/discussion.model';
 
