@@ -7,23 +7,26 @@ image: maven:3.6.1
 
 pipelines:
   branches:
+    develop:
+        -   step: #Its working
+                name: Create Artifact
+                services:
+                    - docker
+                caches:
+                    - maven
+                script: # Modify the commands below to build your repository.
+                    - mvn package -B -Pprod verify jib:dockerBuild # -B batch mode makes Maven less verbose
+
     master:
-      - step: #Its working
-          name: Create Artifact
+      - step:
+          name: Build and push docker image to the Heroku
           services:
             - docker
           caches:
             - maven
-          script: # Modify the commands below to build your repository.
-            - mvn package -B -Pprod verify jib:dockerBuild # -B batch mode makes Maven less verbose
-          artifacts: # defining the artifacts to be passed to each future step.
-            - target/**
-      - step:
-          name: Push docker image to the Heroku
-          services:
-            - docker
           deployment: Production
           script:
+            - mvn package -B -Pprod verify jib:dockerBuild
             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
             - heroku container:login
             - docker tag influsuccess registry.heroku.com/$HEROKU_APP_NAME/web
