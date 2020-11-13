@@ -22,8 +22,6 @@
             </b-form-group>
         </form>
 
-
-
         <b-table
         id = "campaignTable"
         v-if="!isFetching"

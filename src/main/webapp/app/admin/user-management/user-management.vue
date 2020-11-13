@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex flex-column">
-    <h2>
+    <h2 class="ml-3 mt-3">
       <span id="user-management-page-heading" v-text="$t('userManagement.home.title')">Users</span>
-      <router-link tag="button" class="btn btn-primary float-right jh-create-entity align-self-end" :to="{ name: 'JhiUserCreate' }">
+      <router-link tag="button" class="btn btn-primary float-right jh-create-entity align-self-end mt-3 mr-3" :to="{ name: 'JhiUserCreate' }">
         <font-awesome-icon icon="plus"></font-awesome-icon> <span v-text="$t('userManagement.home.createLabel')">Create a new User</span>
       </router-link>
     </h2>
@@ -36,7 +36,7 @@
             <label for="userLogin">Filter by user lastname</label>
             <b-form-input placeholder="Search by user lastname" v-model="lastName" id="userLogin" />
         </b-form-group>
-        <b-form-group>
+        <b-form-group class="mt-2">
             <button type="submit" class="btn btn-primary mt-4">Search</button>
         </b-form-group>
     </form>
@@ -116,6 +116,9 @@
             <td v-else>{{ user.lastModifiedDate | formatDate }}</td>
             <td class="text-right">
               <div class="btn-group">
+                <b-button v-b-modal.modal-email @click="prepareUserForEmail(user)">
+                  send email
+                </b-button>
                 <router-link :to="{ name: 'JhiUserView', params: { userId: user.login } }" tag="button" class="btn btn-info btn-sm details">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
                   <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
@@ -156,6 +159,20 @@
             Delete
           </button>
         </div>
+      </b-modal>
+      <b-modal id="modal-email" title="Send mail">
+        <form @submit.prevent="sendMail">
+          <b-form-textarea
+          id="textarea"
+          v-model="emailContent"
+          placeholder="Enter something..."
+          rows="6"
+          max-rows="10"
+          />
+          <b-form-group class="mt-4">
+            <b-button variant="info" type="submit">Send Mail</b-button>
+          </b-form-group>
+        </form>
       </b-modal>
     </div>
     <div v-show="users && users.length > 0">

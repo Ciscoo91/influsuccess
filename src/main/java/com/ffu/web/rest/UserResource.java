@@ -9,6 +9,7 @@ import com.ffu.service.DiscussionService;
 import com.ffu.service.MailService;
 import com.ffu.service.UserService;
 import com.ffu.service.dto.DiscussionThreadsDTO;
+import com.ffu.service.dto.MailUserDTO;
 import com.ffu.service.dto.UserDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
 import com.ffu.web.rest.errors.EmailAlreadyUsedException;
@@ -206,10 +207,24 @@ public class UserResource {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * {@code POST  /filtered} : get all the discussions for an user.
+     * @return
+     */
     @PostMapping("/users/page")
     public ResponseEntity<Page<UserDTO>>getPaginatedUsers(@RequestBody UserSearchDTO userSearchDTO, Pageable pageable){
         log.debug("Rest request to get filtered and paginated users");
         Page<UserDTO> result = (Page<UserDTO>)userService.getUserSearchPageable(userSearchDTO, pageable);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /**
+     * {@code POST  /message} : send an to a user.
+     * @return
+     */
+    @PostMapping("/users/message")
+    public ResponseEntity<Void>sendMailToClient(@RequestBody MailUserDTO mailUserDTO){
+        mailService.sendMessageByMail(mailUserDTO);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
