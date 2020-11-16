@@ -52,7 +52,6 @@ export default class JhiUserManagementComponent extends mixins(AlertMixin) {
   }
 
   public sendMail() {
-    // Handle front message
     const mailUser: MailUser = new MailUser();
     mailUser.userEmail = this.userToEmail.email;
     mailUser.login = this.userToEmail.userLogin;
