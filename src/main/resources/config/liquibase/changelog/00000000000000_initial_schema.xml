@@ -15,6 +15,23 @@
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
     <changeSet id="00000000000001" author="jhipster">
+
+        <createTable tableName="user_extra">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="country" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="birthday" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="phone" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+
         <createTable tableName="jhi_user">
             <column name="id" type="bigint" >
                 <constraints primaryKey="true" nullable="false"/>
@@ -28,6 +45,7 @@
             <column name="email" type="varchar(191)">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_email"/>
             </column>
+            <column name="user_extra_id" type="bigint"/>
             <column name="image_url" type="varchar(256)"/>
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
@@ -45,6 +63,12 @@
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="user_extra_id"
+                                 baseTableName="jhi_user"
+                                 constraintName="fk_jhi_user_user_extra_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_extra"/>
 
         <createTable tableName="jhi_authority">
             <column name="name" type="varchar(50)">
@@ -117,13 +141,6 @@
             <column name="user_id" type="numeric"/>
         </loadData>
 
-        <loadData
-            file="config/liquibase/data/user_discussion.csv"
-            separator=";"
-            tableName="jhi_user_discussion">
-            <column name="user_id" type="numeric"/>
-            <column name="discussion_id" type="numeric"/>
-        </loadData>
         <createTable tableName="jhi_persistent_audit_event">
             <column name="event_id" type="bigint" >
                 <constraints primaryKey="true" nullable="false"/>

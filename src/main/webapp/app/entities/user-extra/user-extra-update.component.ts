@@ -1,6 +1,6 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vuelidate/lib/validators';
+import { required } from 'vuelidate/lib/validators';
 
 import UserService from '@/admin/user-management/user-management.service';
 

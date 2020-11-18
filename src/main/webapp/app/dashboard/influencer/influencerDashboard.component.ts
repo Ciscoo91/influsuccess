@@ -10,7 +10,7 @@ import { Message, MessageChat } from '@/shared/model/message.model';
 import { Chat } from 'vue-quick-chat';
 import 'vue-quick-chat/dist/vue-quick-chat.css';
 import MessageService from '@/entities/message/message.service';
-import { Discussion, IDiscussion } from '@/shared/model/discussion.model';
+import { Discussion } from '@/shared/model/discussion.model';
 
 @Component({
   components: {
@@ -30,16 +30,14 @@ export default class InfluDashboard extends Vue {
   private messageService: () => MessageService;
 
   private campaigns: ICampaign[] = [];
-  private isFetching: boolean = false;
+  private isFetching = false;
   private fields: string[] = ['title', 'description', 'status', 'socialNetworks'];
 
   private participants: ParticipantChat[] = [];
   private messages: MessageChat[] = [];
   private myself: ParticipantChat = new ParticipantChat();
-  private placeholder: string = 'send your message';
+  private placeholder = 'send your message';
   private selectedDiscussionId: number;
-  private chatInterval: number;
-  private discussionInterval: number;
 
   private colors = {
     header: {
@@ -75,10 +73,10 @@ export default class InfluDashboard extends Vue {
     format: 'yyyy-MM-dd HH:mm:ss',
     relative: false,
   };
-  private chatTitle: string = '';
+  private chatTitle = '';
   private campaignSelected: ICampaign;
   private currentUser: IUser;
-  private discussionThreadKeyRender: number = 0;
+  private discussionThreadKeyRender = 0;
 
   created(): void {
     this.currentUser = this.$store.getters.account;
@@ -147,13 +145,11 @@ export default class InfluDashboard extends Vue {
               this.selectedDiscussionId = res.id;
               this.messageService()
                 .saveMessageChat(message, res.id)
-                .then(res => {
+                .then(() => {
                   this.discussionThreadKeyRender++;
                 });
             },
-            err => {
-              console.log(err);
-            }
+            () => {}
           );
       }
     }

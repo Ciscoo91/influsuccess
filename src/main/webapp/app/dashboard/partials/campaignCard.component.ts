@@ -16,7 +16,7 @@ export default class CampaignCard extends Vue {
   private campaignService: () => CampaignService;
 
   private campaigns: ICampaign[] = [];
-  private isFetching: boolean = false;
+  private isFetching = false;
 
   created(): void {
     this.retrieveOpenedCampaigns();

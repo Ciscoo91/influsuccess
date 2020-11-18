@@ -31,7 +31,7 @@ export default class LoginForm extends Vue {
             sessionStorage.setItem('jhi-authenticationToken', jwt);
           }
         }
-        sessionStorage.setItem('login',"true");
+        sessionStorage.setItem('login', 'true');
         this.authenticationError = false;
         this.$root.$emit('bv::hide::modal', 'login-page');
         this.accountService().retrieveAccount();

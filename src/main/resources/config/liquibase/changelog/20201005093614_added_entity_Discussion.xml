@@ -56,6 +56,15 @@
             <column name="id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
+
+        <loadData
+            file="config/liquibase/data/user_discussion.csv"
+            separator=";"
+            tableName="jhi_user_discussion">
+            <column name="user_id" type="numeric"/>
+            <column name="discussion_id" type="numeric"/>
+        </loadData>
+
     </changeSet>
 
 </databaseChangeLog>

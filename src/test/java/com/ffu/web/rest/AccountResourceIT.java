@@ -9,6 +9,8 @@ import com.ffu.security.AuthoritiesConstants;
 import com.ffu.service.UserService;
 import com.ffu.service.dto.PasswordChangeDTO;
 import com.ffu.service.dto.UserDTO;
+import com.ffu.service.dto.UserExtraDTO;
+import com.ffu.service.mapper.UserExtraMapper;
 import com.ffu.web.rest.vm.KeyAndPasswordVM;
 import com.ffu.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -25,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,6 +51,9 @@ public class AccountResourceIT {
     private AuthorityRepository authorityRepository;
 
     @Autowired
+    private UserExtraMapper userExtraMapper;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -55,6 +61,17 @@ public class AccountResourceIT {
 
     @Autowired
     private MockMvc restAccountMockMvc;
+
+    private UserExtraDTO userExtraDTO;
+
+
+    @BeforeEach
+    private void fillUserExtraDTO(){
+        this.userExtraDTO = new UserExtraDTO();
+        userExtraDTO.setBirthday(LocalDate.now());
+        userExtraDTO.setCountry("country");
+        userExtraDTO.setPhone(Long.valueOf("1"));
+    }
 
     @Test
     @WithUnauthenticatedMockUser
@@ -90,6 +107,7 @@ public class AccountResourceIT {
         user.setImageUrl("http://placehold.it/50x50");
         user.setLangKey("en");
         user.setAuthorities(authorities);
+        user.setUserExtra(this.userExtraDTO);
         userService.createUser(user);
 
         restAccountMockMvc.perform(get("/api/account")
@@ -124,6 +142,7 @@ public class AccountResourceIT {
         validUser.setImageUrl("http://placehold.it/50x50");
         validUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         validUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        validUser.setUserExtra(this.userExtraDTO);
         assertThat(userRepository.findOneByLogin("test-register-valid").isPresent()).isFalse();
 
         restAccountMockMvc.perform(
@@ -148,6 +167,7 @@ public class AccountResourceIT {
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        invalidUser.setUserExtra(this.userExtraDTO);
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -172,6 +192,7 @@ public class AccountResourceIT {
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        invalidUser.setUserExtra(userExtraDTO);
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -196,6 +217,7 @@ public class AccountResourceIT {
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        invalidUser.setUserExtra(this.userExtraDTO);
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -220,6 +242,7 @@ public class AccountResourceIT {
         invalidUser.setImageUrl("http://placehold.it/50x50");
         invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        invalidUser.setUserExtra(this.userExtraDTO);
 
         restAccountMockMvc.perform(
             post("/api/register")
@@ -244,6 +267,7 @@ public class AccountResourceIT {
         firstUser.setImageUrl("http://placehold.it/50x50");
         firstUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         firstUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
+        firstUser.setUserExtra(this.userExtraDTO);
 
         // Duplicate login, different email
         ManagedUserVM secondUser = new ManagedUserVM();
@@ -259,6 +283,7 @@ public class AccountResourceIT {
         secondUser.setLastModifiedBy(firstUser.getLastModifiedBy());
         secondUser.setLastModifiedDate(firstUser.getLastModifiedDate());
         secondUser.setAuthorities(new HashSet<>(firstUser.getAuthorities()));
+        secondUser.setUserExtra(this.userExtraDTO);
 
         // First user
         restAccountMockMvc.perform(
@@ -300,7 +325,7 @@ public class AccountResourceIT {
         firstUser.setImageUrl("http://placehold.it/50x50");
         firstUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         firstUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADVERTISER));
-
+        firstUser.setUserExtra(this.userExtraDTO);
         // Register first user
         restAccountMockMvc.perform(
             post("/api/register")
@@ -321,7 +346,7 @@ public class AccountResourceIT {
         secondUser.setImageUrl(firstUser.getImageUrl());
         secondUser.setLangKey(firstUser.getLangKey());
         secondUser.setAuthorities(new HashSet<>(firstUser.getAuthorities()));
-
+        secondUser.setUserExtra(this.userExtraDTO);
         // Register second (non activated) user
         restAccountMockMvc.perform(
             post("/api/register")
@@ -346,7 +371,7 @@ public class AccountResourceIT {
         userWithUpperCaseEmail.setImageUrl(firstUser.getImageUrl());
         userWithUpperCaseEmail.setLangKey(firstUser.getLangKey());
         userWithUpperCaseEmail.setAuthorities(new HashSet<>(firstUser.getAuthorities()));
-
+        userWithUpperCaseEmail.setUserExtra(this.userExtraDTO);
         // Register third (not activated) user
         restAccountMockMvc.perform(
             post("/api/register")
@@ -359,7 +384,7 @@ public class AccountResourceIT {
         assertThat(testUser4.get().getEmail()).isEqualTo("test-register-duplicate-email@example.com");
 
         testUser4.get().setActivated(true);
-        userService.updateUser((new UserDTO(testUser4.get())));
+        userService.updateUser((new UserDTO(testUser4.get(), userExtraMapper.userExtraToUserExtraDTO(testUser4.get().getUserExtra()))));
 
         // Register 4th (already activated) user
         restAccountMockMvc.perform(
@@ -382,7 +407,7 @@ public class AccountResourceIT {
         validUser.setImageUrl("http://placehold.it/50x50");
         validUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         validUser.setAuthorities(Collections.singleton(AuthoritiesConstants.ADMIN));
-
+        validUser.setUserExtra(this.userExtraDTO);
         restAccountMockMvc.perform(
             post("/api/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -405,7 +430,6 @@ public class AccountResourceIT {
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(false);
         user.setActivationKey(activationKey);
-
         userRepository.saveAndFlush(user);
 
         restAccountMockMvc.perform(get("/api/activate?key={activationKey}", activationKey))
@@ -442,6 +466,7 @@ public class AccountResourceIT {
         userDTO.setImageUrl("http://placehold.it/50x50");
         userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.ADMIN));
+        userDTO.setUserExtra(this.userExtraDTO);
 
         restAccountMockMvc.perform(
             post("/api/account")
@@ -481,6 +506,7 @@ public class AccountResourceIT {
         userDTO.setImageUrl("http://placehold.it/50x50");
         userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.ADMIN));
+        userDTO.setUserExtra(this.userExtraDTO);
 
         restAccountMockMvc.perform(
             post("/api/account")
@@ -519,7 +545,7 @@ public class AccountResourceIT {
         userDTO.setImageUrl("http://placehold.it/50x50");
         userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.ADMIN));
-
+        userDTO.setUserExtra(this.userExtraDTO);
         restAccountMockMvc.perform(
             post("/api/account")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -550,6 +576,7 @@ public class AccountResourceIT {
         userDTO.setImageUrl("http://placehold.it/50x50");
         userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.ADMIN));
+        userDTO.setUserExtra(this.userExtraDTO);
 
         restAccountMockMvc.perform(
             post("/api/account")

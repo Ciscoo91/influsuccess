@@ -3,16 +3,17 @@ package com.ffu.service.dto;
 import com.ffu.domain.enumeration.MessageStatus;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 public class MessageDTO {
 
     private Long id;
-    @NotBlank
+    @NotNull
     private MessageStatus status;
     @NotBlank
     private String content;
-    @NotBlank
+    @NotNull
     private Long senderId;
 
     private String senderLogin;

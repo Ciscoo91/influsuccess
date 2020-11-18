@@ -7,7 +7,7 @@
         Added the constraints for entity Discussion.
     -->
     <changeSet id="20201005093514-2" author="jhipster">
-
+        
         <addForeignKeyConstraint baseColumnNames="discussion_id"
                                  baseTableName="jhi_user_discussion"
                                  constraintName="fk_discussion_user_id"

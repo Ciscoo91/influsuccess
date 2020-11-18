@@ -2,10 +2,13 @@ package com.ffu.service.mapper;
 
 import com.ffu.domain.User;
 import com.ffu.service.dto.UserDTO;
+import com.ffu.service.dto.UserExtraDTO;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,13 +24,16 @@ public class UserMapperTest {
     private static final String DEFAULT_LOGIN = "johndoe";
     private static final Long DEFAULT_ID = 1L;
 
-    private UserMapper userMapper;
     private User user;
     private UserDTO userDto;
 
+
+    private UserMapper userMapper;
+
+
     @BeforeEach
     public void init() {
-        userMapper = new UserMapper();
+        userMapper = new UserMapper(new UserExtraMapperImpl());
         user = new User();
         user.setLogin(DEFAULT_LOGIN);
         user.setPassword(RandomStringUtils.random(60));
@@ -38,7 +44,12 @@ public class UserMapperTest {
         user.setImageUrl("image_url");
         user.setLangKey("en");
 
-        userDto = new UserDTO(user);
+        UserExtraDTO  userExtraDTO= new UserExtraDTO();
+        userExtraDTO.setBirthday(LocalDate.now());
+        userExtraDTO.setCountry("country");
+        userExtraDTO.setPhone(Long.valueOf("1"));
+
+        userDto = new UserDTO(user, userExtraDTO);
     }
 
     @Test

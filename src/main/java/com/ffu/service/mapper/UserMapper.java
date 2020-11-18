@@ -5,6 +5,7 @@ import com.ffu.domain.User;
 import com.ffu.service.dto.ParticipantChat;
 import com.ffu.service.dto.UserDTO;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,6 +20,12 @@ import java.util.stream.Collectors;
 @Service
 public class UserMapper {
 
+    private final UserExtraMapper userExtraMapper;
+
+    public UserMapper(UserExtraMapper userExtraMapper) {
+        this.userExtraMapper = userExtraMapper;
+    }
+
     public List<UserDTO> usersToUserDTOs(List<User> users) {
         return users.stream()
             .filter(Objects::nonNull)
@@ -27,7 +34,7 @@ public class UserMapper {
     }
 
     public UserDTO userToUserDTO(User user) {
-        return new UserDTO(user);
+        return new UserDTO(user, userExtraMapper.userExtraToUserExtraDTO(user.getUserExtra()));
     }
 
     public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
@@ -52,6 +59,7 @@ public class UserMapper {
             user.setLangKey(userDTO.getLangKey());
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             user.setAuthorities(authorities);
+            user.setUserExtra(userExtraMapper.userExtraDTOToUserExtra(userDTO.getUserExtra()));
             return user;
         }
     }

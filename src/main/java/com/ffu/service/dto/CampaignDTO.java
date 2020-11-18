@@ -4,27 +4,30 @@ import com.ffu.domain.enumeration.CampaignStatus;
 import com.ffu.domain.enumeration.LangKey;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 
 public class CampaignDTO {
 
     private Long id;
+    @NotNull
     private LangKey langKey;
     @NotBlank
     private String title;
     @NotBlank
     private String description;
-    @NotBlank
+    @NotNull
     private CampaignStatus status;
+    @NotNull
     private Long minFollowers;
+    @NotNull
     private Long maxFollowers;
     private String targetCountries;
-    @NotBlank
+    @NotNull
     private Long userId;
     private String userLogin;
 
-    @NotBlank
     private Set<SocialNetworkDTO> socialNetworks;
 
     public Long getId() {

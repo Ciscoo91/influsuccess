@@ -1,0 +1,75 @@
+enum LangKey {
+  AR,FR,EN,ES,IT,DE
+}
+
+entity CampaignCategory {
+name String required  
+}
+
+enum CampaignStatus {
+    CLOSED,OPENED
+}
+
+enum MessageStatus {
+SENT, DISTRIBUTED, OPENED
+}
+
+entity SocialNetwork {
+    name String required  
+}
+
+entity UserExtra {
+  country String required
+  birthday LocalDate required
+  phone Long 
+}
+
+
+entity Campaign {
+  langKey LangKey required
+  title String required 
+  description String required
+  status CampaignStatus required
+  minFollowers Long required
+  maxFollowers Long required
+  targetCountries String 
+}
+
+entity InfluencerInfo {	
+}
+
+entity SocialNetworkLink {
+    link String required
+}
+
+entity Message{
+status MessageStatus required
+content String required
+
+}
+entity Discussion{
+}
+
+relationship ManyToOne {
+    Campaign{user} to User
+    Message{sender} to User
+    Message{receiver} to User
+    Message{discussion} to Discussion	
+}
+
+relationship OneToMany{
+InfluencerInfo{socialNetworkLinks} to SocialNetworkLink
+InfluencerInfo{categories} to CampaignCategory
+Campaign{categories} to CampaignCategory
+Campaign{socialNetwork} to SocialNetwork
+Discussion{participants} to User
+Discussion{messages} to Message
+}
+
+relationship OneToOne {
+ UserExtra to User
+ InfluencerInfo to User	
+SocialNetworkLink{socialNetwork} to SocialNetwork
+}
+
+

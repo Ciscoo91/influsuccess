@@ -34,9 +34,6 @@ public class UserExtra implements Serializable {
     @Column(name = "phone")
     private Long phone;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -86,18 +83,6 @@ public class UserExtra implements Serializable {
         this.phone = phone;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public UserExtra user(User user) {
-        this.user = user;
-        return this;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

@@ -3,6 +3,7 @@ package com.ffu.service;
 import com.ffu.service.dto.ChatDTO;
 import com.ffu.service.dto.DiscussionDTO;
 import com.ffu.service.dto.DiscussionThreadsDTO;
+import io.undertow.util.BadRequestException;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface DiscussionService {
 
     List<DiscussionThreadsDTO> findAllByUser(Long userId);
 
-    DiscussionDTO save(DiscussionDTO discussion);
+    DiscussionDTO save(DiscussionDTO discussion) throws BadRequestException;
 
     List<DiscussionDTO> findAll();
 

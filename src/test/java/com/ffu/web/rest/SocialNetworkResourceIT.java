@@ -30,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SocialNetworkResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
 
     @Autowired
     private SocialNetworkRepository socialNetworkRepository;
@@ -52,17 +51,6 @@ public class SocialNetworkResourceIT {
     public static SocialNetwork createEntity(EntityManager em) {
         SocialNetwork socialNetwork = new SocialNetwork()
             .name(DEFAULT_NAME);
-        return socialNetwork;
-    }
-    /**
-     * Create an updated entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static SocialNetwork createUpdatedEntity(EntityManager em) {
-        SocialNetwork socialNetwork = new SocialNetwork()
-            .name(UPDATED_NAME);
         return socialNetwork;
     }
 
@@ -90,11 +78,10 @@ public class SocialNetworkResourceIT {
 
     @Test
     @Transactional
-    public void createSocialNetworkWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = socialNetworkRepository.findAll().size();
+    public void createSocialNetworkWithExistingName() throws Exception {
+        socialNetwork = socialNetworkRepository.saveAndFlush(socialNetwork);
 
-        // Create the SocialNetwork with an existing ID
-       socialNetwork.setName("1L");
+        int databaseSizeBeforeCreate = socialNetworkRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSocialNetworkMockMvc.perform(post("/api/social-networks")
@@ -137,7 +124,6 @@ public class SocialNetworkResourceIT {
         restSocialNetworkMockMvc.perform(get("/api/social-networks?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(socialNetwork.getName())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
 
@@ -151,7 +137,6 @@ public class SocialNetworkResourceIT {
         restSocialNetworkMockMvc.perform(get("/api/social-networks/{id}", socialNetwork.getName()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(socialNetwork.getName()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
     @Test
@@ -160,49 +145,6 @@ public class SocialNetworkResourceIT {
         // Get the socialNetwork
         restSocialNetworkMockMvc.perform(get("/api/social-networks/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
-    }
-
-    @Test
-    @Transactional
-    public void updateSocialNetwork() throws Exception {
-        // Initialize the database
-        socialNetworkRepository.saveAndFlush(socialNetwork);
-
-        int databaseSizeBeforeUpdate = socialNetworkRepository.findAll().size();
-
-        // Update the socialNetwork
-        SocialNetwork updatedSocialNetwork = socialNetworkRepository.findById(socialNetwork.getName()).get();
-        // Disconnect from session so that the updates on updatedSocialNetwork are not directly saved in db
-        em.detach(updatedSocialNetwork);
-        updatedSocialNetwork
-            .name(UPDATED_NAME);
-
-        restSocialNetworkMockMvc.perform(put("/api/social-networks")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedSocialNetwork)))
-            .andExpect(status().isOk());
-
-        // Validate the SocialNetwork in the database
-        List<SocialNetwork> socialNetworkList = socialNetworkRepository.findAll();
-        assertThat(socialNetworkList).hasSize(databaseSizeBeforeUpdate);
-        SocialNetwork testSocialNetwork = socialNetworkList.get(socialNetworkList.size() - 1);
-        assertThat(testSocialNetwork.getName()).isEqualTo(UPDATED_NAME);
-    }
-
-    @Test
-    @Transactional
-    public void updateNonExistingSocialNetwork() throws Exception {
-        int databaseSizeBeforeUpdate = socialNetworkRepository.findAll().size();
-
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restSocialNetworkMockMvc.perform(put("/api/social-networks")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(socialNetwork)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the SocialNetwork in the database
-        List<SocialNetwork> socialNetworkList = socialNetworkRepository.findAll();
-        assertThat(socialNetworkList).hasSize(databaseSizeBeforeUpdate);
     }
 
     @Test

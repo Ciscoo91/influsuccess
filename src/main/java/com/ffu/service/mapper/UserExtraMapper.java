@@ -13,4 +13,15 @@ public interface UserExtraMapper {
 
     UserExtraDTO userExtraToUserExtraDTO(UserExtra userExtra);
 
+    public default UserExtra userExtraFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        else {
+            UserExtra userExtra = new UserExtra();
+            userExtra.setId(id);
+            return userExtra;
+        }
+    }
+
 }

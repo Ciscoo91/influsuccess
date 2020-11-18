@@ -12,6 +12,7 @@ import com.ffu.service.dto.DiscussionThreadsDTO;
 import com.ffu.service.mapper.DiscussionMapper;
 import com.ffu.service.mapper.MessageMapper;
 import com.ffu.service.mapper.UserMapper;
+import io.undertow.util.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -39,7 +40,10 @@ public class DiscussionServiceImpl implements DiscussionService {
     }
 
     @Override
-    public DiscussionDTO save(DiscussionDTO discussionDTO) {
+    public DiscussionDTO save(DiscussionDTO discussionDTO) throws BadRequestException {
+        if(discussionDTO.getParticipantIds() == null || discussionDTO.getParticipantIds().isEmpty()) {
+            throw new BadRequestException("no participants");
+        }
         Discussion discussion = discussionMapper.toEntity(discussionDTO);
         return discussionMapper.toDTO(discussionRepository.saveAndFlush(discussion));
     }

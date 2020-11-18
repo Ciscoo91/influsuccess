@@ -60,7 +60,7 @@ public class UserDTO {
         // Empty constructor needed for Jackson.
     }
 
-    public UserDTO(User user) {
+    public UserDTO(User user, UserExtraDTO userExtraDTO) {
         this.id = user.getId();
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
@@ -76,6 +76,7 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+        this.userExtra = userExtraDTO;
     }
 
     public Long getId() {

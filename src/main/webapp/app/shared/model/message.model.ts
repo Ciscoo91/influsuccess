@@ -23,9 +23,8 @@ export class Message implements IMessage {
     public content?: string,
     public sender?: IUser,
     public receiver?: IUser,
-    public discussion?: IDiscussion,
-  ) {
-  }
+    public discussion?: IDiscussion
+  ) {}
 }
 
 export class MessageChat {
@@ -35,6 +34,5 @@ export class MessageChat {
     public participantId: number,
     public timestamp: Object,
     public discussionId: number
-  ){}
+  ) {}
 }
-
