@@ -68,7 +68,7 @@
                     <img src="/content/images/homepage_influencer_phone_on_hand.jpg" alt="influencer_picture" style="width: 200px" class="rounded pt-4"/>
                   </div>
                   <div class="col-md-8">
-                    <div class="card-body">
+                    <div class="card-body"> 
                       <h5 class="card-title text-white">Influenceurs</h5>
                       <p class="card-text text-white">
                         Faites découvrir à votre audiance des produits et services nouveaux que vous avez découvert en collaborant avec une entreprise
@@ -98,22 +98,34 @@
           </div>
         </div>
       </div>
-      <div class="description-section-container container mt-5">
+      <div class="description-section-container container my-5">
         <div class="description-section-campaign row d-flex justify-content-between" id="description-section-campaign">
             <img src="/content/images/homepage_social_medias.jpg" class="description_social_marketing col-md-6" alt="">
 
             <div class="content col-md-6">
-              <h3>Pourquoi investir dans le marketing d'influence ?</h3>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut, accusantium assumenda? Libero velit enim pariatur neque, nesciunt aperiam temporibus fuga sint, expedita animi veritatis! Dolorum autem nisi dicta sed veniam.
-              Nesciunt, illum, necessitatibus id esse similique optio eligendi eaque, nobis blanditiis harum in. Libero quisquam atque repellat voluptatem quia assumenda repudiandae, nihil illum eaque dolores veniam veritatis, quo odit neque</p>
+              <h3>Entreprise, pourquoi investir dans le marketing d'influence ?</h3>
+              <p>
+                <ul>
+                  <li>4 consommateurs sur 5 achètent un produit qui leur aété recommandé</li>
+                  <li>70% des adolescents font plus confiance aux influenceurs qu'aux stars</li>
+                  <li>1$ investi dans les marketing d'influence rapporte 5,20$</li>
+                </ul>
+                source: agence-ldnp
+              </p>
             </div>
         </div>
         <div class="description-section-influencer row d-flex justify-content-between my-5" id="description-section-influencer">
             <div class="content col-md-6">
-              <h3>Pourquoi investir dans le marketing d'influence ?</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur corrupti vero tempore officia, maxime sint? Et, adipisci. Expedita, unde voluptatem eos ea minima voluptatum in vel neque nam consequatur dicta.
-              </p>
+              <h3>Influenceur, pourquoi se lancer dans le marketing d'influence ?</h3>
+              <div>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur corrupti vero tempore officia, maxime sint? Et, adipisci. Expedita, unde voluptatem eos ea minima voluptatum in vel neque nam consequatur dicta.
+                </p>
+                <ul>
+                  <li>La moitié des influenceurs reçoit au moins 4 propositions de marques par mois</li>
+                  <li>36% des marques font appel à des micro-influenceurs</li>
+                </ul>
+              </div>
             </div>
             <img src="/content/images/homepage_social_influencer.jpg" class="description_social_marketing col-md-6" alt="">
         </div>
