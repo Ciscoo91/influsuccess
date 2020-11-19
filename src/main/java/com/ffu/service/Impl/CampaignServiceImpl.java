@@ -3,11 +3,14 @@ package com.ffu.service.Impl;
 import com.ffu.domain.Campaign;
 import com.ffu.domain.enumeration.CampaignStatus;
 import com.ffu.repository.CampaignRepository;
+import com.ffu.repository.dto.CampaignSearchDTO;
 import com.ffu.service.CampaignService;
 import com.ffu.service.dto.CampaignDTO;
 import com.ffu.service.mapper.CampaignMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,5 +57,11 @@ public class CampaignServiceImpl implements CampaignService {
             .stream()
             .map(campaignMapper::toDto)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CampaignDTO> getCampaignSearchPageable(CampaignSearchDTO campaignSearchDTO, Pageable pageable) {
+           return campaignRepository.getCampaignPageable(campaignSearchDTO, pageable)
+                .map(campaignMapper::toDto);
     }
 }

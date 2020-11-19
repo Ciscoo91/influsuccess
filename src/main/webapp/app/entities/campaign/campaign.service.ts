@@ -81,4 +81,17 @@ export default class CampaignService {
         });
     });
   }
+
+  public retrievePaginatedCampaigns(requestBody, params): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(`${baseApiUrl}/page?${params}`, requestBody)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }

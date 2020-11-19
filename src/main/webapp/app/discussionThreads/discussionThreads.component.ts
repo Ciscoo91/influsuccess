@@ -10,7 +10,7 @@ import { MessageChat } from '@/shared/model/message.model';
 
 @Component({
   components: {
-    'Chat': Chat,
+    Chat: Chat,
   },
 })
 export default class DiscussionThreads extends Vue {

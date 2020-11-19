@@ -55,8 +55,9 @@ Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
 Vue.component('infinite-loading', InfiniteLoading);
 
 /* add fa to library font-awesone */
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTable } from '@fortawesome/free-solid-svg-icons';
 library.add(faEdit);
+library.add(faTable);
 
 const i18n = config.initI18N(Vue);
 const store = config.initVueXStore(Vue);

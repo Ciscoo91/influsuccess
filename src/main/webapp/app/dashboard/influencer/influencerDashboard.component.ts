@@ -16,7 +16,7 @@ import { Discussion } from '@/shared/model/discussion.model';
   components: {
     'campaign-update': CampaignUpdate,
     'discussion-threads': DiscussionThreads,
-    'Chat': Chat,
+    Chat: Chat,
   },
 })
 export default class InfluDashboard extends Vue {
