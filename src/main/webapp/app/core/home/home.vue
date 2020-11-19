@@ -1,101 +1,89 @@
 <template>
   <div class="home h-100">
     <div class="col-md-12 px-0">
-      <div class="row banner w-100 mx-0 d-flex justify-content-center align-items-center h-auto">
-        <div class="container d-flex flex-column justify-content-around justify-content-center mt-5 h-100 vw-80 min-vh-100 mx-0 mt-sm-5">
-          <div class="d-flex flex-md-row flex-column justify-content-between">
-            <div class="title mt-5 col-md-6 col-sm-12">
-              <h1 class="display-4 text-left font-weight-bold text-white" v-text="$t('home.title')">InfluSuccess!</h1>
-              <p class="lead text-white text-left" v-text="$t('home.subtitle')"></p>
+      <div class="row banner w-100 mx-0 d-flex justify-content-center align-items-center h-50">
+            <div class="title mt-5 col-md-6 col-sm-12 d-flex flex-column align-items-center">
+              <h1 class="display-3 text-center font-weight-bold text-white" v-text="$t('home.title')">InfluSuccess!</h1>
+              <p class="lead text-white text-center" v-text="$t('home.subtitle')"></p>
             </div>
-            <div class="mt-5 col-md-6 col-sm-12 d-flex justify-content-end align-items-start" v-if="!authenticated">
-              <div class="login-form col-md-8 bg-white w-100 mr-0 px-4 py-4 rounded-lg shadow-lg w-100">
-                <form class="d-flex flex-column align-items-start" role="form" v-on:submit.prevent="doLogin()">
-                  <div class="d-flex border-bottom border-secondary align-items-center justify-content-between py-2 w-100 mb-3">
-                    <h3 class="py-2 w-100 mb-3 py-2">Sign In</h3>
-                    <div class="">
-                      <!-- <span class="text" v-text="$t('global.messages.info.register.noaccount')">You don't have an account yet?</span> -->
-                      <a href="/register" class="btn btn-outline-primary w-100" v-text="$t('global.messages.info.register.link')"
-                        >Register a new account</a
-                      >
+      </div>
+      <div class="container mt-4">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-4">
+            <div class="profile-card-6"><img src="http://envato.jayasankarkr.in/code/profile/assets/img/profile-6.jpg" class="img img-responsive">
+                <div class="profile-name">JOHN
+                    <br>DOE</div>
+                <div class="profile-position">Lorem Ipsum Donor</div>
+                <div class="profile-overview">
+                    <div class="profile-overview">
+                        <div class="row text-center">
+                            <div class="col-xs-4">
+                                <h3>1</h3>
+                                <p>Rank</p>
+                            </div>
+                            <div class="col-xs-4">
+                                <h3>50</h3>
+                                <p>Matches</p>
+                            </div>
+                            <div class="col-xs-4">
+                                <h3>35</h3>
+                                <p>Goals</p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <b-form-group class="w-100" v-bind:label="$t('global.form[\'username.label\']')" label-for="username">
-                    <b-form-input
-                      id="username"
-                      type="text"
-                      name="username"
-                      autofocus
-                      v-bind:placeholder="$t('global.form[\'username.placeholder\']')"
-                      v-model="login"
-                    >
-                    </b-form-input>
-                  </b-form-group>
-                  <b-form-group class="w-100" v-bind:label="$t('login.form.password')" label-for="password">
-                    <b-form-input
-                      id="password"
-                      type="password"
-                      name="password"
-                      v-model.trim="name"
-                      v-bind:placeholder="$t('login.form[\'password.placeholder\']')"
-                      v-model="password"
-                    >
-                    </b-form-input>
-                  </b-form-group>
-                  <b-form-checkbox class="my-2" id="rememberMe" name="rememberMe" v-model="rememberMe" checked>
-                    <span v-text="$t('login.form.rememberme')">Remember me</span>
-                  </b-form-checkbox>
-                  <div class="form-group">
-                    <b-button type="submit" variant="primary" v-text="$t('login.form.button')">Sign in</b-button>
-                  </div>
-                </form>
-                <p></p>
-                <div>
-                  <div>
-                    <b-link :to="'/account/reset/request'" class="alert-link" v-text="$t('login.password.forgot')"
-                      >Did you forget your password?</b-link
-                    >
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="my-5">
-            <div class="container d-flex flex-md-row flex-sm-column justify-content-between w-100">
-              <div class="card mb-3 bg-transparent border-0" style="max-width: 540px;" id="influencer">
-                <div class="row g-0 d-flex">
-                  <div class="col-md-4 align-self-stretch">
-                    <img src="/content/images/homepage_influencer_phone_on_hand.jpg" alt="influencer_picture" style="width: 200px" class="rounded pt-4"/>
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body"> 
-                      <h5 class="card-title text-white">Influenceurs</h5>
-                      <p class="card-text text-white">
-                        Faites découvrir à votre audiance des produits et services nouveaux que vous avez découvert en collaborant avec une entreprise
-                      </p>
-                      <p class="card-text"><small class="text-muted"><a class="btn btn-outline-secondary" href="#description-section-influencer">En savoir plus</a></small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card mb-3 bg-transparent border-0" style="max-width: 540px;" id="annonceur">
-                <div class="row g-0 d-flex align-items-start">
-                  <div class="col-md-4">
-                    <img src="/content/images/homepage_business_meeting.jpg" alt="business_meeting_picture" style="width: 200px" class="rounded pt-4"/>
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title text-white">Annonceurs</h5>
-                      <p class="card-text text-white">
-                        Renforcez l'image de votre marque auprès des consommateurs grâce à des influenceurs qui auront testé votre produit et qui témoignent de la qualité du produit.
-                      </p>
-                      <p class="card-text"><small class="text-muted"><a class="btn btn-outline-secondary" href="#description-section-campaign">En savoir plus</a></small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+              <div class="col-md-4">
+                <div class="profile-card-6"><img src="http://envato.jayasankarkr.in/code/profile/assets/img/profile-6.jpg" class="img img-responsive">
+                    <div class="profile-name">JOHN
+                        <br>DOE</div>
+                    <div class="profile-position">Lorem Ipsum Donor</div>
+                    <div class="profile-overview">
+                      <div class="profile-overview">
+                          <div class="row text-center">
+                              <div class="col-xs-4">
+                                  <h3>1</h3>
+                                  <p>Rank</p>
+                              </div>
+                              <div class="col-xs-4">
+                                  <h3>50</h3>
+                                  <p>Matches</p>
+                              </div>
+                              <div class="col-xs-4">
+                                  <h3>35</h3>
+                                  <p>Goals</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+            </div>
+            </div>
+              <div class="col-md-4">
+                <div class="profile-card-6"><img src="http://envato.jayasankarkr.in/code/profile/assets/img/profile-6.jpg" class="img img-responsive">
+                    <div class="profile-name">JOHN
+                        <br>DOE</div>
+                    <div class="profile-position">Lorem Ipsum Donor</div>
+                    <div class="profile-overview">
+                        <div class="profile-overview">
+                            <div class="row text-center">
+                                <div class="col-xs-4">
+                                    <h3>1</h3>
+                                    <p>Rank</p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h3>50</h3>
+                                    <p>Matches</p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h3>35</h3>
+                                    <p>Goals</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
       <div class="description-section-container container my-5">
@@ -140,7 +128,7 @@
 <style scoped>
 .banner {
   min-height: 70vh;
-  height: 100vh;
+  height: 70vh;
   position: relative;
   background-image: url('/content/images/homepage-banner.jpg');
   background-size: cover;
@@ -175,4 +163,78 @@
 .content{
   line-height:2em;
 }
+
+
+
+.profile-card-6 {
+    max-width: 300px;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.profile-card-6 img {
+    transition: all 0.15s linear;
+}
+
+.profile-card-6 .profile-name {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #FFF;
+    padding: 15px 20px;
+    background: linear-gradient(140deg, rgba(0, 0, 0, 0.4) 50%, rgba(255, 255, 0, 0) 50%);
+    transition: all 0.15s linear;
+}
+
+.profile-card-6 .profile-position {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.4);
+    left: 30px;
+    top: 100px;
+    transition: all 0.15s linear;
+}
+
+.profile-card-6 .profile-overview {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 50%, rgba(255, 255, 0, 0));
+    color: #FFF;
+    padding: 50px 0px 20px 0px;
+    transition: all 0.15s linear;
+}
+
+.profile-card-6 .profile-overview h3 {
+    font-weight: bold;
+}
+
+.profile-card-6 .profile-overview p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.profile-card-6:hover img {
+    filter: brightness(80%);
+}
+
+.profile-card-6:hover .profile-name {
+    padding-left: 25px;
+    padding-top: 20px;
+}
+
+.profile-card-6:hover .profile-position {
+    left: 40px;
+}
+
+.profile-card-6:hover .profile-overview {
+    padding-bottom: 25px;
+}
+
 </style>
