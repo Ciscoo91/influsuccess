@@ -1,6 +1,6 @@
 package com.ffu.web.rest;
 
-import com.ffu.domain.Campaign;
+import com.ffu.repository.dto.CampaignSearchDTO;
 import com.ffu.service.CampaignService;
 import com.ffu.service.dto.CampaignDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
@@ -10,12 +10,14 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -129,5 +131,12 @@ public class CampaignResource {
         log.debug("REST request to delete CampaignDTO : {}", id);
         campaignService.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/campaigns/page")
+    public ResponseEntity<Page<CampaignDTO>> getCampaignPageable(@RequestBody CampaignSearchDTO campaignSearchDTO, Pageable pageable){
+        log.debug("Rest request to get filtered and paginated campaigns");
+        Page<CampaignDTO> result = (Page<CampaignDTO>) campaignService.getCampaignSearchPageable(campaignSearchDTO, pageable);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

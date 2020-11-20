@@ -7,11 +7,14 @@ import com.ffu.domain.UserExtra;
 import com.ffu.repository.AuthorityRepository;
 import com.ffu.repository.UserExtraRepository;
 import com.ffu.repository.UserRepository;
+import com.ffu.repository.custom.UserRepositoryCustom;
+import com.ffu.repository.dto.UserSearchDTO;
 import com.ffu.security.AuthoritiesConstants;
 import com.ffu.security.SecurityUtils;
 import com.ffu.service.dto.UserDTO;
 
 import com.ffu.service.mapper.UserExtraMapper;
+import com.ffu.service.mapper.UserMapper;
 import io.github.jhipster.security.RandomUtil;
 
 import org.slf4j.Logger;
@@ -50,13 +53,19 @@ public class UserService {
 
     private final UserExtraMapper userExtraMapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, UserExtraRepository userExtraRepository, CacheManager cacheManager, UserExtraMapper userExtraMapper) {
+    private final UserMapper userMapper;
+
+    private final UserRepositoryCustom userRepositoryCustom;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, UserExtraRepository userExtraRepository, CacheManager cacheManager, UserExtraMapper userExtraMapper, UserMapper userMapper, UserRepositoryCustom userRepositoryCustom) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.userExtraRepository = userExtraRepository;
         this.cacheManager = cacheManager;
         this.userExtraMapper = userExtraMapper;
+        this.userMapper = userMapper;
+        this.userRepositoryCustom = userRepositoryCustom;
     }
 
 
@@ -336,4 +345,9 @@ public class UserService {
            .map(Optional::get)
            .collect(Collectors.toSet());
     }
+
+    public Page<UserDTO> getUserSearchPageable(UserSearchDTO userSearchDTO, Pageable pageable) {
+        return userRepositoryCustom.getUserPageable(userSearchDTO, pageable).map(userMapper::userToUserDTO);
+    }
+
 }

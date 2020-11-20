@@ -30,6 +30,7 @@
       "admin": {
         "main": "Administration",
         "userManagement": "Gestion des utilisateurs",
+        "campaignManagement": "Gestion des campagnes",
         "tracker": "Suivi des utilisateurs",
         "metrics": "Métriques",
         "health": "Diagnostics",

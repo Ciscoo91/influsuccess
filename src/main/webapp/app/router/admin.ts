@@ -9,12 +9,19 @@ const JhiHealthComponent = () => import('@/admin/health/health.vue');
 const JhiLogsComponent = () => import('@/admin/logs/logs.vue');
 const JhiAuditsComponent = () => import('@/admin/audits/audits.vue');
 const JhiMetricsComponent = () => import('@/admin/metrics/metrics.vue');
+const CampaignManagementComponent = () => import('@/admin/campaing-management/campaign-management.vue');
 
 export default [
   {
     path: '/admin/user-management',
     name: 'JhiUser',
     component: JhiUserManagementComponent,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/admin/campaign-management',
+    name: 'CampaignManagement',
+    component: CampaignManagementComponent,
     meta: { authorities: [Authority.ADMIN] },
   },
   {

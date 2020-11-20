@@ -3,11 +3,13 @@ package com.ffu.web.rest;
 import com.ffu.config.Constants;
 import com.ffu.domain.User;
 import com.ffu.repository.UserRepository;
+import com.ffu.repository.dto.UserSearchDTO;
 import com.ffu.security.AuthoritiesConstants;
 import com.ffu.service.DiscussionService;
 import com.ffu.service.MailService;
 import com.ffu.service.UserService;
 import com.ffu.service.dto.DiscussionThreadsDTO;
+import com.ffu.service.dto.MailUserDTO;
 import com.ffu.service.dto.UserDTO;
 import com.ffu.web.rest.errors.BadRequestAlertException;
 import com.ffu.web.rest.errors.EmailAlreadyUsedException;
@@ -17,6 +19,7 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
+import liquibase.pro.packaged.L;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -201,5 +204,26 @@ public class UserResource {
         log.debug("REST request to get all Discussions for an user {}", id);
         List<DiscussionThreadsDTO> result = discussionService.findAllByUser(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /**
+     * {@code POST  /filtered} : get all the discussions for an user.
+     * @return
+     */
+    @PostMapping("/users/page")
+    public ResponseEntity<Page<UserDTO>>getPaginatedUsers(@RequestBody UserSearchDTO userSearchDTO, Pageable pageable){
+        log.debug("Rest request to get filtered and paginated users");
+        Page<UserDTO> result = (Page<UserDTO>)userService.getUserSearchPageable(userSearchDTO, pageable);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /**
+     * {@code POST  /message} : send an to a user.
+     * @return
+     */
+    @PostMapping("/users/message")
+    public ResponseEntity<Void>sendMailToClient(@RequestBody MailUserDTO mailUserDTO){
+        mailService.sendMessageByMail(mailUserDTO);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

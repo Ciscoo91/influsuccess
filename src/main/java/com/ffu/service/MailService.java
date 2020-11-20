@@ -1,14 +1,12 @@
 package com.ffu.service;
 
 import com.ffu.domain.User;
-
+import com.ffu.service.dto.MailUserDTO;
 import io.github.jhipster.config.JHipsterProperties;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -27,7 +25,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
  */
 @Service
 public class MailService {
-
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     private static final String USER = "user";
@@ -42,9 +39,12 @@ public class MailService {
 
     private final SpringTemplateEngine templateEngine;
 
-    public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
-
+    public MailService(
+        JHipsterProperties jHipsterProperties,
+        JavaMailSender javaMailSender,
+        MessageSource messageSource,
+        SpringTemplateEngine templateEngine
+    ) {
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
         this.messageSource = messageSource;
@@ -53,8 +53,14 @@ public class MailService {
 
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
-        log.debug("Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
-            isMultipart, isHtml, to, subject, content);
+        log.debug(
+            "Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
+            isMultipart,
+            isHtml,
+            to,
+            subject,
+            content
+        );
 
         // Prepare message using a Spring helper
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -66,7 +72,7 @@ public class MailService {
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);
             log.debug("Sent email to User '{}'", to);
-        }  catch (MailException | MessagingException e) {
+        } catch (MailException | MessagingException e) {
             log.warn("Email could not be sent to user '{}'", to, e);
         }
     }
@@ -87,6 +93,21 @@ public class MailService {
     }
 
     @Async
+    public void sendEmailFromTemplate(MailUserDTO mailUserDTO, String templateName, String titleKey) {
+        if (mailUserDTO.getUserEmail() == null) {
+            log.debug("Email doesn't exist for user '{}'", mailUserDTO.getUserLogin());
+            return;
+        }
+        Locale locale = Locale.forLanguageTag(mailUserDTO.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, mailUserDTO);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = mailUserDTO.getContent();
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(mailUserDTO.getUserEmail(), subject, content, false, true);
+    }
+
+    @Async
     public void sendActivationEmail(User user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title");
@@ -102,5 +123,11 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendMessageByMail(MailUserDTO mailUserDTO) {
+        log.debug("Sending a message email to '{}' ", mailUserDTO.getUserEmail());
+        sendEmailFromTemplate(mailUserDTO, "mail/messageEmail", "email.message.title");
     }
 }
