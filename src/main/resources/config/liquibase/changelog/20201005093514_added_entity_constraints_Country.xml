@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Country.
+    -->
+    <changeSet id="20201005093514-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="country_code"
+                                 baseTableName="jhi_user_country"
+                                 constraintName="fk_user_country_county_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="country"/>
+
+        <addForeignKeyConstraint baseColumnNames="country_code"
+                                 baseTableName="influencer_country"
+                                 constraintName="fk_influencer_country_county_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="country"/>
+
+
+
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,6 +1,12 @@
 package com.ffu.service.dto;
 
+import com.ffu.domain.CampaignCategory;
+import com.ffu.domain.Country;
+import com.ffu.domain.SocialNetwork;
+
 public class ScrapperResponseDTO {
+
+    private SocialNetwork socialNetwork;
 
     private String profilUrl;
 
@@ -11,6 +17,20 @@ public class ScrapperResponseDTO {
     private String following;
 
     private String publications;
+
+    private String email;
+
+    private Country country;
+
+    private CampaignCategory category;
+
+    public SocialNetwork getSocialNetwork() {
+        return socialNetwork;
+    }
+
+    public void setSocialNetwork(SocialNetwork socialNetwork) {
+        this.socialNetwork = socialNetwork;
+    }
 
     public String getProfilUrl() {
         return profilUrl;
@@ -50,5 +70,29 @@ public class ScrapperResponseDTO {
 
     public void setPublications(String publications) {
         this.publications = publications;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public CampaignCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(CampaignCategory category) {
+        this.category = category;
     }
 }

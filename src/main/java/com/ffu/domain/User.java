@@ -55,6 +55,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String lastName;
 
     @Email
+    @NotNull
     @Size(min = 5, max = 254)
     @Column(length = 254, unique = true)
     private String email;
@@ -104,9 +105,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
         name = "jhi_user_discussion",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "discussion_id", referencedColumnName = "id")})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Discussion> discussions = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "jhi_user_country",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "country_code", referencedColumnName = "name")})
+    private Set<Country> countries;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return id;
@@ -227,6 +235,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setDiscussions(Set<Discussion> discussions) {
         this.discussions = discussions;
+    }
+
+    public Set<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Set<Country> countries) {
+        this.countries = countries;
     }
 
     @Override

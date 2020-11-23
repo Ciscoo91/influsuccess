@@ -17,18 +17,20 @@
     <include file="config/liquibase/changelog/20201005092914_added_entity_CampaignCategory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093014_added_entity_SocialNetwork.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093214_added_entity_Campaign.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201005093314_added_entity_InfluencerInfo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201005093314_added_entity_Influencer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093414_added_entity_SocialNetworkLink.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093514_added_entity_Message.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093614_added_entity_Discussion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201005093014_added_entity_Country.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201005092914_added_entity_constraints_CampaignCategory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093014_added_entity_constraints_SocialNetwork.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093214_added_entity_constraints_Campaign.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201005093314_added_entity_constraints_InfluencerInfo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201005093314_added_entity_constraints_Influencer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093414_added_entity_constraints_SocialNetworkLink.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093514_added_entity_constraints_Message.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201005093514_added_entity_constraints_Discussion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201005093014_added_entity_constraints_Country.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

@@ -97,7 +97,7 @@
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
         <loadData
-            file="config/liquibase/data/campaign_social_network.csv"
+            file="config/liquibase/fake-data/campaign_social_network.csv"
             separator=";"
             tableName="campaign_social_network">
             <column name="campaign_id" type="numeric"/>

@@ -1,20 +1,20 @@
 {
   "influSuccessApp": {
-    "influencerInfo": {
+    "influencer": {
       "home": {
-        "title": "Influencer Infos",
-        "addLabel": "Create a new Influencer Info",
-        "createOrEditLabel": "Create or edit a Influencer Info",
-        "notFound": "No Influencer Infos found"
+        "title": "Influencer ",
+        "addLabel": "Create a new Influencer ",
+        "createOrEditLabel": "Create or edit a Influencer ",
+        "notFound": "No Influencer  found"
       },
-      "created": "A new Influencer Info is created with identifier {{ param }}",
-      "updated": "A Influencer Info is updated with identifier {{ param }}",
-      "deleted": "A Influencer Info is deleted with identifier {{ param }}",
+      "created": "A new Influencer  is created with identifier {{ param }}",
+      "updated": "A Influencer  is updated with identifier {{ param }}",
+      "deleted": "A Influencer  is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Influencer Info {{ id }}?"
+        "question": "Are you sure you want to delete Influencer {{ id }}?"
       },
       "detail": {
-        "title": "Influencer Info"
+        "title": "Influencer"
       },
       "user": "User",
       "socialNetworkLinks": "Social Network Links",

@@ -2,6 +2,7 @@ package com.ffu.config;
 
 import java.time.Duration;
 
+import com.ffu.domain.Influencer;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
 
@@ -54,9 +55,9 @@ public class CacheConfiguration {
             createCache(cm, com.ffu.domain.Campaign.class.getName());
             createCache(cm, com.ffu.domain.Campaign.class.getName() + ".categories");
             createCache(cm, com.ffu.domain.Campaign.class.getName() + ".socialNetworks");
-            createCache(cm, com.ffu.domain.InfluencerInfo.class.getName());
-            createCache(cm, com.ffu.domain.InfluencerInfo.class.getName() + ".socialNetworkLinks");
-            createCache(cm, com.ffu.domain.InfluencerInfo.class.getName() + ".categories");
+            createCache(cm, Influencer.class.getName());
+            createCache(cm, Influencer.class.getName() + ".socialNetworkLinks");
+            createCache(cm, Influencer.class.getName() + ".categories");
             createCache(cm, com.ffu.domain.SocialNetworkLink.class.getName());
             createCache(cm, com.ffu.domain.Message.class.getName());
             createCache(cm, com.ffu.domain.Discussion.class.getName());

@@ -58,7 +58,7 @@
         </loadData>
 
         <loadData
-            file="config/liquibase/data/user_discussion.csv"
+            file="config/liquibase/fake-data/user_discussion.csv"
             separator=";"
             tableName="jhi_user_discussion">
             <column name="user_id" type="numeric"/>

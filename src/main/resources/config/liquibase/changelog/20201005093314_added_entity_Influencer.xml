@@ -6,19 +6,40 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
-        Added the entity InfluencerInfo.
+        Added the entity Influencer.
     -->
     <changeSet id="20201005093314-1" author="jhipster">
-        <createTable tableName="influencer_info">
+        <createTable tableName="influencer">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="user_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_influencer_info_user_id" />
+            <column name="username" type="varchar(255)">
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_influencer_username" />
+            </column>
+            <column name="followers" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="following" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="publications" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(191)">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_influencer_email"/>
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+
+        <createTable tableName="influencer_country">
+            <column name="influencer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_code" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

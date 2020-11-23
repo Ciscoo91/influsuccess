@@ -26,7 +26,7 @@
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('influSuccessApp.campaignCategory.name')">Name</span></th>
-                    <th><span v-text="$t('influSuccessApp.campaignCategory.influencerInfo')">Influencer Info</span></th>
+                    <th><span v-text="$t('influSuccessApp.campaignCategory.influencer')">Influencer Info</span></th>
                     <th><span v-text="$t('influSuccessApp.campaignCategory.campaign')">Campaign</span></th>
                     <th></th>
                 </tr>
@@ -39,8 +39,8 @@
                     </td>
                     <td>{{campaignCategory.name}}</td>
                     <td>
-                        <div v-if="campaignCategory.influencerInfo">
-                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: campaignCategory.influencerInfo.id}}">{{campaignCategory.influencerInfo.id}}</router-link>
+                        <div v-if="campaignCategory.influencer">
+                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: campaignCategory.influencer.id}}">{{campaignCategory.influencer.id}}</router-link>
                         </div>
                     </td>
                     <td>

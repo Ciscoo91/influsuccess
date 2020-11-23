@@ -1,8 +1,6 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -33,7 +31,7 @@ public class SocialNetworkLink implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "socialNetworkLinks", allowSetters = true)
-    private InfluencerInfo influencerInfo;
+    private Influencer influencer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -70,17 +68,17 @@ public class SocialNetworkLink implements Serializable {
         this.socialNetwork = socialNetwork;
     }
 
-    public InfluencerInfo getInfluencerInfo() {
-        return influencerInfo;
+    public Influencer getInfluencer() {
+        return influencer;
     }
 
-    public SocialNetworkLink influencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public SocialNetworkLink Influencer(Influencer influencer) {
+        this.influencer = influencer;
         return this;
     }
 
-    public void setInfluencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public void setInfluencer(Influencer influencer) {
+        this.influencer = influencer;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

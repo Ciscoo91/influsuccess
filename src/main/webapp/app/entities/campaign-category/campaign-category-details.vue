@@ -11,11 +11,11 @@
                         <span>{{campaignCategory.name}}</span>
                     </dd>
                     <dt>
-                        <span v-text="$t('influSuccessApp.campaignCategory.influencerInfo')">Influencer Info</span>
+                        <span v-text="$t('influSuccessApp.campaignCategory.influencer')">Influencer Info</span>
                     </dt>
                     <dd>
-                        <div v-if="campaignCategory.influencerInfo">
-                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: campaignCategory.influencerInfo.id}}">{{campaignCategory.influencerInfo.id}}</router-link>
+                        <div v-if="campaignCategory.influencer">
+                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: campaignCategory.influencer.id}}">{{campaignCategory.influencer.id}}</router-link>
                         </div>
                     </dd>
                     <dt>

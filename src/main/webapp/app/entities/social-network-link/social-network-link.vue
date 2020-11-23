@@ -27,7 +27,7 @@
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('influSuccessApp.socialNetworkLink.link')">Link</span></th>
                     <th><span v-text="$t('influSuccessApp.socialNetworkLink.socialNetwork')">Social Network</span></th>
-                    <th><span v-text="$t('influSuccessApp.socialNetworkLink.influencerInfo')">Influencer Info</span></th>
+                    <th><span v-text="$t('influSuccessApp.socialNetworkLink.influencer')">Influencer Info</span></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -44,8 +44,8 @@
                         </div>
                     </td>
                     <td>
-                        <div v-if="socialNetworkLink.influencerInfo">
-                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: socialNetworkLink.influencerInfo.id}}">{{socialNetworkLink.influencerInfo.id}}</router-link>
+                        <div v-if="socialNetworkLink.influencer">
+                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: socialNetworkLink.influencer.id}}">{{socialNetworkLink.influencer.id}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

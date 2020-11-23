@@ -1,6 +1,7 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ffu.domain.enumeration.SocialNetworkEnum;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -23,21 +24,22 @@ public class SocialNetwork implements Serializable {
     @Size(max = 50)
     @Id
     @Column(length = 50)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private SocialNetworkEnum name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
 
-    public String getName() {
+    public SocialNetworkEnum getName() {
         return name;
     }
 
-    public SocialNetwork name(String name) {
+    public SocialNetwork name(SocialNetworkEnum name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
+    public void setName(SocialNetworkEnum name) {
         this.name = name;
     }
 

@@ -43,7 +43,7 @@
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
             <column name="email" type="varchar(191)">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_email"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_email"/>
             </column>
             <column name="user_extra_id" type="bigint"/>
             <column name="image_url" type="varchar(256)"/>
@@ -85,6 +85,15 @@
             </column>
         </createTable>
 
+        <createTable tableName="jhi_user_country">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_code" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
         <createTable tableName="jhi_user_discussion">
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
@@ -96,6 +105,7 @@
 
         <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
         <addPrimaryKey columnNames="user_id, discussion_id" tableName="jhi_user_discussion"/>
+        <addPrimaryKey columnNames="user_id, country_code" tableName="jhi_user_country"/>
 
         <addForeignKeyConstraint baseColumnNames="authority_name"
                                  baseTableName="jhi_user_authority"
@@ -111,7 +121,13 @@
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="jhi_user_discussion"
-                                 constraintName="fk_user_discussion_id"
+                                 constraintName="fk_user_discussion_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="jhi_user_country"
+                                 constraintName="fk_user_country_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 

@@ -1,8 +1,6 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -29,7 +27,7 @@ public class CampaignCategory implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "categories", allowSetters = true)
-    private InfluencerInfo influencerInfo;
+    private Influencer influencer;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "categories", allowSetters = true)
@@ -57,17 +55,17 @@ public class CampaignCategory implements Serializable {
         this.name = name;
     }
 
-    public InfluencerInfo getInfluencerInfo() {
-        return influencerInfo;
+    public Influencer getInfluencer() {
+        return influencer;
     }
 
-    public CampaignCategory influencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public CampaignCategory Influencer(Influencer influencer) {
+        this.influencer = influencer;
         return this;
     }
 
-    public void setInfluencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public void setInfluencer(Influencer influencer) {
+        this.influencer = influencer;
     }
 
     public Campaign getCampaign() {

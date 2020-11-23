@@ -1,13 +1,13 @@
-import { IInfluencerInfo } from '@/shared/model/influencer-info.model';
+import { IInfluencer } from '@/shared/model/influencer-info.model';
 import { ICampaign } from '@/shared/model/campaign.model';
 
 export interface ICampaignCategory {
   id?: number;
   name?: string;
-  influencerInfo?: IInfluencerInfo;
+  influencer?: IInfluencer;
   campaign?: ICampaign;
 }
 
 export class CampaignCategory implements ICampaignCategory {
-  constructor(public id?: number, public name?: string, public influencerInfo?: IInfluencerInfo, public campaign?: ICampaign) {}
+  constructor(public id?: number, public name?: string, public influencer?: IInfluencer, public campaign?: ICampaign) {}
 }

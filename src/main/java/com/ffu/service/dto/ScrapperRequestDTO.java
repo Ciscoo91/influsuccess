@@ -1,46 +1,39 @@
 package com.ffu.service.dto;
 
-import javax.validation.constraints.NotBlank;
+import com.ffu.domain.CampaignCategory;
+import com.ffu.domain.Country;
+import com.ffu.domain.SocialNetwork;
 
 public class ScrapperRequestDTO {
-    @NotBlank
-    private String socialNetwork;
 
-    private String[] categories;
+    private SocialNetwork socialNetwork;
 
-    private String country;
+    private CampaignCategory category;
 
-    private long minFollowers;
+    private Country country;
 
-    public String getSocialNetwork() {
+    public SocialNetwork getSocialNetwork() {
         return socialNetwork;
     }
 
-    public void setSocialNetwork(String socialNetwork) {
+    public void setSocialNetwork(SocialNetwork socialNetwork) {
         this.socialNetwork = socialNetwork;
     }
 
-    public String[] getCategories() {
-        return categories;
+    public CampaignCategory getCategory() {
+        return category;
     }
 
-    public void setCategories(String[] categories) {
-        this.categories = categories;
+    public void setCategory(CampaignCategory category) {
+        this.category = category;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
-    public long getMinFollowers() {
-        return minFollowers;
-    }
-
-    public void setMinFollowers(long minFollowers) {
-        this.minFollowers = minFollowers;
-    }
 }
