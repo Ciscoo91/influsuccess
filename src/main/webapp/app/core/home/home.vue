@@ -18,11 +18,17 @@
               <b-card-text>
                 Trouvez parmis des milliers de partenariats potentiels pour augmenter votre audiance et votre protefeuille
               </b-card-text>
-
-              <b-card-text>A second paragraph of text in the card.</b-card-text>
-
-              <a href="#" class="card-link">Card link</a>
-              <b-link href="#" class="card-link">Another link</b-link>
+              <div class="card-icons-container d-flex mt-4">
+                <div class="col-6">
+                  <img src="/content/images/noun_map_location_3329139.svg" alt="globe_image" style="max-width: 30%;">
+                  <p>Trouvez des influenceurs dans le pays de votre choix</p>
+                </div>
+                <div class="col-6">
+                  <img src="/content/images/noun_social_media_2731512.svg" alt="growth_chart" style="max-width: 30%;">
+                  <p>Fidélisez vos abonnés en leur permettant de découvrir de nouveaux produits</p>
+                </div>
+              </div>
+              
             </b-card>
             <b-card
               img-src="https://via.placeholder.com/350x150/303f9f/FFFFFF"
@@ -35,10 +41,16 @@
                 Postez des annonces et collaborez avec un ou plusieurs influenceurs dans la liste des milliers d'influenceurs que contient notre plateforme
               </b-card-text>
 
-              <b-card-text>A second paragraph of text in the card.</b-card-text>
-
-              <a href="#" class="card-link">Card link</a>
-              <b-link href="#" class="card-link">Another link</b-link>
+              <div class="card-icons-container d-flex mt-4">
+                <div class="col-6">
+                  <img src="/content/images/noun_social_media_1279367.svg" alt="globe_image" style="max-width: 30%;">
+                  <p>Reforcez l'image de votre marque au près des consommateurs</p>
+                </div>
+                <div class="col-6">
+                  <img src="/content/images/noun_growth_graph_3329127.svg" alt="growth_chart" style="max-width: 30%;">
+                  <p>Faitez prosperer votre entreprise</p>
+                </div>
+              </div>
             </b-card>
           </b-card-group>
       </div>

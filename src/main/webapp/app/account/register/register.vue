@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="form-row second-row my-4">
-                        <div class="form-group col-4">
+                        <div class="form-group col-md-4 col-sm-12">
                             <label class="form-control-label" for="email" v-text="$t('global.form[\'email.label\']')">Email</label>
                             <input type="email" class="form-control" id="email" name="email"
                                 :class="{'valid': !$v.registerAccount.email.$invalid, 'invalid': $v.registerAccount.email.$invalid }"
@@ -67,7 +67,7 @@
                                 </small>
                             </div>
                         </div>
-                        <div class="form-group col-4">
+                        <div class="form-group col-md-4 col-sm-12">
                             <label class="form-control-label" for="username" v-text="$t('global.form[\'username.label\']')">Username</label>
                             <input type="text" class="form-control" v-model="$v.registerAccount.login.$model" id="username" name="login"
                                 :class="{'valid': !$v.registerAccount.login.$invalid, 'invalid': $v.registerAccount.login.$invalid }"
@@ -91,7 +91,7 @@
                                 </small>
                             </div>
                         </div>
-                        <div class="form-group col-4">
+                        <div class="form-group col-md-4 col-sm-12">
                             <label class="form-control-label" for="lastName" v-text="$t('global.form[\'lastName.label\']')">Last Name</label>
                             <input type="text" class="form-control" v-model="$v.registerAccount.lastName.$model" id="lastName" name="lastName"
                                 :class="{'valid': !$v.registerAccount.lastName.$invalid, 'invalid': $v.registerAccount.lastName.$invalid }"
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="form-row third-row my-4">
-                        <div class="form-group col-4">
+                        <div class="form-group col-md-4 col-sm-12">
                             <label class="form-control-label" for="firstPassword" v-text="$t('global.form[\'newpassword.label\']')">New password</label>
                             <input type="password" class="form-control" id="firstPassword" name="password"
                                 :class="{'valid': !$v.registerAccount.password.$invalid, 'invalid': $v.registerAccount.password.$invalid }"
@@ -135,7 +135,7 @@
                             </div>
                             <!--<jhi-password-strength-bar [passwordToCheck]="registerAccount.password"></jhi-password-strength-bar>-->
                         </div>
-                        <div class="form-group col-4">
+                        <div class="form-group col-md-4 col-sm-12">
                             <label class="form-control-label" for="secondPassword" v-text="$t('global.form[\'confirmpassword.label\']')">New password confirmation</label>
                             <input type="password" class="form-control" id="secondPassword" name="confirmPasswordInput"
                                 :class="{'valid': !$v.confirmPassword.$invalid, 'invalid': $v.confirmPassword.$invalid }"
@@ -162,7 +162,7 @@
                     </div>
                     
                     <div class="form-row fourth-row my-4">
-                        <div class="form-group col-3">
+                        <div class="form-group col-md-3 col-sm-12">
                             <label class="form-control-label" for="birthday" v-text="$t('global.form[\'birthday.label\']')">Birthday</label>
                             <b-form-datepicker v-model="$v.registerAccount.userExtra.birthday.$model" id="birthday"
                                             :class="{'valid': !$v.registerAccount.userExtra.birthday.$invalid, 'invalid': $v.registerAccount.userExtra.birthday.$invalid }"
@@ -174,7 +174,7 @@
                                 </small>
                             </div>
                         </div>
-                        <div class="form-group col-3">
+                        <div class="form-group col-md-3 col-sm-12">
                             <label class="form-control-label" for="country" v-text="$t('global.form[\'country.label\']')">Country</label>
                             <input type="text" class="form-control" v-model="$v.registerAccount.userExtra.country.$model" id="country" name="country"
                                 :class="{'valid': !$v.registerAccount.userExtra.country.$invalid, 'invalid': $v.registerAccount.userExtra.country.$invalid }"
@@ -194,30 +194,32 @@
                                 </small>
                             </div>
                         </div>
-                        <div class="form-group col-3">
+                        <div class="form-group col-md-3 col-sm-12">
                             <label class="form-control-label" for="phone" v-text="$t('global.form[\'phone.label\']')"> Phone </label>
                                 <vue-tel-input  id = "phone" name="phone"
-                                                :class="{'valid': !$v.registerAccount.userExtra.phone.$invalid, 'invalid': $v.registerAccount.userExtra.phone.$invalid }"
                                                 v-model="$v.registerAccount.userExtra.phone.$model"
                                                 v-bind:placeholder="$t('global.form[\'phone.placeholder\']')"
+                                                :validCharactersOnly=true
+                                                :required=true
+                                                :dynamicPlaceholder=true
                                 >
                                 </vue-tel-input>
-                            <div v-if="$v.registerAccount.userExtra.phone.$anyDirty && $v.registerAccount.userExtra.phone.$invalid">
+                            <!-- <div v-if="$v.registerAccount.userExtra.phone.$anyDirty && $v.registerAccount.userExtra.phone.$invalid">
 
                                 <small class="form-text text-danger" v-if="!$v.registerAccount.userExtra.phone.numeric"
                                     v-text="$t('register.messages.validate.phone.numeric')">
-                                    Your phone can only contain digits
+                                    Your phone number can only contain digits
                                 </small>
                                 <small class="form-text text-danger" v-if="!$v.registerAccount.userExtra.phone.minLength"
                                     v-text="$t('register.messages.validate.phone.minlength')">
-                                    Your phone must contain 10 digits.
+                                    Your phone number must contain 10 digits.
                                 </small>
                                 <small class="form-text text-danger" v-if="!$v.registerAccount.userExtra.phone.maxLength"
                                     v-text="$t('register.messages.validate.phone.maxlength')">
                                     Your phone must contain 10 digits.
                                 </small>
-                            </div>
-                        </div>
+                            </div> -->
+                        </div> 
                     </div>
                     
                     <button type="submit" :disabled="$v.$invalid" class="btn btn-primary mb-4" v-text="$t('register.form.button')">Register</button>

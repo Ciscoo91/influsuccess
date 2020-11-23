@@ -11,13 +11,13 @@
       class="jh-navbar-toggler d-lg-none"
       href="javascript:void(0);"
       data-toggle="collapse"
-      target="header-tabs"
+      target="_header-tabs"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <font-awesome-icon icon="bars" />
     </b-navbar-toggle>
-    <b-collapse is-nav id="header-tabs">
+    <b-collapse is-nav id="_header-tabs">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/" exact>
           <span>
