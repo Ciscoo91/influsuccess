@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="primary" class="jh-navbar">
+  <b-navbar toggleable="lg" type="dark" variant="primary" class="jh-navbar" fixed="top">
     <div class="container">
       <b-navbar-brand class="logo" b-link to="/">
       <!-- <span class="logo-img"></span> -->
@@ -11,13 +11,13 @@
       class="jh-navbar-toggler d-lg-none"
       href="javascript:void(0);"
       data-toggle="collapse"
-      target="_header-tabs"
+      target="nav-collapse"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <font-awesome-icon icon="bars" />
     </b-navbar-toggle>
-    <b-collapse is-nav id="_header-tabs">
+    <b-collapse is-nav id="nav-collapse" class="bg-primary">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/" exact>
           <span>
