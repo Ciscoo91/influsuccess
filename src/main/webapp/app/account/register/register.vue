@@ -184,16 +184,20 @@
                         <div v-if="$v.registerAccount.userExtra.birthday.$anyDirty && $v.registerAccount.userExtra.birthday.$invalid">
                             <small class="form-text text-danger" v-if="!$v.registerAccount.userExtra.birthday.required"
                                    v-text="$t('register.messages.validate.birthday.required')">
-                                Country is required.
+                                Birthday is required.
                             </small>
                         </div>
-
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="country" v-text="$t('global.form[\'country.label\']')">Country</label>
-                        <input type="text" class="form-control" v-model="$v.registerAccount.userExtra.country.$model" id="country" name="country"
+                        <select class="form-control" v-model="$v.registerAccount.userExtra.country.$model" id="country" name="country"
                                :class="{'valid': !$v.registerAccount.userExtra.country.$invalid, 'invalid': $v.registerAccount.userExtra.country.$invalid }"
                                required minlength="1"  v-bind:placeholder="$t('global.form[\'country.placeholder\']')">
+                            <option disabled value="" v-text="$t('global.form[\'country.choose\']')">Choose a country</option>
+                            <option v-for="country in countries" :value="country">
+                                {{ country.name }}
+                            </option>
+                        </select>
                         <div v-if="$v.registerAccount.userExtra.country.$anyDirty && $v.registerAccount.userExtra.country.$invalid">
                             <small class="form-text text-danger" v-if="!$v.registerAccount.userExtra.country.required"
                                    v-text="$t('register.messages.validate.country.required')">

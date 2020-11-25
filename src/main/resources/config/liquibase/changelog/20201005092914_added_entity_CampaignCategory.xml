@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity CampaignCategory.
     -->
@@ -18,7 +18,7 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="influencer_info_id" type="bigint">
+            <column name="influencer_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="campaign_id" type="bigint">
@@ -41,9 +41,9 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20201005092914-1-data" author="jhipster" context="faker">
+    <changeSet id="20201005092914-1-data" author="jhipster">
         <loadData
-                  file="config/liquibase/fake-data/campaign_category.csv"
+                  file="config/liquibase/data/campaign_category.csv"
                   separator=";"
                   tableName="campaign_category">
             <column name="id" type="numeric"/>

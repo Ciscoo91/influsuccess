@@ -24,8 +24,8 @@ public class UserExtra implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "country", nullable = false)
-    private String country;
+    @ManyToOne
+    private Country country;
 
     @NotNull
     @Column(name = "birthday", nullable = false)
@@ -44,16 +44,16 @@ public class UserExtra implements Serializable {
         this.id = id;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public UserExtra country(String country) {
+    public UserExtra country(Country country) {
         this.country = country;
         return this;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

@@ -26,18 +26,12 @@ public class Country implements Serializable {
     @Column(length = 50)
     private String name;
 
+    @OneToMany
+    private Set<UserExtra> userExtras;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "jhi_user_country",
-        joinColumns = {@JoinColumn(name = "country_code", referencedColumnName = "name")},
-        inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-    private Set<User> users;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "jhi_influencer_country",
+        name = "influencer_country",
         joinColumns = {@JoinColumn(name = "country_code", referencedColumnName = "name")},
         inverseJoinColumns = {@JoinColumn(name = "influencer_id", referencedColumnName = "id")})
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -64,12 +58,12 @@ public class Country implements Serializable {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<UserExtra> getUserExtras() {
+        return userExtras;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUserExtras(Set<UserExtra> userExtras) {
+        this.userExtras = userExtras;
     }
 
     public Set<Influencer> getInfluencers() {

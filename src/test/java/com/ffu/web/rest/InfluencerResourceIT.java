@@ -2,7 +2,7 @@ package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.Influencer;
-import com.ffu.repository.InfluencerInfoRepository;
+import com.ffu.repository.InfluencerRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Integration tests for the {@link InfluencerInfoResource} REST controller.
+ * Integration tests for the {@link InfluencerResource} REST controller.
  */
 @SpringBootTest(classes = InfluSuccessApp.class)
 @AutoConfigureMockMvc
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class InfluencerResourceIT {
 
     @Autowired
-    private InfluencerInfoRepository influencerInfoRepository;
+    private InfluencerRepository influencerRepository;
 
     @Autowired
     private EntityManager em;
@@ -69,7 +69,7 @@ public class InfluencerResourceIT {
     @Test
     @Transactional
     public void createInfluencerInfo() throws Exception {
-        int databaseSizeBeforeCreate = influencerInfoRepository.findAll().size();
+        int databaseSizeBeforeCreate = influencerRepository.findAll().size();
         // Create the InfluencerInfo
         restInfluencerInfoMockMvc.perform(post("/api/influencer-infos")
             .contentType(MediaType.APPLICATION_JSON)
@@ -77,7 +77,7 @@ public class InfluencerResourceIT {
             .andExpect(status().isCreated());
 
         // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerInfoRepository.findAll();
+        List<Influencer> influencerList = influencerRepository.findAll();
         assertThat(influencerList).hasSize(databaseSizeBeforeCreate + 1);
         Influencer testInfluencer = influencerList.get(influencerList.size() - 1);
     }
@@ -85,7 +85,7 @@ public class InfluencerResourceIT {
     @Test
     @Transactional
     public void createInfluencerInfoWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = influencerInfoRepository.findAll().size();
+        int databaseSizeBeforeCreate = influencerRepository.findAll().size();
 
         // Create the InfluencerInfo with an existing ID
         influencer.setId(1L);
@@ -97,7 +97,7 @@ public class InfluencerResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerInfoRepository.findAll();
+        List<Influencer> influencerList = influencerRepository.findAll();
         assertThat(influencerList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -106,7 +106,7 @@ public class InfluencerResourceIT {
     @Transactional
     public void getAllInfluencerInfos() throws Exception {
         // Initialize the database
-        influencerInfoRepository.saveAndFlush(influencer);
+        influencerRepository.saveAndFlush(influencer);
 
         // Get all the influencerInfoList
         restInfluencerInfoMockMvc.perform(get("/api/influencer-infos?sort=id,desc"))
@@ -119,7 +119,7 @@ public class InfluencerResourceIT {
     @Transactional
     public void getInfluencerInfo() throws Exception {
         // Initialize the database
-        influencerInfoRepository.saveAndFlush(influencer);
+        influencerRepository.saveAndFlush(influencer);
 
         // Get the influencerInfo
         restInfluencerInfoMockMvc.perform(get("/api/influencer-infos/{id}", influencer.getId()))
@@ -139,12 +139,12 @@ public class InfluencerResourceIT {
     @Transactional
     public void updateInfluencerInfo() throws Exception {
         // Initialize the database
-        influencerInfoRepository.saveAndFlush(influencer);
+        influencerRepository.saveAndFlush(influencer);
 
-        int databaseSizeBeforeUpdate = influencerInfoRepository.findAll().size();
+        int databaseSizeBeforeUpdate = influencerRepository.findAll().size();
 
         // Update the influencerInfo
-        Influencer updatedInfluencer = influencerInfoRepository.findById(influencer.getId()).get();
+        Influencer updatedInfluencer = influencerRepository.findById(influencer.getId()).get();
         // Disconnect from session so that the updates on updatedInfluencerInfo are not directly saved in db
         em.detach(updatedInfluencer);
 
@@ -154,7 +154,7 @@ public class InfluencerResourceIT {
             .andExpect(status().isOk());
 
         // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerInfoRepository.findAll();
+        List<Influencer> influencerList = influencerRepository.findAll();
         assertThat(influencerList).hasSize(databaseSizeBeforeUpdate);
         Influencer testInfluencer = influencerList.get(influencerList.size() - 1);
     }
@@ -162,7 +162,7 @@ public class InfluencerResourceIT {
     @Test
     @Transactional
     public void updateNonExistingInfluencerInfo() throws Exception {
-        int databaseSizeBeforeUpdate = influencerInfoRepository.findAll().size();
+        int databaseSizeBeforeUpdate = influencerRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restInfluencerInfoMockMvc.perform(put("/api/influencer-infos")
@@ -171,7 +171,7 @@ public class InfluencerResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerInfoRepository.findAll();
+        List<Influencer> influencerList = influencerRepository.findAll();
         assertThat(influencerList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -179,9 +179,9 @@ public class InfluencerResourceIT {
     @Transactional
     public void deleteInfluencerInfo() throws Exception {
         // Initialize the database
-        influencerInfoRepository.saveAndFlush(influencer);
+        influencerRepository.saveAndFlush(influencer);
 
-        int databaseSizeBeforeDelete = influencerInfoRepository.findAll().size();
+        int databaseSizeBeforeDelete = influencerRepository.findAll().size();
 
         // Delete the influencerInfo
         restInfluencerInfoMockMvc.perform(delete("/api/influencer-infos/{id}", influencer.getId())
@@ -189,7 +189,7 @@ public class InfluencerResourceIT {
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
-        List<Influencer> influencerList = influencerInfoRepository.findAll();
+        List<Influencer> influencerList = influencerRepository.findAll();
         assertThat(influencerList).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

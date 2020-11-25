@@ -1,5 +1,6 @@
 package com.ffu.service.mapper;
 
+import com.ffu.domain.Country;
 import com.ffu.domain.User;
 import com.ffu.service.dto.UserDTO;
 import com.ffu.service.dto.UserExtraDTO;
@@ -27,8 +28,10 @@ public class UserMapperTest {
     private User user;
     private UserDTO userDto;
 
+    private Country country;
 
     private UserMapper userMapper;
+
 
 
     @BeforeEach
@@ -44,9 +47,12 @@ public class UserMapperTest {
         user.setImageUrl("image_url");
         user.setLangKey("en");
 
+        country = new Country();
+        country.setCode("AA");
+        country.setName("BB");
         UserExtraDTO  userExtraDTO= new UserExtraDTO();
         userExtraDTO.setBirthday(LocalDate.now());
-        userExtraDTO.setCountry("country");
+        userExtraDTO.setCountry(country);
         userExtraDTO.setPhone(Long.valueOf("1"));
 
         userDto = new UserDTO(user, userExtraDTO);

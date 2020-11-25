@@ -2,6 +2,7 @@ package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
 import com.ffu.config.Constants;
+import com.ffu.domain.Country;
 import com.ffu.domain.User;
 import com.ffu.repository.AuthorityRepository;
 import com.ffu.repository.UserRepository;
@@ -64,12 +65,16 @@ public class AccountResourceIT {
 
     private UserExtraDTO userExtraDTO;
 
+    private Country country;
 
     @BeforeEach
     private void fillUserExtraDTO(){
         this.userExtraDTO = new UserExtraDTO();
         userExtraDTO.setBirthday(LocalDate.now());
-        userExtraDTO.setCountry("country");
+        country = new Country();
+        country.setName("BB");
+        country.setCode("AA");
+        userExtraDTO.setCountry(country);
         userExtraDTO.setPhone(Long.valueOf("1"));
     }
 

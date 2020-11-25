@@ -25,11 +25,16 @@ public class InstaScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
         HashSet<String> profileUrls = new HashSet<>();
 
             for (int i = 0; i < 10; i += 10) {
-                Set<Document> sitesToVisit = this.googleLinksScrapper(scrapperRequestDTO.getCategory().getName() +"+"+scrapperRequestDTO.getSocialNetwork() +"+"+ "influencers" +"+"+scrapperRequestDTO.getCountry().getName(), Integer.toString(i));
+                Set<Document> sitesToVisit = this.googleLinksScrapper(
+                    scrapperRequestDTO.getCategory().getName() +" "
+                        +scrapperRequestDTO.getSocialNetwork().getName().toString() +" "
+                        + "influencers" +" "
+                        +scrapperRequestDTO.getCountry().getName(),
+                    Integer.toString(i));
                 sitesToVisit = sitesToVisit.stream().filter(document -> document != null).collect(Collectors.toSet());
                 for (Document site : sitesToVisit) {
                     profileUrls.addAll(
-                        site.select("a[href~=(?=^(http|https):\\/\\/(www.)?instagram.com\\/)(?=(?!.*\\/explorer\\/.*))(?=(?!.*\\/[p|d]\\/.*))]")
+                        site.select("a[href~=(?=^(http|https):\\/\\/(www.)?instagram.com\\/)(?=(?!.*\\/explore\\/.*))(?=(?!.*\\/[p|d]\\/.*))]")
                             .stream()
                             .map(link -> link.attr("href").split("\\/\\?")[0])
                             .collect(Collectors.toSet())
@@ -45,8 +50,13 @@ public class InstaScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
     }
 
     private void fillScrapperResponseDTODataFromProfil(HashSet<String> profileUrls, CampaignCategory category, Country country, SocialNetwork socialNetwork) {
-        HashSet<ScrapperResponseDTO> scrapperResponseDTOS = new HashSet<>();
+
         for (String profileUrl : profileUrls) {
+            try {
+                Thread.sleep(20000);
+            } catch (InterruptedException e) {
+                throw new ScrappingErrorException(e.getMessage());
+            }
             Document instaProfil = this.getDocumentFromUrl(profileUrl, null);
             if (instaProfil != null) {
                 String[] infos = instaProfil.select("meta[property=og:description]").attr("content").split(", ");
@@ -66,7 +76,7 @@ public class InstaScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
                     String[] linkSplit = profileUrl.split("/");
                     scrapperResponseDTO.setUsername(linkSplit[linkSplit.length - 1]);
 
-                    scrapperResponseDTOS.add(scrapperResponseDTO);
+                    this.saveInfluencerFromScrapperResponse(scrapperResponseDTO);
                 }
             }
         }

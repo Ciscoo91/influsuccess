@@ -23,7 +23,7 @@
                         <label class="form-control-label" v-text="$t('influSuccessApp.campaignCategory.influencer')" for="campaign-category-influencer">Influencer Info</label>
                         <select class="form-control" id="campaign-category-influencer" name="influencer" v-model="campaignCategory.influencer">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="campaignCategory.influencer && influencer.id === campaignCategory.influencer.id ? campaignCategory.influencer : influencer" v-for="influencerOption in influencer" :key="influencerOption.id">{{'influencerInfoOption.id}}</option>
+                            <option v-bind:value="campaignCategory.influencer && influencer.id === campaignCategory.influencer.id ? campaignCategory.influencer : influencer" v-for="influencerOption in influencer" :key="influencerOption.id">{{influencerOption.id}}</option>
                         </select>
                     </div>
                     <div class="form-group">

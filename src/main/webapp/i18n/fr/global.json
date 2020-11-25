@@ -53,6 +53,7 @@
       "firstName.placeholder": "Votre prénom",
       "country.label": "Pays",
       "country.placeholder": "Votre pays",
+      "country.choose": "Choissisez un pays",
       "phone.label": "Numéro de téléphone",
       "phone.placeholder": "Votre numéro de téléphone",
       "birthday.label": "Date de naissance",

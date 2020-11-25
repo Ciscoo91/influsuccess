@@ -9,18 +9,16 @@
     <changeSet id="20201005093514-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="country_code"
-                                 baseTableName="jhi_user_country"
-                                 constraintName="fk_user_country_county_name"
-                                 referencedColumnNames="name"
-                                 referencedTableName="country"/>
-
-        <addForeignKeyConstraint baseColumnNames="country_code"
                                  baseTableName="influencer_country"
                                  constraintName="fk_influencer_country_county_name"
                                  referencedColumnNames="name"
                                  referencedTableName="country"/>
 
-
+        <addForeignKeyConstraint baseColumnNames="country_code"
+                                 baseTableName="user_extra"
+                                 constraintName="fk_user_extra_country_code"
+                                 referencedColumnNames="code"
+                                 referencedTableName="country"/>
 
 
     </changeSet>

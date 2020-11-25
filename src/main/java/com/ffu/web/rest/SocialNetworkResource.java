@@ -50,7 +50,7 @@ public class SocialNetworkResource {
     @PostMapping("/social-networks")
     public ResponseEntity<SocialNetwork> createSocialNetwork(@Valid @RequestBody SocialNetwork socialNetwork) throws URISyntaxException {
         log.debug("REST request to save SocialNetwork : {}", socialNetwork);
-        if (socialNetworkRepository.findById(socialNetwork.getName()).isPresent() ) {
+        if (socialNetworkRepository.findById(socialNetwork.getName().toString()).isPresent() ) {
             throw new BadRequestAlertException("already name exist ", ENTITY_NAME, "idexist");
         }
         SocialNetwork result = socialNetworkRepository.save(socialNetwork);

@@ -1,9 +1,11 @@
 package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
+import com.ffu.domain.Country;
 import com.ffu.domain.UserExtra;
 import com.ffu.repository.UserExtraRepository;
 
+import liquibase.pro.packaged.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class UserExtraResourceIT {
 
-    private static final String DEFAULT_COUNTRY = "AAAAAAAAAA";
-    private static final String UPDATED_COUNTRY = "BBBBBBBBBB";
+    private static  Country DEFAULT_COUNTRY;
+    private static  Country UPDATED_COUNTRY;
 
     private static final LocalDate DEFAULT_BIRTHDAY = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_BIRTHDAY = LocalDate.now(ZoneId.systemDefault());
@@ -80,6 +82,10 @@ public class UserExtraResourceIT {
 
     @BeforeEach
     public void initTest() {
+        DEFAULT_COUNTRY = new Country();
+        DEFAULT_COUNTRY.setCode("AA");
+        DEFAULT_COUNTRY.setName("BB");
+        UPDATED_COUNTRY = DEFAULT_COUNTRY;
         userExtra = createEntity(em);
     }
 
@@ -175,7 +181,7 @@ public class UserExtraResourceIT {
             .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.intValue())));
     }
-    
+
     @Test
     @Transactional
     public void getUserExtra() throws Exception {

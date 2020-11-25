@@ -38,7 +38,7 @@
     <changeSet id="20201005093014-1-data" author="jhipster">
         <loadData
                   file="config/liquibase/data/country.csv"
-                  separator=";"
+                  separator=","
                   tableName="country">
             <column name="name" type="string"/>
             <column name="code" type="string"/>

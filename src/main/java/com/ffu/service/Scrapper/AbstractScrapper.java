@@ -1,25 +1,20 @@
 package com.ffu.service.Scrapper;
 
-import com.ffu.domain.CampaignCategory;
-import com.ffu.domain.Country;
 import com.ffu.domain.Influencer;
 import com.ffu.domain.SocialNetworkLink;
-import com.ffu.repository.CountryRepository;
 import com.ffu.repository.InfluencerRepository;
 import com.ffu.repository.SocialNetworkLinkRepository;
 import com.ffu.service.dto.ScrapperRequestDTO;
 import com.ffu.service.dto.ScrapperResponseDTO;
-import com.ffu.web.rest.errors.ScrappingErrorException;
 import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class AbstractScrapper {
@@ -27,8 +22,6 @@ public abstract class AbstractScrapper {
     private InfluencerRepository influencerRepository;
 
     private SocialNetworkLinkRepository socialNetworkLinkRepository;
-
-    private CountryRepository countryRepository;
 
     @Autowired
     public final void setInfluencerRepository(InfluencerRepository influencerRepository) {
@@ -40,10 +33,6 @@ public abstract class AbstractScrapper {
         this.socialNetworkLinkRepository = socialNetworkLinkRepository;
     }
 
-    @Autowired
-    public final void setCountryRepository(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
 
     /**
      * Get document from an  url
@@ -59,17 +48,15 @@ public abstract class AbstractScrapper {
                     .data(requestParameters)
                     .get();
             } else {
+                Proxy proxy = new Proxy(Proxy.Type.HTTP,
+                    new InetSocketAddress("110.44.122.214", 55443));
                 return Jsoup.connect(url)
                     .userAgent("Mozilla")
+                    .referrer("http://www.google.com")
                     .get();
             }
         } catch (IOException e) {
-            if(e.getMessage().equals("HTTP error fetching URL")){
-                return null;
-            }
-            else{
-                throw new ScrappingErrorException(e.getMessage());
-            }
+            return null;
         }
     }
 
@@ -83,14 +70,18 @@ public abstract class AbstractScrapper {
 
         String[] requestParameters = {"q",term,"start",pageStart};
         Document document = this.getDocumentFromUrl("https://google.com/search", requestParameters);
-        Set<Document> sitesToVisit =  document.select("a[href~=(?=(?i)^\\/url\\?q=)(?=(?!.*google.*))]")
-            .stream().map(link -> {
-                String href = link.attr("href");
-                return href.substring(7, href.indexOf("&"));
-            })
-            .map(url -> this.getDocumentFromUrl(url, null))
-            .collect(Collectors.toSet());
-        return sitesToVisit;
+        if(document != null) {
+            Set<Document> sitesToVisit = document.select("a[href~=(?=(?i)^\\/url\\?q=)(?=(?!.*google.*))]")
+                .stream().map(link -> {
+                    String href = link.attr("href");
+                    return href.substring(7, href.indexOf("&"));
+                })
+                .map(url -> this.getDocumentFromUrl(url, null))
+                .collect(Collectors.toSet());
+            return sitesToVisit;
+        } else {
+            return new HashSet<>();
+        }
     }
 
     public void saveInfluencerFromScrapperResponse(ScrapperResponseDTO scrapperResponseDTO){
@@ -98,6 +89,7 @@ public abstract class AbstractScrapper {
         if(StringUtils.isNotBlank(scrapperResponseDTO.getUsername())) {
 
             Influencer influencer = new Influencer();
+            influencer.setUsername(scrapperResponseDTO.getUsername());
             if(StringUtils.isNotBlank(scrapperResponseDTO.getFollowers())){
                 influencer.setFollowers(scrapperResponseDTO.getFollowers());
             }
@@ -132,23 +124,24 @@ public abstract class AbstractScrapper {
                     socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
                     influencer.getSocialNetworkLinks().add(socialNetworkLink);
                 }
-                influencerRepository.save(influencer);
             } else {
-                influencer.setCategories(new HashSet<>((Collection<? extends CampaignCategory>) scrapperResponseDTO.getCategory()));
-                influencer.setCountries(new HashSet<>((Collection<? extends Country>) scrapperResponseDTO.getCountry()));
+                influencer.setCategories(Collections.singleton(scrapperResponseDTO.getCategory()));
+                influencer.setCountries(Collections.singleton(scrapperResponseDTO.getCountry()));
 
                 influencer = influencerRepository.save(influencer);
 
                 SocialNetworkLink socialNetworkLink = new SocialNetworkLink();
                 socialNetworkLink.setInfluencer(influencer);
                 socialNetworkLink.setSocialNetwork(scrapperResponseDTO.getSocialNetwork());
+                socialNetworkLink.setLink(scrapperResponseDTO.getProfilUrl());
                 socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
                 influencer.getSocialNetworkLinks().add(socialNetworkLink);
 
-                influencerRepository.save(influencer);
             }
+            influencerRepository.saveAndFlush(influencer);
         }
     }
+
 
     public abstract void scrape(ScrapperRequestDTO scrapperRequestDTO);
 }

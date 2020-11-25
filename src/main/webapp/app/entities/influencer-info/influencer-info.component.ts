@@ -14,7 +14,7 @@ export default class Influencer extends mixins(AlertMixin) {
   @Inject('InfluencerService') private influencerService: () => InfluencerService;
   private removeId: number = null;
 
-  public influencer: IInfluencer[] = [];
+  public influencers: IInfluencer[] = [];
 
   public isFetching = false;
 

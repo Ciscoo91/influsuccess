@@ -2,6 +2,7 @@ package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.SocialNetwork;
+import com.ffu.domain.enumeration.SocialNetworkEnum;
 import com.ffu.repository.SocialNetworkRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class SocialNetworkResourceIT {
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final SocialNetworkEnum DEFAULT_NAME = SocialNetworkEnum.Instagram;
 
     @Autowired
     private SocialNetworkRepository socialNetworkRepository;
