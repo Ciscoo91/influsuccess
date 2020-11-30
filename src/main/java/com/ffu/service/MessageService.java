@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MessageService {
-
     MessageDTO save(MessageDTO messageDTO);
 
     Optional<MessageDTO> findById(Long id);
@@ -18,6 +17,8 @@ public interface MessageService {
     List<MessageDTO> getLastUserMessageForCampaigns(Long userId);
 
     Long getCountNewMessages(Long userId, Long discussionId);
+
+    Long getAlllNewMessageCount(Long userId);
 
     MessageChat saveMessageChat(MessageChat messageChat, Long discussionId);
 }

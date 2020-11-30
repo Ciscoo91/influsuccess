@@ -21,7 +21,6 @@ export default class DiscussionThreads extends Vue {
   private messageService: () => MessageService;
 
   private discussions: IDiscussionThreads[] = [];
-  private countNewMessages: number;
   private isFetching = false;
   private participants: ParticipantChat[] = [];
   private messages: MessageChat[] = [];
@@ -80,6 +79,8 @@ export default class DiscussionThreads extends Vue {
         .then(
           res => {
             this.discussions = res;
+            this.$parent.$data.totalNewMessageCount = 1;
+            console.log(this.$parent);
             this.isFetching = false;
           },
           err => {
@@ -122,6 +123,7 @@ export default class DiscussionThreads extends Vue {
             this.participants = res.participants.filter(value => value.id !== this.myself.id && value.name !== this.myself.name);
             this.messages = res.messages;
             this.$root.$emit('bv::show::modal', 'chatModal');
+            this.$root.$emit('chatOpened');
           }
         },
         err => {}

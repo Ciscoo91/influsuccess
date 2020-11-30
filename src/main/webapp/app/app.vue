@@ -4,12 +4,12 @@
     <div id="app-header">
       <jhi-navbar></jhi-navbar>
     </div>
-    <div class="container-fluid mt-0 px-0">
-      <div class="card mt-0 py-0 mx-0 px-0 jh-card">
+    <div class="container-fluid mt-5 pt-2 px-0">
+      <!-- <div class="card mt-0 py-0 mx-0 px-0 jh-card"> -->
         <router-view></router-view>
-      </div>
-      <b-modal id="login-page" hide-footer lazy>
-        <span slot="modal-title" id="login-title" v-text="$t('login.title')">Sign in</span>
+      <!-- </div> -->
+      <b-modal id="login-page" hide-footer lazy class="bg-success">
+        <span slot="modal-title" id="login-title" v-text="$t('login.title')" class="">Sign in</span>
         <login-form></login-form>
       </b-modal>
     </div>
@@ -17,8 +17,7 @@
   </div>
 </template>
 
-<script lang="ts" src="./app.component.ts">
-</script>
+<script lang="ts" src="./app.component.ts"></script>
 <style scoped>
 .container-fluid {
   min-height: 100vh;

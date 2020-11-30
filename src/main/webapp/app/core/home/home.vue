@@ -6,7 +6,7 @@
               <p class="lead text-info text-center" v-text="$t('home.subtitle')"></p>
             </div>
       </div>
-      <div class="card-section container mb-5 mt-n5">
+      <div class="card-section container mb-5 pb-5 mt-n5">
           <b-card-group deck class="card-group">
             <b-card
               img-src="https://via.placeholder.com/350x150/303f9f/FFFFFF"
@@ -54,7 +54,36 @@
             </b-card>
           </b-card-group>
       </div>
-      <div class="description-section-container container my-5">
+      <div class="social-icons-section row d-flex flex-column align-items-center justify-content-center py-5 mt-5">
+        <p class="display-4 mb-4 text-info">Our Social Medias</p>
+        <div class="row d-flex justify-content-center">
+          <div class="facebook-card py-4 px-4 shadow-sm rounded bg-secondary d-flex flex-column align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="56" height="56" viewBox="0 0 24 24" stroke-width="1.5" stroke="#303f9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+            </svg>
+            Facebook
+          </div>
+          <div class="snapchat-card py-4 px-4 mx-3 shadow-sm rounded bg-secondary d-flex flex-column align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-snapchat" width="56" height="56" viewBox="0 0 24 24" stroke-width="1.5" stroke="#303f9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M16.882 7.842a4.882 4.882 0 0 0 -9.764 0c0 4.273 -.213 6.409 -4.118 8.118c2 .882 2 .882 3 3c3 0 4 2 6 2s3 -2 6 -2c1 -2.118 1 -2.118 3 -3c-3.906 -1.709 -4.118 -3.845 -4.118 -8.118zm-13.882 8.119c4 -2.118 4 -4.118 1 -7.118m17 7.118c-4 -2.118 -4 -4.118 -1 -7.118" />
+            </svg>
+            Snapchat
+          </div>
+          <div class="instagram-card py-4 px-4 shadow-sm rounded bg-secondary d-flex flex-column align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="56" height="56" viewBox="0 0 24 24" stroke-width="1.5" stroke="#303f9f" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <rect x="4" y="4" width="16" height="16" rx="4" />
+              <circle cx="12" cy="12" r="3" />
+              <line x1="16.5" y1="7.5" x2="16.5" y2="7.501" />
+            </svg>
+            Instagram
+          </div>
+        </div>
+        
+      </div>
+      <div class="description-section-container container pt-5 my-5">
         <div class="description-section-campaign row d-flex flex-md-row flex-sm-column justify-content-between align-items-sm-center" id="description-section-campaign">
             <img src="/content/images/homepage_social_medias.jpg" class="description_social_image col-md-6 mx-sm-auto" alt="">
 
@@ -120,6 +149,26 @@
 
 .content{
   line-height:2em;
+}
+
+.social-icons-section{
+  position:relative;
+}
+
+.social-icons-section::after{
+  position: absolute;
+  bottom: -50px;
+  content: "";
+  width: 30%;
+  margin: 2rem auto;
+  border: 1px solid #f5f5f5;
+}
+
+.snapchat-card:hover, 
+.facebook-card:hover,
+.instagram-card{
+  background-color: red;
+  cursor: pointer;
 }
 
 </style>

@@ -1,10 +1,9 @@
 package com.ffu.service.dto;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 
 public class UserExtraDTO {
-
     private Long id;
 
     @NotBlank
@@ -14,7 +13,7 @@ public class UserExtraDTO {
     private LocalDate birthday;
 
     @NotBlank
-    private Long phone;
+    private String phone;
 
     public Long getId() {
         return id;
@@ -40,11 +39,11 @@ public class UserExtraDTO {
         this.birthday = birthday;
     }
 
-    public Long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

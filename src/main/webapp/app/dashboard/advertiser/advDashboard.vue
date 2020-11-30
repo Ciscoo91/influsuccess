@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <side-navbar v-on:currentComponent="setCurrentComponent"></side-navbar>
+    <div class="row d-flex flex-md-row flex-sm-column justify-content-between">
+      <side-navbar  v-on:currentComponent="setCurrentComponent"></side-navbar>
       <keep-alive>
         <component :is="currentComponent"></component>
       </keep-alive>
