@@ -57,10 +57,10 @@ export default class DiscussionThreads extends Vue {
     bottomLeft: '10px',
     bottomRight: '10px',
   };
-  private hideCloseButton = false;
-  private submitIconSize = 25;
-  private closeButtonIconSize = '20px';
-  private timestampConfig = {
+  public hideCloseButton = false;
+  public submitIconSize = 25;
+  public closeButtonIconSize = '20px';
+  public timestampConfig = {
     format: 'yyyy-MM-dd HH:mm:ss',
     relative: false,
   };
@@ -80,7 +80,6 @@ export default class DiscussionThreads extends Vue {
           res => {
             this.discussions = res;
             this.$parent.$data.totalNewMessageCount = 1;
-            console.log(this.$parent);
             this.isFetching = false;
           },
           err => {

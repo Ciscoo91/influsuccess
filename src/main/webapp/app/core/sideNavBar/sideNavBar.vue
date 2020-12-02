@@ -1,6 +1,6 @@
 <template>
   <div class="shadow-lg col-md-2 d-flex flex-column justify-content-between nav-container">
-    <nav class="sidenav d-flex flex-md-column flex-sm-row align-items-stretch">
+    <nav class="sidenav d-flex flex-md-column flex-sm-row justify-content-between align-items-stretch aling-sm-items-center">
       <button
         v-for="item in menuItems"
         :key="item"
@@ -8,12 +8,12 @@
         @click="onClickItem(item)"
       >
       <template v-if=" item === 'discussions' && totalNewMessageCount>0">
-        <div class="row d-flex flex-row justify-content-center align-items-center">
-          <p class="mr-1">
+        <div class="row d-flex align-items-baseline justify-content-center">
+          <p class="m-0 mr-1">
           {{ item.charAt(0).toUpperCase() + item.slice(1) }}
           </p>
         <small
-              class="badge badge-danger text-white d-flex align-items-center"
+              class="badge badge-danger text-white d-flex justify-content-center align-items-center my-0"
               >{{totalNewMessageCount}}</small
             >
         </div>
