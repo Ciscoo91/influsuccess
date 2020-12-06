@@ -1,6 +1,5 @@
 package com.ffu.service.Scrapper;
 
-
 import com.ffu.repository.InfluencerRepository;
 import com.ffu.repository.SocialNetworkLinkRepository;
 import com.ffu.service.dto.ScrapperRequestDTO;

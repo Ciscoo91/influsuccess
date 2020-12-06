@@ -3,7 +3,8 @@ package com.ffu.service.Impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ffu.domain.*;
+import com.ffu.domain.Influencer;
+import com.ffu.domain.SocialNetworkLink;
 import com.ffu.domain.enumeration.SocialNetworkEnum;
 import com.ffu.service.dto.ScrapperRequestDTO;
 import com.ffu.service.dto.ScrapperResponseDTO;
@@ -17,7 +18,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -29,15 +33,16 @@ public class InstaScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
     @Override
     public void scrape(ScrapperRequestDTO scrapperRequestDTO) {
 
-        // Store all  instagram profiles links corresponding to the category(ies)
-        HashSet<String> profileUrls = new HashSet<>();
+       // todo if(socialNetworkLinkRepository.findAllByNetwork_Name(SocialNetworkEnum.Instagram).size() <= 10000) {
+            // Store all  instagram profiles links corresponding to the category(ies)
+            HashSet<String> profileUrls = new HashSet<>();
 
-            for (int i = 0; i < 10; i=i+10) {
+            for (int i = 0; i < 10; i = i + 10) {
                 Set<Document> sitesToVisit = this.googleLinksScrapper(
-                    scrapperRequestDTO.getCategory().getName() +" "
-                        +scrapperRequestDTO.getSocialNetwork().getName().toString() +" "
-                        + "influencers" +" "
-                        +scrapperRequestDTO.getCountry().getName(),
+                    scrapperRequestDTO.getCategory().getName() + " "
+                        + scrapperRequestDTO.getSocialNetwork().getName().toString() + " "
+                        + "influencers" + " "
+                        + scrapperRequestDTO.getCountry().getName(),
                     Integer.toString(i));
                 sitesToVisit = sitesToVisit.stream().filter(document -> document != null).collect(Collectors.toSet());
                 for (Document site : sitesToVisit) {
@@ -63,12 +68,12 @@ public class InstaScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
                 scrapperResponseDTO.setProfilUrl(profileUrl);
                 String[] linkSplit = profileUrl.split("/");
                 scrapperResponseDTO.setUsername(linkSplit[linkSplit.length - 1]);
-                this.saveInstaInfluencerBeforeUsingInstaApiToFillFollowersFollwingsAndPublicationsFields(scrapperResponseDTO);
+                this.saveInstaInfluencerBeforeUsingInstaApiToFillFollowersFollowingsAndPublicationsFields(scrapperResponseDTO);
             });
-
+        //}
     }
 
-    public void saveInstaInfluencerBeforeUsingInstaApiToFillFollowersFollwingsAndPublicationsFields(ScrapperResponseDTO scrapperResponseDTO){
+    public void saveInstaInfluencerBeforeUsingInstaApiToFillFollowersFollowingsAndPublicationsFields(ScrapperResponseDTO scrapperResponseDTO){
         Optional<Influencer> influencerOptional = influencerRepository.findByUsername(scrapperResponseDTO.getUsername());
         if(influencerOptional.isPresent()) {
             Influencer influencer = influencerOptional.get();

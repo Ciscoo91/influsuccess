@@ -6,6 +6,7 @@ import com.ffu.domain.enumeration.SocialNetworkEnum;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,4 +16,6 @@ import java.util.Optional;
 @Repository
 public interface SocialNetworkLinkRepository extends JpaRepository<SocialNetworkLink, Long> {
     Optional<SocialNetworkLink> findByInfluencer_idAndSocialNetwork_name(Long id, SocialNetworkEnum socialNetworkName);
+
+    List<SocialNetworkLink> findAllByNetwork_Name(SocialNetworkEnum socialNetworkName);
 }

@@ -1,7 +1,12 @@
 package com.ffu.service;
 
-import com.ffu.domain.*;
-import com.ffu.repository.*;
+
+import com.ffu.domain.CampaignCategory;
+import com.ffu.domain.Country;
+import com.ffu.domain.SocialNetwork;
+import com.ffu.repository.CampaignCategoryRepository;
+import com.ffu.repository.CountryRepository;
+import com.ffu.repository.SocialNetworkRepository;
 import com.ffu.service.Impl.InstaScrapper;
 import com.ffu.service.dto.ScrapperRequestDTO;
 
@@ -14,18 +19,15 @@ public class ScrapperService {
 
     private final InstaScrapper instaScrapper;
     private final CampaignCategoryRepository campaignCategoryRepository;
-    private  final CountryRepository countryRepository;
+    private final CountryRepository countryRepository;
     private final SocialNetworkRepository socialNetworkRepository;
-    private final InfluencerRepository influencerRepository;
-    private final SocialNetworkLinkRepository socialNetworkLinkRepository;
 
-    public ScrapperService(InstaScrapper instaScrapper, CampaignCategoryRepository campaignCategoryRepository, CountryRepository countryRepository, SocialNetworkRepository socialNetworkRepository, InfluencerRepository influencerRepository, SocialNetworkLinkRepository socialNetworkLinkRepository) {
+
+    public ScrapperService(InstaScrapper instaScrapper, CampaignCategoryRepository campaignCategoryRepository, CountryRepository countryRepository, SocialNetworkRepository socialNetworkRepository) {
         this.instaScrapper = instaScrapper;
         this.campaignCategoryRepository = campaignCategoryRepository;
         this.countryRepository = countryRepository;
         this.socialNetworkRepository = socialNetworkRepository;
-        this.influencerRepository = influencerRepository;
-        this.socialNetworkLinkRepository = socialNetworkLinkRepository;
     }
 
     public void scrape() {
@@ -57,6 +59,4 @@ public class ScrapperService {
                 );
             });
     }
-
-
 }
