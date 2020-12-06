@@ -1,27 +1,22 @@
 package com.ffu.service.Scrapper;
 
-import com.ffu.domain.Influencer;
-import com.ffu.domain.SocialNetworkLink;
+
 import com.ffu.repository.InfluencerRepository;
 import com.ffu.repository.SocialNetworkLinkRepository;
 import com.ffu.service.dto.ScrapperRequestDTO;
-import com.ffu.service.dto.ScrapperResponseDTO;
-import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class AbstractScrapper {
 
-    private InfluencerRepository influencerRepository;
+    protected InfluencerRepository influencerRepository;
 
-    private SocialNetworkLinkRepository socialNetworkLinkRepository;
+    protected SocialNetworkLinkRepository socialNetworkLinkRepository;
 
     @Autowired
     public final void setInfluencerRepository(InfluencerRepository influencerRepository) {
@@ -45,17 +40,19 @@ public abstract class AbstractScrapper {
             if (requestParameters != null){
                 return Jsoup.connect(url)
                     .userAgent("Mozilla")
+                    .referrer("http://www.google.com")
                     .data(requestParameters)
                     .get();
             } else {
-                Proxy proxy = new Proxy(Proxy.Type.HTTP,
-                    new InetSocketAddress("110.44.122.214", 55443));
                 return Jsoup.connect(url)
                     .userAgent("Mozilla")
                     .referrer("http://www.google.com")
                     .get();
             }
         } catch (IOException e) {
+            return null;
+        }
+        catch (IllegalArgumentException e){
             return null;
         }
     }
@@ -83,65 +80,6 @@ public abstract class AbstractScrapper {
             return new HashSet<>();
         }
     }
-
-    public void saveInfluencerFromScrapperResponse(ScrapperResponseDTO scrapperResponseDTO){
-
-        if(StringUtils.isNotBlank(scrapperResponseDTO.getUsername())) {
-
-            Influencer influencer = new Influencer();
-            influencer.setUsername(scrapperResponseDTO.getUsername());
-            if(StringUtils.isNotBlank(scrapperResponseDTO.getFollowers())){
-                influencer.setFollowers(scrapperResponseDTO.getFollowers());
-            }
-            if(StringUtils.isNotBlank(scrapperResponseDTO.getFollowing())){
-                influencer.setFollowing(scrapperResponseDTO.getFollowing());
-            }
-            if(StringUtils.isNotBlank(scrapperResponseDTO.getPublications())){
-                influencer.setPublications(scrapperResponseDTO.getPublications());
-            }
-            if(StringUtils.isNotBlank(scrapperResponseDTO.getEmail())){
-                influencer.setEmail(scrapperResponseDTO.getEmail());
-            }
-
-            Optional<Influencer> influencerOptional = influencerRepository.findByUsername(scrapperResponseDTO.getUsername());
-            if(influencerOptional.isPresent()){
-                influencer.setId(influencerOptional.get().getId());
-                influencer.setCategories(influencerOptional.get().getCategories());
-                influencer.setCountries(influencerOptional.get().getCountries());
-                Optional<SocialNetworkLink> socialNetworkLinkOptional =
-                    socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(influencer.getId(), scrapperResponseDTO.getSocialNetwork().getName().toString());
-                if(socialNetworkLinkOptional.isPresent()){
-                    if(scrapperResponseDTO.getCategory() != null ){
-                        influencer.getCategories().add(scrapperResponseDTO.getCategory());
-                    }
-                    if(scrapperResponseDTO.getCountry() != null){
-                        influencer.getCountries().add(scrapperResponseDTO.getCountry());
-                    }
-                } else {
-                    SocialNetworkLink socialNetworkLink = new SocialNetworkLink();
-                    socialNetworkLink.setInfluencer(influencer);
-                    socialNetworkLink.setSocialNetwork(scrapperResponseDTO.getSocialNetwork());
-                    socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
-                    influencer.getSocialNetworkLinks().add(socialNetworkLink);
-                }
-            } else {
-                influencer.setCategories(Collections.singleton(scrapperResponseDTO.getCategory()));
-                influencer.setCountries(Collections.singleton(scrapperResponseDTO.getCountry()));
-
-                influencer = influencerRepository.save(influencer);
-
-                SocialNetworkLink socialNetworkLink = new SocialNetworkLink();
-                socialNetworkLink.setInfluencer(influencer);
-                socialNetworkLink.setSocialNetwork(scrapperResponseDTO.getSocialNetwork());
-                socialNetworkLink.setLink(scrapperResponseDTO.getProfilUrl());
-                socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
-                influencer.getSocialNetworkLinks().add(socialNetworkLink);
-
-            }
-            influencerRepository.saveAndFlush(influencer);
-        }
-    }
-
 
     public abstract void scrape(ScrapperRequestDTO scrapperRequestDTO);
 }

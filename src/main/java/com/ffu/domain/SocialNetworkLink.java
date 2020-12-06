@@ -25,8 +25,13 @@ public class SocialNetworkLink implements Serializable {
     @Column(name = "link", nullable = false)
     private String link;
 
+    @NotNull
+    @Column(name = "social_network_user_id", nullable = true)
+    private Long socialNetworkUserId;
+
+
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn( nullable = false)
     private SocialNetwork socialNetwork;
 
     @ManyToOne
@@ -53,6 +58,14 @@ public class SocialNetworkLink implements Serializable {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public Long getSocialNetworkUserId() {
+        return socialNetworkUserId;
+    }
+
+    public void setSocialNetworkUserId(Long socialNetworkUserId) {
+        this.socialNetworkUserId = socialNetworkUserId;
     }
 
     public SocialNetwork getSocialNetwork() {

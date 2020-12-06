@@ -46,10 +46,10 @@ public class Influencer implements Serializable {
     @Column(length = 254, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "influencer")
+    @OneToMany(mappedBy = "influencer", fetch = FetchType.EAGER)
     private Set<SocialNetworkLink> socialNetworkLinks = new HashSet<>();
 
-    @OneToMany(mappedBy = "influencer")
+    @OneToMany(mappedBy = "influencer", fetch = FetchType.EAGER)
     private Set<CampaignCategory> categories = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
