@@ -104,7 +104,7 @@
               Account
             </span>
           </span>
-          <b-dropdown-item to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+          <b-dropdown-item to="/account/profile" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
             <span v-text="$t('global.menu.account.settings')">Settings</span>
           </b-dropdown-item>
