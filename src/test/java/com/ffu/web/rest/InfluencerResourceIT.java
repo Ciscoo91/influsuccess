@@ -79,7 +79,6 @@ public class InfluencerResourceIT {
         // Validate the InfluencerInfo in the database
         List<Influencer> influencerList = influencerRepository.findAll();
         assertThat(influencerList).hasSize(databaseSizeBeforeCreate + 1);
-        Influencer testInfluencer = influencerList.get(influencerList.size() - 1);
     }
 
     @Test
@@ -156,7 +155,6 @@ public class InfluencerResourceIT {
         // Validate the InfluencerInfo in the database
         List<Influencer> influencerList = influencerRepository.findAll();
         assertThat(influencerList).hasSize(databaseSizeBeforeUpdate);
-        Influencer testInfluencer = influencerList.get(influencerList.size() - 1);
     }
 
     @Test

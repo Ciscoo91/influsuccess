@@ -1,14 +1,22 @@
 package com.ffu.service.Scrapper;
 
+import com.ffu.domain.Influencer;
+import com.ffu.domain.SocialNetworkLink;
 import com.ffu.repository.InfluencerRepository;
 import com.ffu.repository.SocialNetworkLinkRepository;
+import com.ffu.repository.SocialNetworkRepository;
 import com.ffu.service.dto.ScrapperRequestDTO;
+import com.ffu.service.dto.ScrapperResponseDTO;
+import com.ffu.web.rest.errors.ScrappingErrorException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class AbstractScrapper {
@@ -16,6 +24,8 @@ public abstract class AbstractScrapper {
     protected InfluencerRepository influencerRepository;
 
     protected SocialNetworkLinkRepository socialNetworkLinkRepository;
+
+    protected SocialNetworkRepository socialNetworkRepository;
 
     @Autowired
     public final void setInfluencerRepository(InfluencerRepository influencerRepository) {
@@ -27,6 +37,13 @@ public abstract class AbstractScrapper {
         this.socialNetworkLinkRepository = socialNetworkLinkRepository;
     }
 
+    @Autowired
+    public final void socialNetworkRepository(SocialNetworkRepository socialNetworkRepository) {
+        this.socialNetworkRepository = socialNetworkRepository;
+    }
+    
+
+    public abstract void scrape(ScrapperRequestDTO scrapperRequestDTO);
 
     /**
      * Get document from an  url
@@ -80,5 +97,106 @@ public abstract class AbstractScrapper {
         }
     }
 
-    public abstract void scrape(ScrapperRequestDTO scrapperRequestDTO);
+    public Set<Influencer> searchAllSocialMediaProfilsByUrlPattern(ScrapperRequestDTO scrapperRequestDTO, String regularExpression){
+
+        Set<Influencer> influencers = new HashSet<>();
+
+        if(socialNetworkLinkRepository.findAllBySocialNetwork_Name(scrapperRequestDTO.getSocialNetwork().getName()).size() <= 10000) {
+        // Store all  instagram profiles links corresponding to the category(ies)
+        HashSet<String> profileUrls = new HashSet<>();
+
+        for (int i = 0; i < 10; i = i + 10) {
+            Set<Document> sitesToVisit = this.googleLinksScrapper(
+                scrapperRequestDTO.getCategory().getName() + " "
+                    + scrapperRequestDTO.getSocialNetwork().getName().toString() + " "
+                    + "influencers" + " "
+                    + scrapperRequestDTO.getCountry().getName(),
+                Integer.toString(i));
+            sitesToVisit = sitesToVisit.stream().filter(document -> document != null).collect(Collectors.toSet());
+            for (Document site : sitesToVisit) {
+                profileUrls.addAll(
+                    site.select("a[href~=(?=^"+regularExpression+")]")
+                        .stream()
+                        .map(link -> link.attr("href").split("\\/\\?")[0])
+                        .collect(Collectors.toSet())
+                );
+            }
+
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                throw new ScrappingErrorException(e.getMessage());
+            }
+        }
+        profileUrls.forEach(profileUrl -> {
+            ScrapperResponseDTO scrapperResponseDTO = new ScrapperResponseDTO();
+            scrapperResponseDTO.setCategory(scrapperRequestDTO.getCategory());
+            scrapperResponseDTO.setCountry(scrapperRequestDTO.getCountry());
+            scrapperResponseDTO.setSocialNetwork(scrapperRequestDTO.getSocialNetwork());
+            scrapperResponseDTO.setProfilUrl(profileUrl);
+            String[] linkSplit = profileUrl.split("/");
+            scrapperResponseDTO.setUsername(linkSplit[linkSplit.length - 1]);
+           influencers.add(
+               this.saveInfluencerBeforeUsingApiToFillFollowersFollowingsAndPublicationsFields(scrapperResponseDTO)
+           );
+        });
+        }
+        return influencers;
+    }
+
+    public Influencer saveInfluencerBeforeUsingApiToFillFollowersFollowingsAndPublicationsFields(ScrapperResponseDTO scrapperResponseDTO) {
+        Optional<Influencer> influencerOptional = influencerRepository.findByUsername(scrapperResponseDTO.getUsername());
+        if (influencerOptional.isPresent()) {
+            Influencer influencer = influencerOptional.get();
+            Optional<SocialNetworkLink> socialNetworkLinkOptional =
+                socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(influencerOptional.get().getId(), scrapperResponseDTO.getSocialNetwork().getName());
+
+            if (influencer.getCategories() != null && !influencer.getCategories().contains(scrapperResponseDTO.getCategory())) {
+                influencer.addCategories(scrapperResponseDTO.getCategory());
+            } else {
+                if (!influencer.getCategories().contains(scrapperResponseDTO.getCategory())) {
+                    influencer.setCategories(Collections.singleton(scrapperResponseDTO.getCategory()));
+                }
+            }
+            if (influencer.getCountries() != null && !influencer.getCountries().contains(scrapperResponseDTO.getCountry())) {
+                influencer.addCountries(scrapperResponseDTO.getCountry());
+            } else {
+                if (!influencer.getCountries().contains(scrapperResponseDTO.getCountry())) {
+                    influencer.setCountries(Collections.singleton(scrapperResponseDTO.getCountry()));
+                }
+            }
+
+            if (!socialNetworkLinkOptional.isPresent()) {
+                SocialNetworkLink socialNetworkLink = new SocialNetworkLink();
+                socialNetworkLink.setInfluencer(influencer);
+                socialNetworkLink.setSocialNetwork(scrapperResponseDTO.getSocialNetwork());
+                socialNetworkLink.setLink(scrapperResponseDTO.getProfilUrl());
+                socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
+                influencer.addSocialNetworkLinks(socialNetworkLink);
+            }
+            return influencerRepository.saveAndFlush(influencer);
+
+        }
+        else{
+            Influencer influencer = new Influencer();
+            influencer.setUsername(scrapperResponseDTO.getUsername());
+
+            influencer.setCategories(Collections.singleton(scrapperResponseDTO.getCategory()));
+            influencer.setCountries(Collections.singleton(scrapperResponseDTO.getCountry()));
+
+            influencer = influencerRepository.save(influencer);
+
+            SocialNetworkLink socialNetworkLink = new SocialNetworkLink();
+            socialNetworkLink.setInfluencer(influencer);
+            socialNetworkLink.setSocialNetwork(scrapperResponseDTO.getSocialNetwork());
+            socialNetworkLink.setLink(scrapperResponseDTO.getProfilUrl());
+            socialNetworkLink.setFollower(0);
+            socialNetworkLink.setFollowing(0);
+            socialNetworkLink.setPublication(0);
+            socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
+            influencer.getSocialNetworkLinks().add(socialNetworkLink);
+            return influencerRepository.saveAndFlush(influencer);
+        }
+    }
+
 }

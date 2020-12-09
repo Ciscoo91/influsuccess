@@ -94,7 +94,7 @@ public class CampaignCategoryResourceIT {
         int databaseSizeBeforeCreate = campaignCategoryRepository.findAll().size();
 
         // Create the CampaignCategory with an existing ID
-        campaignCategory.setId(1L);
+        campaignCategory.setName("1L");
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCampaignCategoryMockMvc.perform(post("/api/campaign-categories")
@@ -137,10 +137,9 @@ public class CampaignCategoryResourceIT {
         restCampaignCategoryMockMvc.perform(get("/api/campaign-categories?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(campaignCategory.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
-    
+
     @Test
     @Transactional
     public void getCampaignCategory() throws Exception {
@@ -148,10 +147,9 @@ public class CampaignCategoryResourceIT {
         campaignCategoryRepository.saveAndFlush(campaignCategory);
 
         // Get the campaignCategory
-        restCampaignCategoryMockMvc.perform(get("/api/campaign-categories/{id}", campaignCategory.getId()))
+        restCampaignCategoryMockMvc.perform(get("/api/campaign-categories/{id}", campaignCategory.getName()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(campaignCategory.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
     @Test
@@ -171,7 +169,7 @@ public class CampaignCategoryResourceIT {
         int databaseSizeBeforeUpdate = campaignCategoryRepository.findAll().size();
 
         // Update the campaignCategory
-        CampaignCategory updatedCampaignCategory = campaignCategoryRepository.findById(campaignCategory.getId()).get();
+        CampaignCategory updatedCampaignCategory = campaignCategoryRepository.findById(campaignCategory.getName()).get();
         // Disconnect from session so that the updates on updatedCampaignCategory are not directly saved in db
         em.detach(updatedCampaignCategory);
         updatedCampaignCategory
@@ -214,7 +212,7 @@ public class CampaignCategoryResourceIT {
         int databaseSizeBeforeDelete = campaignCategoryRepository.findAll().size();
 
         // Delete the campaignCategory
-        restCampaignCategoryMockMvc.perform(delete("/api/campaign-categories/{id}", campaignCategory.getId())
+        restCampaignCategoryMockMvc.perform(delete("/api/campaign-categories/{id}", campaignCategory.getName())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

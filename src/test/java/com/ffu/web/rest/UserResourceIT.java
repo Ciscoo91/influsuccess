@@ -7,7 +7,6 @@ import com.ffu.domain.UserExtra;
 import com.ffu.repository.UserRepository;
 import com.ffu.security.AuthoritiesConstants;
 import com.ffu.service.dto.UserDTO;
-import com.ffu.service.dto.UserExtraDTO;
 import com.ffu.service.mapper.UserExtraMapper;
 import com.ffu.service.mapper.UserMapper;
 import com.ffu.web.rest.vm.ManagedUserVM;

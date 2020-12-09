@@ -10,13 +10,13 @@ public class CampaignCategoryTest {
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(CampaignCategory.class);
         CampaignCategory campaignCategory1 = new CampaignCategory();
-        campaignCategory1.setId(1L);
+        campaignCategory1.setName("1L");
         CampaignCategory campaignCategory2 = new CampaignCategory();
-        campaignCategory2.setId(campaignCategory1.getId());
+        campaignCategory2.setName(campaignCategory1.getName());
         assertThat(campaignCategory1).isEqualTo(campaignCategory2);
-        campaignCategory2.setId(2L);
+        campaignCategory2.setName("2L");
         assertThat(campaignCategory1).isNotEqualTo(campaignCategory2);
-        campaignCategory1.setId(null);
+        campaignCategory1.setName(null);
         assertThat(campaignCategory1).isNotEqualTo(campaignCategory2);
     }
 }

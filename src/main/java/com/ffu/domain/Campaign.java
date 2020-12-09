@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ import com.ffu.domain.enumeration.CampaignStatus;
  */
 @Entity
 @Table(name = "campaign")
-public class Campaign extends AbstractAuditingEntity implements Serializable  {
+public class Campaign extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 

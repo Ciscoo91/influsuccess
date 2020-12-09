@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CampaignCategoryRepository extends JpaRepository<CampaignCategory, Long> {
+public interface CampaignCategoryRepository extends JpaRepository<CampaignCategory, String> {
 }

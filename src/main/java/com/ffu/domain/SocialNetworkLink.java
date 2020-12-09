@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * A SocialNetworkLink.
@@ -25,8 +26,29 @@ public class SocialNetworkLink implements Serializable {
     @Column(name = "link", nullable = false)
     private String link;
 
+
     @NotNull
-    @Column(name = "social_network_user_id", nullable = true)
+    @Size(max = 10)
+    @Column(length = 10)
+    private Long follower;
+
+    @NotNull
+    @Size(max = 10)
+    @Column(length = 10)
+    private Long following;
+
+    @NotNull
+    @Size(max = 10)
+    @Column(length = 10)
+    private Long publication;
+
+
+    @Size(max = 10)
+    @Column(name= "rate_engagement", length = 10, scale = 2)
+    private BigDecimal rateEngagement;
+
+
+    @Column(name = "social_network_user_id")
     private Long socialNetworkUserId;
 
 
@@ -35,7 +57,7 @@ public class SocialNetworkLink implements Serializable {
     private SocialNetwork socialNetwork;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "socialNetworkLinks", allowSetters = true)
+    @JsonIgnoreProperties(value = "socialNetworkLinks")
     private Influencer influencer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -56,6 +78,39 @@ public class SocialNetworkLink implements Serializable {
         return this;
     }
 
+
+    public Long getFollower() {
+        return this.follower;
+    }
+
+    public void setFollower(long follower) {
+        this.follower = follower;
+    }
+
+    public Long getFollowing() {
+        return this.following;
+    }
+
+    public void setFollowing(long following) {
+        this.following = following;
+    }
+
+    public Long getPublication() {
+        return this.publication;
+    }
+
+    public void setPublication(long publication) {
+        this.publication = publication;
+    }
+
+    public BigDecimal getrateEngagement() {
+        return this.rateEngagement;
+    }
+
+    public void setRateEngagement(BigDecimal rateEngagement) {
+        this.rateEngagement = rateEngagement;
+    }
+    
     public void setLink(String link) {
         this.link = link;
     }

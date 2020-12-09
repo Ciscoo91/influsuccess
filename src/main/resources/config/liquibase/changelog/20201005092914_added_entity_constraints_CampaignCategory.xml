@@ -8,17 +8,12 @@
     -->
     <changeSet id="20201005092914-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="influencer_id"
-                                 baseTableName="campaign_category"
-                                 constraintName="fk_campaign_category_influencer_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="influencer"/>
 
-        <addForeignKeyConstraint baseColumnNames="campaign_id"
-                                 baseTableName="campaign_category"
-                                 constraintName="fk_campaign_category_campaign_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="campaign"/>
+        <addForeignKeyConstraint baseColumnNames="category_name"
+                                 baseTableName="influencer_category"
+                                 constraintName="fk_influencer_category_category_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="campaign_category"/>
 
     </changeSet>
 </databaseChangeLog>

@@ -21,24 +21,48 @@
             <column name="social_network_name" type="varchar(50)">vi
                 <constraints  nullable="false"  />
             </column>
+            <column name="follower" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="following" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="publication" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rate_engagement" type="decimal(3,2)">
+                <constraints nullable="true"/>
+            </column>
             <column name="influencer_id" type="bigint">
                 <constraints nullable="false" />
+            </column>
+            <column name="social_network_user_id" type="bigint">
+                <constraints nullable="true"></constraints>
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <addPrimaryKey columnNames="social_network_name,influencer_id" tableName="social_network_link"/>
     </changeSet>
 
-    <changeSet id="20200212104501" author="mhro">
-        <addColumn tableName="social_network_link">
-            <column name="social_network_user_id" type="bigint">
-                <constraints nullable="true"></constraints>
-            </column>
-        </addColumn>
-    </changeSet>
     <changeSet id="20201005093414-1-relations" author="jhipster">
 
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
+    <changeSet id="20200612152306-1-data" author="jhipster" >
+   <!--- <loadData
+        file="config/liquibase/data/social_network_link_instagram.csv"
+        separator=","
+        tableName="social_network_link">
+        <column name="id" type="numeric"/>
+        <column name="link" type="string"/>
+        <column name="follower" type = "numeric"/>
+        <column name="following" type = "numeric"/>
+        <column name="publications" type = "numeric"/>
+        <column name="like" type = "numeric"/>
+        <column name="social_network_name" type="string"/>
+        <column name="influencer_id" type="numeric"/>
+        <column name="social_network_user_id" type="numeric"/>
+    </loadData>-->
+    </changeSet>
 </databaseChangeLog>

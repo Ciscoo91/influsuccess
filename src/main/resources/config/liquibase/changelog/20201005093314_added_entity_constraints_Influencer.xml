@@ -13,5 +13,11 @@
                                  constraintName="fk_influencer_country_influencer_id"
                                  referencedColumnNames="id"
                                  referencedTableName="influencer"/>
+
+        <addForeignKeyConstraint baseColumnNames="influencer_id"
+                                 baseTableName="influencer_category"
+                                 constraintName="fk_influencer_category_influencer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="influencer"/>
     </changeSet>
 </databaseChangeLog>

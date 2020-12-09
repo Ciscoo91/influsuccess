@@ -17,5 +17,5 @@ import java.util.Optional;
 public interface SocialNetworkLinkRepository extends JpaRepository<SocialNetworkLink, Long> {
     Optional<SocialNetworkLink> findByInfluencer_idAndSocialNetwork_name(Long id, SocialNetworkEnum socialNetworkName);
 
-    List<SocialNetworkLink> findAllByNetwork_Name(SocialNetworkEnum socialNetworkName);
+    List<SocialNetworkLink> findAllBySocialNetwork_Name(SocialNetworkEnum socialNetworkName);
 }

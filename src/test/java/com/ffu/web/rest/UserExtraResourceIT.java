@@ -5,7 +5,6 @@ import com.ffu.domain.Country;
 import com.ffu.domain.UserExtra;
 import com.ffu.repository.UserExtraRepository;
 
-import liquibase.pro.packaged.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

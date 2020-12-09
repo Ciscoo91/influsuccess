@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,36 +28,26 @@ public class Influencer implements Serializable {
     @Column(unique = true)
     private String username;
 
-    @NotNull
-    @Size(max = 10)
-    @Column(length = 10)
-    private String followers;
-
-    @NotNull
-    @Size(max = 10)
-    @Column(length = 10)
-    private String following;
-
-    @Size(max = 10)
-    @Column(length = 10)
-    private String publications;
-
     @Email
     @Size(min = 5, max = 254)
-    @Column(length = 254, unique = true)
+    @Column(length = 254)
     private String email;
 
     @OneToMany(mappedBy = "influencer", fetch = FetchType.EAGER)
     private Set<SocialNetworkLink> socialNetworkLinks = new HashSet<>();
 
-    @OneToMany(mappedBy = "influencer", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+        @JoinTable(
+            name = "influencer_category",
+        joinColumns = {@JoinColumn(name = "influencer_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "category_name", referencedColumnName = "name")})
     private Set<CampaignCategory> categories = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "influencer_country",
         joinColumns = {@JoinColumn(name = "influencer_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "country_code", referencedColumnName = "name")})
+        inverseJoinColumns = {@JoinColumn(name = "country_code", referencedColumnName = "code")})
     // jhipster-needle-entity-add-field - JHipster will add fields here
     private Set<Country> countries;
 
@@ -75,30 +66,6 @@ public class Influencer implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(String followers) {
-        this.followers = followers;
-    }
-
-    public String getFollowing() {
-        return following;
-    }
-
-    public void setFollowing(String following) {
-        this.following = following;
-    }
-
-    public String getPublications() {
-        return publications;
-    }
-
-    public void setPublications(String publications) {
-        this.publications = publications;
     }
 
     public String getEmail() {
@@ -145,13 +112,13 @@ public class Influencer implements Serializable {
 
     public Influencer addCategories(CampaignCategory campaignCategory) {
         this.categories.add(campaignCategory);
-        campaignCategory.setInfluencer(this);
+        campaignCategory.setInfluencers(Collections.singleton(this));
         return this;
     }
 
     public Influencer removeCategories(CampaignCategory campaignCategory) {
         this.categories.remove(campaignCategory);
-        campaignCategory.setInfluencer(null);
+        campaignCategory.setInfluencers(null);
         return this;
     }
 
@@ -163,6 +130,23 @@ public class Influencer implements Serializable {
 
     public Set<Country> getCountries() {
         return countries;
+    }
+
+    public Influencer countries(Set<Country> countries) {
+        this.countries = countries;
+        return this;
+    }
+
+    public Influencer addCountries(Country country) {
+        this.countries.add(country);
+        country.setInfluencers(Collections.singleton(this));
+        return this;
+    }
+
+    public Influencer removeCountries(Country country) {
+        this.countries.remove(country);
+        country.setInfluencers(null);
+        return this;
     }
 
     public void setCountries(Set<Country> countries) {

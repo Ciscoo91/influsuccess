@@ -5,10 +5,8 @@ import com.ffu.domain.*;
 import com.ffu.domain.enumeration.MessageStatus;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;

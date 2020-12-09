@@ -8,7 +8,6 @@ import com.ffu.repository.DiscussionRepository;
 
 import com.ffu.service.dto.DiscussionDTO;
 import com.ffu.service.mapper.DiscussionMapper;
-import liquibase.pro.packaged.D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +98,6 @@ public class DiscussionResourceIT {
         // Validate the Discussion in the database
         List<Discussion> discussionList = discussionRepository.findAll();
         assertThat(discussionList).hasSize(databaseSizeBeforeCreate + 1);
-        Discussion testDiscussion = discussionList.get(discussionList.size() - 1);
     }
 
     @Test
@@ -178,7 +176,6 @@ public class DiscussionResourceIT {
         // Validate the Discussion in the database
         List<Discussion> discussionList = discussionRepository.findAll();
         assertThat(discussionList).hasSize(databaseSizeBeforeUpdate);
-        Discussion testDiscussion = discussionList.get(discussionList.size() - 1);
     }
 
     @Test

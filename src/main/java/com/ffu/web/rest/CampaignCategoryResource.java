@@ -50,12 +50,12 @@ public class CampaignCategoryResource {
     @PostMapping("/campaign-categories")
     public ResponseEntity<CampaignCategory> createCampaignCategory(@Valid @RequestBody CampaignCategory campaignCategory) throws URISyntaxException {
         log.debug("REST request to save CampaignCategory : {}", campaignCategory);
-        if (campaignCategory.getId() != null) {
+        if (campaignCategory.getName() != null) {
             throw new BadRequestAlertException("A new campaignCategory cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CampaignCategory result = campaignCategoryRepository.save(campaignCategory);
-        return ResponseEntity.created(new URI("/api/campaign-categories/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+        return ResponseEntity.created(new URI("/api/campaign-categories/" + result.getName()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getName()))
             .body(result);
     }
 
@@ -71,12 +71,12 @@ public class CampaignCategoryResource {
     @PutMapping("/campaign-categories")
     public ResponseEntity<CampaignCategory> updateCampaignCategory(@Valid @RequestBody CampaignCategory campaignCategory) throws URISyntaxException {
         log.debug("REST request to update CampaignCategory : {}", campaignCategory);
-        if (campaignCategory.getId() == null) {
+        if (campaignCategory.getName() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         CampaignCategory result = campaignCategoryRepository.save(campaignCategory);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, campaignCategory.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, campaignCategory.getName()))
             .body(result);
     }
 
@@ -94,26 +94,26 @@ public class CampaignCategoryResource {
     /**
      * {@code GET  /campaign-categories/:id} : get the "id" campaignCategory.
      *
-     * @param id the id of the campaignCategory to retrieve.
+     * @param name the id of the campaignCategory to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the campaignCategory, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/campaign-categories/{id}")
-    public ResponseEntity<CampaignCategory> getCampaignCategory(@PathVariable Long id) {
-        log.debug("REST request to get CampaignCategory : {}", id);
-        Optional<CampaignCategory> campaignCategory = campaignCategoryRepository.findById(id);
+    public ResponseEntity<CampaignCategory> getCampaignCategory(@PathVariable String name) {
+        log.debug("REST request to get CampaignCategory : {}", name);
+        Optional<CampaignCategory> campaignCategory = campaignCategoryRepository.findById(name);
         return ResponseUtil.wrapOrNotFound(campaignCategory);
     }
 
     /**
      * {@code DELETE  /campaign-categories/:id} : delete the "id" campaignCategory.
      *
-     * @param id the id of the campaignCategory to delete.
+     * @param name the id of the campaignCategory to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/campaign-categories/{id}")
-    public ResponseEntity<Void> deleteCampaignCategory(@PathVariable Long id) {
-        log.debug("REST request to delete CampaignCategory : {}", id);
-        campaignCategoryRepository.deleteById(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    public ResponseEntity<Void> deleteCampaignCategory(@PathVariable String name) {
+        log.debug("REST request to delete CampaignCategory : {}", name);
+        campaignCategoryRepository.deleteById(name);
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, name)).build();
     }
 }

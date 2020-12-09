@@ -1,9 +1,7 @@
 package com.ffu.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ffu.domain.enumeration.SocialNetworkEnum;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

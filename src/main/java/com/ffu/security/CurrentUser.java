@@ -8,6 +8,9 @@ import java.util.Collection;
 
 public class CurrentUser  implements UserDetails{
 
+ 
+    private static final long serialVersionUID = 1L;
+    
     private Long id;
 
     public CurrentUser(Long id) {

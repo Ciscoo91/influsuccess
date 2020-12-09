@@ -1,6 +1,5 @@
 package com.ffu.web.rest;
 
-import com.ffu.domain.Message;
 import com.ffu.service.MessageService;
 import com.ffu.service.dto.MessageChat;
 import com.ffu.service.dto.MessageDTO;

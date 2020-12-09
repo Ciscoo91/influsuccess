@@ -32,7 +32,7 @@ public class Country implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "influencer_country",
-        joinColumns = {@JoinColumn(name = "country_code", referencedColumnName = "name")},
+        joinColumns = {@JoinColumn(name = "country_code", referencedColumnName = "code")},
         inverseJoinColumns = {@JoinColumn(name = "influencer_id", referencedColumnName = "id")})
     // jhipster-needle-entity-add-field - JHipster will add fields here
     private Set<Influencer> influencers;

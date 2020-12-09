@@ -10,8 +10,8 @@
 
         <addForeignKeyConstraint baseColumnNames="country_code"
                                  baseTableName="influencer_country"
-                                 constraintName="fk_influencer_country_county_name"
-                                 referencedColumnNames="name"
+                                 constraintName="fk_influencer_country_county_code"
+                                 referencedColumnNames="code"
                                  referencedTableName="country"/>
 
         <addForeignKeyConstraint baseColumnNames="country_code"
