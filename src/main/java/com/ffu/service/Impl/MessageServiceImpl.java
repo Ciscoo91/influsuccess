@@ -46,10 +46,6 @@ public class MessageServiceImpl implements MessageService {
         messageRepository.deleteById(id);
     }
 
-    @Override
-    public List<MessageDTO> getLastUserMessageForCampaigns(Long userId) {
-        return messageRepository.getLastUserMessageForDiscussion(userId).stream().map(messageMapper::toDto).collect(Collectors.toList());
-    }
 
     @Override
     public Long getCountNewMessages(Long userId, Long campaignId) {

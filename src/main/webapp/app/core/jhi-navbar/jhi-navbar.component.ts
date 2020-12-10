@@ -15,7 +15,7 @@ export default class JhiNavbar extends Vue {
   private currentLanguage = this.$store.getters.currentLanguage;
   private languages: any = this.$store.getters.languages;
   private hasAnyAuthorityValue = false;
-  public isCollapsed: boolean = false;
+  public isCollapsed = false;
 
   created() {
     this.translationService().refreshTranslation(this.currentLanguage);

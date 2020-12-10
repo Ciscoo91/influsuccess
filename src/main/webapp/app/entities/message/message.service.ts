@@ -75,8 +75,8 @@ export default class MessageService {
       axios
         .get(`${baseApiUrl}` + '/countNew', {
           params: {
-            userId: userId,
-            campaignId: campaignId,
+            'userId': userId,
+            'campaignId': campaignId,
           },
         })
         .then(res => {
@@ -93,7 +93,7 @@ export default class MessageService {
       axios
         .get(`${baseApiUrl}/alllNewMessageCount`, {
           params: {
-            userId: userId,
+            'userId': userId,
           },
         })
         .then(res => {

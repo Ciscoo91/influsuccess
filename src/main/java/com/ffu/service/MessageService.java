@@ -14,8 +14,6 @@ public interface MessageService {
 
     void deleteById(Long id);
 
-    List<MessageDTO> getLastUserMessageForCampaigns(Long userId);
-
     Long getCountNewMessages(Long userId, Long discussionId);
 
     Long getAlllNewMessageCount(Long userId);

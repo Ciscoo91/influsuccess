@@ -133,7 +133,7 @@ public class MessageResource {
     }
 
     @GetMapping("/messages/alllNewMessageCount")
-    public ResponseEntity<Long> getAlllNewMessageCount(@RequestParam(required = true) Long userId) {
+    public ResponseEntity<Long> getAllNewMessageCount(@RequestParam(required = true) Long userId) {
         log.debug("REST request to alllNewMessageCount :");
         Long count = messageService.getAlllNewMessageCount(userId);
 

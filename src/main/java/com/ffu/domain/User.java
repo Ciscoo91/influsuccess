@@ -2,7 +2,6 @@ package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ffu.config.Constants;
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;

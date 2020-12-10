@@ -3,7 +3,7 @@ import { Component, Inject, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class SideNavBarComponent extends Vue {
-  public totalNewMessageCount: number = 0;
+  public totalNewMessageCount = 0;
   public menuItems: any[] = ['search', 'campaigns', 'discussions'];
 
   @Inject('messageService')

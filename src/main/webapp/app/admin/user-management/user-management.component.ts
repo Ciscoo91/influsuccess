@@ -21,7 +21,7 @@ export default class JhiUserManagementComponent extends mixins(AlertMixin) {
   public reverse = false;
   public totalItems = 0;
   public removeId: number = null;
-  public isFetching: boolean = false;
+  public isFetching = false;
   public optionsPerPage: any[] = [
     { value: 3, text: '3' },
     { value: 5, text: '5' },
@@ -29,13 +29,13 @@ export default class JhiUserManagementComponent extends mixins(AlertMixin) {
     { value: 20, text: '20' },
   ];
 
-  public currentPage: number = 1;
-  public email: string = '';
-  public firstName: string = '';
-  public lastName: string = '';
-  public login: string = '';
+  public currentPage = 1;
+  public email = '';
+  public firstName = '';
+  public lastName = '';
+  public login = '';
 
-  public emailContent: string = '';
+  public emailContent = '';
   public userToEmail: any = null;
   public messageResponse: any = null;
 

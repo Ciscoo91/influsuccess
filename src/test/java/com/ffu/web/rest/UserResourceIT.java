@@ -125,7 +125,7 @@ public class UserResourceIT {
 
         userExtra = new UserExtra();
         userExtra.setBirthday(LocalDate.now());
-        userExtra.setPhone(Long.valueOf("029953210210"));
+        userExtra.setPhone("029953210210");
         userExtra.setCountry(country);
         em.persist(userExtra);
         em.flush();
