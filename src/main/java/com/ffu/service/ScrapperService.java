@@ -16,6 +16,7 @@ import com.ffu.service.dto.ScrapperRequestDTO;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -47,6 +48,7 @@ public class ScrapperService {
         List<CampaignCategory> campaignCategories = campaignCategoryRepository.findAll();
         List<SocialNetwork> socialNetworks = socialNetworkRepository.findAll();
         List<Country> countries = countryRepository.findAll();
+        Collections.shuffle(countries);
 
 
         campaignCategories.forEach(

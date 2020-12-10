@@ -28,23 +28,19 @@ public class SocialNetworkLink implements Serializable {
 
 
     @NotNull
-    @Size(max = 10)
-    @Column(length = 10)
+    @Column
     private Long follower;
 
     @NotNull
-    @Size(max = 10)
-    @Column(length = 10)
+    @Column
     private Long following;
 
     @NotNull
-    @Size(max = 10)
-    @Column(length = 10)
+    @Column
     private Long publication;
 
 
-    @Size(max = 10)
-    @Column(name= "rate_engagement", length = 10, scale = 2)
+    @Column(name= "rate_engagement", scale = 2)
     private BigDecimal rateEngagement;
 
 
@@ -83,7 +79,7 @@ public class SocialNetworkLink implements Serializable {
         return this.follower;
     }
 
-    public void setFollower(long follower) {
+    public void setFollower(Long follower) {
         this.follower = follower;
     }
 
@@ -91,7 +87,7 @@ public class SocialNetworkLink implements Serializable {
         return this.following;
     }
 
-    public void setFollowing(long following) {
+    public void setFollowing(Long following) {
         this.following = following;
     }
 
@@ -99,7 +95,7 @@ public class SocialNetworkLink implements Serializable {
         return this.publication;
     }
 
-    public void setPublication(long publication) {
+    public void setPublication(Long publication) {
         this.publication = publication;
     }
 

@@ -50,8 +50,8 @@
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <changeSet id="20200612152306-1-data" author="jhipster" >
-   <!--- <loadData
-        file="config/liquibase/data/social_network_link_instagram.csv"
+    <loadData
+        file="config/liquibase/data/social_network_link.csv"
         separator=","
         tableName="social_network_link">
         <column name="id" type="numeric"/>
@@ -59,10 +59,10 @@
         <column name="follower" type = "numeric"/>
         <column name="following" type = "numeric"/>
         <column name="publications" type = "numeric"/>
-        <column name="like" type = "numeric"/>
+        <column name="rate_engagement" type = "numeric"/>
         <column name="social_network_name" type="string"/>
         <column name="influencer_id" type="numeric"/>
         <column name="social_network_user_id" type="numeric"/>
-    </loadData>-->
+    </loadData>
     </changeSet>
 </databaseChangeLog>

@@ -1,5 +1,7 @@
 package com.ffu.service.Scrapper;
 
+import com.ffu.domain.CampaignCategory;
+import com.ffu.domain.Country;
 import com.ffu.domain.Influencer;
 import com.ffu.domain.SocialNetworkLink;
 import com.ffu.repository.InfluencerRepository;
@@ -13,7 +15,6 @@ import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -105,7 +106,7 @@ public abstract class AbstractScrapper {
         // Store all  instagram profiles links corresponding to the category(ies)
         HashSet<String> profileUrls = new HashSet<>();
 
-        for (int i = 0; i < 10; i = i + 10) {
+        for (int i = 0; i < 1; i++) {
             Set<Document> sitesToVisit = this.googleLinksScrapper(
                 scrapperRequestDTO.getCategory().getName() + " "
                     + scrapperRequestDTO.getSocialNetwork().getName().toString() + " "
@@ -123,7 +124,7 @@ public abstract class AbstractScrapper {
             }
 
             try {
-                Thread.sleep(10000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new ScrappingErrorException(e.getMessage());
             }
@@ -150,39 +151,29 @@ public abstract class AbstractScrapper {
             Influencer influencer = influencerOptional.get();
             Optional<SocialNetworkLink> socialNetworkLinkOptional =
                 socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(influencerOptional.get().getId(), scrapperResponseDTO.getSocialNetwork().getName());
-
-            if (influencer.getCategories() != null && !influencer.getCategories().contains(scrapperResponseDTO.getCategory())) {
+               
                 influencer.addCategories(scrapperResponseDTO.getCategory());
-            } else {
-                if (!influencer.getCategories().contains(scrapperResponseDTO.getCategory())) {
-                    influencer.setCategories(Collections.singleton(scrapperResponseDTO.getCategory()));
-                }
-            }
-            if (influencer.getCountries() != null && !influencer.getCountries().contains(scrapperResponseDTO.getCountry())) {
                 influencer.addCountries(scrapperResponseDTO.getCountry());
-            } else {
-                if (!influencer.getCountries().contains(scrapperResponseDTO.getCountry())) {
-                    influencer.setCountries(Collections.singleton(scrapperResponseDTO.getCountry()));
-                }
-            }
 
             if (!socialNetworkLinkOptional.isPresent()) {
                 SocialNetworkLink socialNetworkLink = new SocialNetworkLink();
                 socialNetworkLink.setInfluencer(influencer);
                 socialNetworkLink.setSocialNetwork(scrapperResponseDTO.getSocialNetwork());
                 socialNetworkLink.setLink(scrapperResponseDTO.getProfilUrl());
+                socialNetworkLink.setFollower(Long.valueOf("0"));
+                socialNetworkLink.setFollowing(Long.valueOf("0"));
+                socialNetworkLink.setPublication(Long.valueOf("0"));
                 socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
                 influencer.addSocialNetworkLinks(socialNetworkLink);
-            }
+                }
             return influencerRepository.saveAndFlush(influencer);
-
         }
         else{
             Influencer influencer = new Influencer();
             influencer.setUsername(scrapperResponseDTO.getUsername());
 
-            influencer.setCategories(Collections.singleton(scrapperResponseDTO.getCategory()));
-            influencer.setCountries(Collections.singleton(scrapperResponseDTO.getCountry()));
+            influencer.addCategories(scrapperResponseDTO.getCategory());
+            influencer.addCountries(scrapperResponseDTO.getCountry());
 
             influencer = influencerRepository.save(influencer);
 
@@ -190,11 +181,11 @@ public abstract class AbstractScrapper {
             socialNetworkLink.setInfluencer(influencer);
             socialNetworkLink.setSocialNetwork(scrapperResponseDTO.getSocialNetwork());
             socialNetworkLink.setLink(scrapperResponseDTO.getProfilUrl());
-            socialNetworkLink.setFollower(0);
-            socialNetworkLink.setFollowing(0);
-            socialNetworkLink.setPublication(0);
+            socialNetworkLink.setFollower(Long.valueOf("0"));
+            socialNetworkLink.setFollowing(Long.valueOf("0"));
+            socialNetworkLink.setPublication(Long.valueOf("0"));
             socialNetworkLink = socialNetworkLinkRepository.saveAndFlush(socialNetworkLink);
-            influencer.getSocialNetworkLinks().add(socialNetworkLink);
+            influencer.addSocialNetworkLinks(socialNetworkLink);
             return influencerRepository.saveAndFlush(influencer);
         }
     }

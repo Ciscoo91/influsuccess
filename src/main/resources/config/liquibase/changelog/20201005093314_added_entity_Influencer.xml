@@ -49,18 +49,33 @@
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <changeSet id="20201005093514-1-data" author="jhipster" >
-       <!-- <loadData
-            file="config/liquibase/data/instagram_influencer_V0.csv"
+        <loadData
+            file="config/liquibase/data/influencer.csv"
             separator=","
             tableName="influencer">
             <column name="id" type="numeric"/>
             <column name="username" type="string"/>
-            <column name="followers" type="string"/>
-            <column name="following" type="string"/>
-            <column name="publications" type="string"/>
             <column name="email" type="string"/>
-            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
-        </loadData>-->
+        </loadData>
+ 
+        <loadData
+            file="config/liquibase/data/influencer_category.csv"
+            separator=","
+            tableName="influencer_category">
+            <column name="influencer_id" type="numeric"/>
+            <column name="category_name" type="string"/>
+        </loadData>
+
+        <loadData
+            file="config/liquibase/data/influencer_country.csv"
+            separator=","
+            tableName="influencer_country">
+            <column name="influencer_id" type="numeric"/>
+            <column name="country_code" type="string"/>
+        </loadData>
+
     </changeSet>
+
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
 
 </databaseChangeLog>
