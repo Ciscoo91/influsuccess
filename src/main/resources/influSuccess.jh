@@ -21,7 +21,7 @@ entity SocialNetwork {
 entity UserExtra {
   country String required
   birthday LocalDate required
-  phone Long 
+  phone String 
 }
 
 

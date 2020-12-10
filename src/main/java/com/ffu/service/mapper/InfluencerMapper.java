@@ -5,7 +5,9 @@ import com.ffu.service.dto.InfluencerDTO;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(uses = {SocialNetworkLinkMapper.class}, componentModel = "spring")
 public interface  InfluencerMapper {
 

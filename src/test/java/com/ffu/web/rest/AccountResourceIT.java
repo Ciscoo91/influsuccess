@@ -1,10 +1,5 @@
 package com.ffu.web.rest;
 
-import static com.ffu.web.rest.AccountResourceIT.TEST_USER_LOGIN;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import com.ffu.InfluSuccessApp;
 import com.ffu.config.Constants;
 import com.ffu.domain.Country;
@@ -19,9 +14,6 @@ import com.ffu.service.dto.UserExtraDTO;
 import com.ffu.service.mapper.UserExtraMapper;
 import com.ffu.web.rest.vm.KeyAndPasswordVM;
 import com.ffu.web.rest.vm.ManagedUserVM;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +25,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.*;
+
 import javax.persistence.EntityManager;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static com.ffu.web.rest.AccountResourceIT.TEST_USER_LOGIN;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link AccountResource} REST controller.
