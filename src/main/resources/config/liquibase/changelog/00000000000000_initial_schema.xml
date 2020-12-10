@@ -26,7 +26,7 @@
             <column name="birthday" type="date">
                 <constraints nullable="false" />
             </column>
-            <column name="phone" type="bigint">
+            <column name="phone" type="varchar(15)">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

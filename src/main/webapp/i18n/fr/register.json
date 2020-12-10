@@ -1,6 +1,6 @@
 {
   "register": {
-    "title": "Création de compte utilisateur",
+    "title": "Inscription",
     "form": {
       "button": "Enregistrement"
     },
@@ -36,9 +36,8 @@
           "alpha": "Le pays ne dois contenir que des lettres."
         },
         "phone": {
-          "minlength": "Votre numéro de téléphone doit contenir 10 chiffres.",
-          "maxlength": "Votre numéro de téléphone doit contenir 10 chiffres.",
-          "numeric": "Votre nuléro de téléphone ne dois avoir que des chiifres."
+          "required": "Votre numéro de téléphone est obligatoire.",
+          "maxlength": "Votre numéro de téléphone doit contenir au maximum 15 chiffres."
         },
         "birthday": {
           "required": "La date de naissance est obligatoire."

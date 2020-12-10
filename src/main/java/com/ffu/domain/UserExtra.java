@@ -1,13 +1,11 @@
 package com.ffu.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A UserExtra.
@@ -15,7 +13,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "user_extra")
 public class UserExtra implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -31,9 +28,9 @@ public class UserExtra implements Serializable {
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
-    @Column(name = "phone")
-    private Long phone;
-
+    @Size(max = 15)
+    @Column(name = "phone", length = 15)
+    private String phone;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -70,16 +67,16 @@ public class UserExtra implements Serializable {
         this.birthday = birthday;
     }
 
-    public Long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public UserExtra phone(Long phone) {
+    public UserExtra phone(String phone) {
         this.phone = phone;
         return this;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

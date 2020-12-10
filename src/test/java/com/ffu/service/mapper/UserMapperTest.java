@@ -1,35 +1,31 @@
 package com.ffu.service.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.ffu.domain.User;
 import com.ffu.service.dto.UserDTO;
 import com.ffu.service.dto.UserExtraDTO;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Unit tests for {@link UserMapper}.
  */
 public class UserMapperTest {
-
     private static final String DEFAULT_LOGIN = "johndoe";
     private static final Long DEFAULT_ID = 1L;
 
     private User user;
     private UserDTO userDto;
 
-
     private UserMapper userMapper;
-
 
     @BeforeEach
     public void init() {
@@ -44,10 +40,10 @@ public class UserMapperTest {
         user.setImageUrl("image_url");
         user.setLangKey("en");
 
-        UserExtraDTO  userExtraDTO= new UserExtraDTO();
+        UserExtraDTO userExtraDTO = new UserExtraDTO();
         userExtraDTO.setBirthday(LocalDate.now());
         userExtraDTO.setCountry("country");
-        userExtraDTO.setPhone(Long.valueOf("1"));
+        userExtraDTO.setPhone("1");
 
         userDto = new UserDTO(user, userExtraDTO);
     }

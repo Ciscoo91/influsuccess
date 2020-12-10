@@ -1,6 +1,7 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="primary" class="jh-navbar">
-    <b-navbar-brand class="logo" b-link to="/">
+  <b-navbar toggleable="lg" type="dark" variant="primary" class="jh-navbar" fixed="top">
+    <div class="container">
+      <b-navbar-brand class="logo" b-link to="/">
       <!-- <span class="logo-img"></span> -->
       <span v-text="$t('global.title')" class="navbar-title">influSuccess</span>
       <!-- <span class="navbar-version">{{ version }}</span> -->
@@ -10,14 +11,13 @@
       class="jh-navbar-toggler d-lg-none"
       href="javascript:void(0);"
       data-toggle="collapse"
-      target="header-tabs"
+      target="nav-collapse"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <font-awesome-icon icon="bars" />
     </b-navbar-toggle>
-
-    <b-collapse is-nav id="header-tabs">
+    <b-collapse is-nav id="nav-collapse" class="bg-primary">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/" exact>
           <span>
@@ -41,7 +41,7 @@
           class="pointer"
         >
           <span slot="button-content" class="navbar-dropdown-menu">
-            <font-awesome-icon icon="cogs" />
+            <!-- <font-awesome-icon icon="cogs" /> -->
             <span class="text-white" v-text="$t('global.menu.admin.main')">Administration</span>
           </span>
           <b-dropdown-item to="/admin/user-management" active-class="active">
@@ -133,6 +133,7 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
+    </div>
   </b-navbar>
 </template>
 

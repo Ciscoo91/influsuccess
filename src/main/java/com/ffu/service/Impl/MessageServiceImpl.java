@@ -8,15 +8,13 @@ import com.ffu.service.MessageService;
 import com.ffu.service.dto.MessageChat;
 import com.ffu.service.dto.MessageDTO;
 import com.ffu.service.mapper.MessageMapper;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MessageServiceImpl implements MessageService {
-
     private final MessageMapper messageMapper;
     private final MessageRepository messageRepository;
     private final DiscussionRepository discussionRepository;
@@ -26,7 +24,6 @@ public class MessageServiceImpl implements MessageService {
         this.messageRepository = messageRepository;
         this.discussionRepository = discussionRepository;
     }
-
 
     @Override
     public MessageDTO save(MessageDTO messageDTO) {
@@ -41,10 +38,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageDTO> findAll() {
-        return messageRepository.findAll()
-            .stream()
-            .map(messageMapper::toDto)
-            .collect(Collectors.toList());
+        return messageRepository.findAll().stream().map(messageMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -63,12 +57,15 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public Long getAlllNewMessageCount(Long userId) {
+        return messageRepository.getAlllNewMessageCount(userId);
+    }
+
+    @Override
     public MessageChat saveMessageChat(MessageChat messageChat, Long discussionId) {
         Discussion discussion = discussionRepository.findById(discussionId).get();
         Message message = messageMapper.toEntity(messageChat, discussion);
         messageRepository.saveAndFlush(message);
         return messageChat;
     }
-
-
 }

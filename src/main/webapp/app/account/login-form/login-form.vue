@@ -1,27 +1,27 @@
 <template>
-    <div class="modal-body">
+    <div class="modal-body bg-light">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <b-alert show variant="danger" v-if="authenticationError" v-html="$t('login.messages.error.authentication')">
                     <strong>Failed to sign in!</strong> Please check your credentials and try again.
                 </b-alert>
             </div>
-            <div class="col-md-8">
-                <b-form role="form" v-on:submit.prevent="doLogin()">
+            <div class="col-md-8 bg-transparent background-image f-flex flex-column align-items-center">
+                <b-form role="form" v-on:submit.prevent="doLogin()" class="d-flex flex-column align-items-center px-0">
                     <b-form-group v-bind:label="$t('global.form[\'username.label\']')" label-for="username">
-                        <b-form-input id="username" type="text" name="username" autofocus v-bind:placeholder="$t('global.form[\'username.placeholder\']')" v-model="login">
+                        <b-form-input id="username" type="text" name="username" autofocus v-bind:placeholder="$t('global.form[\'username.placeholder\']')" v-model="login" class="rounded-pill bg-secondary text-primary">
                         </b-form-input>
                     </b-form-group>
                     <b-form-group v-bind:label="$t('login.form.password')" label-for="password">
-                        <b-form-input id="password" type="password" name="password" v-model.trim="name" v-bind:placeholder="$t('login.form[\'password.placeholder\']')" v-model="password">
+                        <b-form-input id="password" type="password" name="password" v-model.trim="name" v-bind:placeholder="$t('login.form[\'password.placeholder\']')" v-model="password" class="rounded-pill bg-secondary text-primary">
                         </b-form-input>
                     </b-form-group>
-                    <b-form-checkbox id="rememberMe" name="rememberMe" v-model="rememberMe" checked >
+                    <b-form-checkbox id="rememberMe" name="rememberMe" v-model="rememberMe" checked class="rounded-lg">
                       <span v-text="$t('login.form.rememberme')">Remember me</span>
                     </b-form-checkbox>
-                    <div>
-                        <b-button type="submit" variant="primary" v-text="$t('login.form.button')">Sign in</b-button>
-                    </div>
+                    <b-form-group class="mt-3 px-3">
+                        <b-button type="submit" variant="primary" pill v-text="$t('login.form.button')">Sign in</b-button>
+                    </b-form-group>
                 </b-form>
                 <p></p>
                 <div>
@@ -41,3 +41,7 @@
 </template>
 <script lang="ts" src="./login-form.component.ts">
 </script>
+
+<style scoped>
+
+</style>

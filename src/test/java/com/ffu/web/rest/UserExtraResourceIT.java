@@ -1,9 +1,17 @@
 package com.ffu.web.rest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.UserExtra;
 import com.ffu.repository.UserExtraRepository;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link UserExtraResource} REST controller.
@@ -30,15 +29,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WithMockUser
 public class UserExtraResourceIT {
-
     private static final String DEFAULT_COUNTRY = "AAAAAAAAAA";
     private static final String UPDATED_COUNTRY = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_BIRTHDAY = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_BIRTHDAY = LocalDate.now(ZoneId.systemDefault());
 
-    private static final Long DEFAULT_PHONE = 1L;
-    private static final Long UPDATED_PHONE = 2L;
+    private static final String DEFAULT_PHONE = "1L";
+    private static final String UPDATED_PHONE = "2L";
 
     @Autowired
     private UserExtraRepository userExtraRepository;
@@ -58,12 +56,10 @@ public class UserExtraResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserExtra createEntity(EntityManager em) {
-        UserExtra userExtra = new UserExtra()
-            .country(DEFAULT_COUNTRY)
-            .birthday(DEFAULT_BIRTHDAY)
-            .phone(DEFAULT_PHONE);
+        UserExtra userExtra = new UserExtra().country(DEFAULT_COUNTRY).birthday(DEFAULT_BIRTHDAY).phone(DEFAULT_PHONE);
         return userExtra;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -71,10 +67,7 @@ public class UserExtraResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserExtra createUpdatedEntity(EntityManager em) {
-        UserExtra userExtra = new UserExtra()
-            .country(UPDATED_COUNTRY)
-            .birthday(UPDATED_BIRTHDAY)
-            .phone(UPDATED_PHONE);
+        UserExtra userExtra = new UserExtra().country(UPDATED_COUNTRY).birthday(UPDATED_BIRTHDAY).phone(UPDATED_PHONE);
         return userExtra;
     }
 
@@ -88,9 +81,8 @@ public class UserExtraResourceIT {
     public void createUserExtra() throws Exception {
         int databaseSizeBeforeCreate = userExtraRepository.findAll().size();
         // Create the UserExtra
-        restUserExtraMockMvc.perform(post("/api/user-extras")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(userExtra)))
+        restUserExtraMockMvc
+            .perform(post("/api/user-extras").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(userExtra)))
             .andExpect(status().isCreated());
 
         // Validate the UserExtra in the database
@@ -111,16 +103,14 @@ public class UserExtraResourceIT {
         userExtra.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restUserExtraMockMvc.perform(post("/api/user-extras")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(userExtra)))
+        restUserExtraMockMvc
+            .perform(post("/api/user-extras").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(userExtra)))
             .andExpect(status().isBadRequest());
 
         // Validate the UserExtra in the database
         List<UserExtra> userExtraList = userExtraRepository.findAll();
         assertThat(userExtraList).hasSize(databaseSizeBeforeCreate);
     }
-
 
     @Test
     @Transactional
@@ -131,10 +121,8 @@ public class UserExtraResourceIT {
 
         // Create the UserExtra, which fails.
 
-
-        restUserExtraMockMvc.perform(post("/api/user-extras")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(userExtra)))
+        restUserExtraMockMvc
+            .perform(post("/api/user-extras").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(userExtra)))
             .andExpect(status().isBadRequest());
 
         List<UserExtra> userExtraList = userExtraRepository.findAll();
@@ -150,10 +138,8 @@ public class UserExtraResourceIT {
 
         // Create the UserExtra, which fails.
 
-
-        restUserExtraMockMvc.perform(post("/api/user-extras")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(userExtra)))
+        restUserExtraMockMvc
+            .perform(post("/api/user-extras").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(userExtra)))
             .andExpect(status().isBadRequest());
 
         List<UserExtra> userExtraList = userExtraRepository.findAll();
@@ -167,15 +153,16 @@ public class UserExtraResourceIT {
         userExtraRepository.saveAndFlush(userExtra);
 
         // Get all the userExtraList
-        restUserExtraMockMvc.perform(get("/api/user-extras?sort=id,desc"))
+        restUserExtraMockMvc
+            .perform(get("/api/user-extras?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userExtra.getId().intValue())))
             .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY)))
             .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())))
-            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.intValue())));
+            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)));
     }
-    
+
     @Test
     @Transactional
     public void getUserExtra() throws Exception {
@@ -183,20 +170,21 @@ public class UserExtraResourceIT {
         userExtraRepository.saveAndFlush(userExtra);
 
         // Get the userExtra
-        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", userExtra.getId()))
+        restUserExtraMockMvc
+            .perform(get("/api/user-extras/{id}", userExtra.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userExtra.getId().intValue()))
             .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY))
             .andExpect(jsonPath("$.birthday").value(DEFAULT_BIRTHDAY.toString()))
-            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.intValue()));
+            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE));
     }
+
     @Test
     @Transactional
     public void getNonExistingUserExtra() throws Exception {
         // Get the userExtra
-        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
@@ -211,14 +199,12 @@ public class UserExtraResourceIT {
         UserExtra updatedUserExtra = userExtraRepository.findById(userExtra.getId()).get();
         // Disconnect from session so that the updates on updatedUserExtra are not directly saved in db
         em.detach(updatedUserExtra);
-        updatedUserExtra
-            .country(UPDATED_COUNTRY)
-            .birthday(UPDATED_BIRTHDAY)
-            .phone(UPDATED_PHONE);
+        updatedUserExtra.country(UPDATED_COUNTRY).birthday(UPDATED_BIRTHDAY).phone(UPDATED_PHONE);
 
-        restUserExtraMockMvc.perform(put("/api/user-extras")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedUserExtra)))
+        restUserExtraMockMvc
+            .perform(
+                put("/api/user-extras").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(updatedUserExtra))
+            )
             .andExpect(status().isOk());
 
         // Validate the UserExtra in the database
@@ -236,9 +222,8 @@ public class UserExtraResourceIT {
         int databaseSizeBeforeUpdate = userExtraRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restUserExtraMockMvc.perform(put("/api/user-extras")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(userExtra)))
+        restUserExtraMockMvc
+            .perform(put("/api/user-extras").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(userExtra)))
             .andExpect(status().isBadRequest());
 
         // Validate the UserExtra in the database
@@ -255,8 +240,8 @@ public class UserExtraResourceIT {
         int databaseSizeBeforeDelete = userExtraRepository.findAll().size();
 
         // Delete the userExtra
-        restUserExtraMockMvc.perform(delete("/api/user-extras/{id}", userExtra.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restUserExtraMockMvc
+            .perform(delete("/api/user-extras/{id}", userExtra.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
