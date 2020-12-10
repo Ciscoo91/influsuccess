@@ -23,7 +23,7 @@
             <column name="birthday" type="date">
                 <constraints nullable="false" />
             </column>
-            <column name="phone" type="bigint">
+            <column name="phone" type="varchar(15)">
                 <constraints nullable="false" />
             </column>
             <column name="country_code" type="varchar(50)">
