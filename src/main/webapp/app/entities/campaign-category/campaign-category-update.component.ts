@@ -2,8 +2,8 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vuelidate/lib/validators';
 
-import InfluencerInfoService from '../influencer-info/influencer-info.service';
-import { IInfluencerInfo } from '@/shared/model/influencer-info.model';
+import InfluencerService from '../influencer/influencer.service';
+import { Influencer } from '@/shared/model/influencer.model';
 
 import CampaignService from '../campaign/campaign.service';
 import { ICampaign } from '@/shared/model/campaign.model';
@@ -28,9 +28,9 @@ export default class CampaignCategoryUpdate extends Vue {
   @Inject('campaignCategoryService') private campaignCategoryService: () => CampaignCategoryService;
   public campaignCategory: ICampaignCategory = new CampaignCategory();
 
-  @Inject('influencerInfoService') private influencerInfoService: () => InfluencerInfoService;
+  @Inject('influencerService') private influencerService: () => InfluencerService;
 
-  public influencerInfos: IInfluencerInfo[] = [];
+  public influencers: Influencer[] = [];
 
   @Inject('campaignService') private campaignService: () => CampaignService;
 
@@ -59,13 +59,13 @@ export default class CampaignCategoryUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
-    if (this.campaignCategory.id) {
+    if (this.campaignCategory.name) {
       this.campaignCategoryService()
         .update(this.campaignCategory)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('influSuccessApp.campaignCategory.updated', { param: param.id });
+          const message = this.$t('influSuccessApp.campaignCategory.updated', { param: param.name });
           this.alertService().showAlert(message, 'info');
         });
     } else {
@@ -74,7 +74,7 @@ export default class CampaignCategoryUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('influSuccessApp.campaignCategory.created', { param: param.id });
+          const message = this.$t('influSuccessApp.campaignCategory.created', { param: param.name });
           this.alertService().showAlert(message, 'success');
         });
     }
@@ -93,10 +93,10 @@ export default class CampaignCategoryUpdate extends Vue {
   }
 
   public initRelationships(): void {
-    this.influencerInfoService()
+    this.influencerService()
       .retrieve()
       .then(res => {
-        this.influencerInfos = res.data;
+        this.influencers = res.data;
       });
     this.campaignService()
       .retrieve()

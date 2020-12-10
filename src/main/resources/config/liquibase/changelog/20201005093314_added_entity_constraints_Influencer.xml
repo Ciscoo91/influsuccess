@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Influencer.
+    -->
+    <changeSet id="20201005093314-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="influencer_id"
+                                 baseTableName="influencer_country"
+                                 constraintName="fk_influencer_country_influencer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="influencer"/>
+
+        <addForeignKeyConstraint baseColumnNames="influencer_id"
+                                 baseTableName="influencer_category"
+                                 constraintName="fk_influencer_category_influencer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="influencer"/>
+    </changeSet>
+</databaseChangeLog>

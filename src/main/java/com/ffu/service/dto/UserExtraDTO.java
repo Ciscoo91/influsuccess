@@ -1,13 +1,14 @@
 package com.ffu.service.dto;
 
-import java.time.LocalDate;
+import com.ffu.domain.Country;
+
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 public class UserExtraDTO {
     private Long id;
 
-    @NotBlank
-    private String country;
+    private Country country;
 
     @NotBlank
     private LocalDate birthday;
@@ -23,11 +24,11 @@ public class UserExtraDTO {
         this.id = id;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

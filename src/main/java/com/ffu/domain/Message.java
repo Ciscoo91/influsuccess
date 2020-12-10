@@ -1,13 +1,10 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import java.io.Serializable;
 
 import com.ffu.domain.enumeration.MessageStatus;
 
@@ -16,7 +13,7 @@ import com.ffu.domain.enumeration.MessageStatus;
  */
 @Entity
 @Table(name = "message")
-public class Message extends AbstractAuditingEntity implements Serializable{
+public class Message extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 

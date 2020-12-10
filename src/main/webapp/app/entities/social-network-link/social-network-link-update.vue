@@ -27,10 +27,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-text="$t('influSuccessApp.socialNetworkLink.influencerInfo')" for="social-network-link-influencerInfo">Influencer Info</label>
-                        <select class="form-control" id="social-network-link-influencerInfo" name="influencerInfo" v-model="socialNetworkLink.influencerInfo">
+                        <label class="form-control-label" v-text="$t('influSuccessApp.socialNetworkLink.influencer')" for="social-network-link-influencer">Influencer Info</label>
+                        <select class="form-control" id="social-network-link-influencer" name="influencer" v-model="socialNetworkLink.influencer">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="socialNetworkLink.influencerInfo && influencerInfoOption.id === socialNetworkLink.influencerInfo.id ? socialNetworkLink.influencerInfo : influencerInfoOption" v-for="influencerInfoOption in influencerInfos" :key="influencerInfoOption.id">{{influencerInfoOption.id}}</option>
+                            <option v-bind:value="socialNetworkLink.influencer && influencerInfoOption.id === socialNetworkLink.influencer.id ? socialNetworkLink.influencer : influencerInfoOption" v-for="influencerInfoOption in influencerInfos" :key="influencerInfoOption.id">{{influencerInfoOption.id}}</option>
                         </select>
                     </div>
                 </div>

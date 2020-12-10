@@ -86,13 +86,16 @@ public class MessageResourceIT {
         message = createEntity(em);
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
+        em.flush();
         Campaign campaign = CampaignResourceIT.createEntity(em);
         campaign.setUser(user);
         em.persist(campaign);
+        em.flush();
         Discussion discussion = DiscussionResourceIT.createEntity(em);
         discussion.setParticipants(new HashSet<>(Arrays.asList(user)));
         discussion.setCampaign(campaign);
         em.persist(discussion);
+        em.flush();
         message.setSender(user);
         message.setDiscussion(discussion);
     }

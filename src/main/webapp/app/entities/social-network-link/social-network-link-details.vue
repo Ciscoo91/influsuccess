@@ -19,11 +19,11 @@
                         </div>
                     </dd>
                     <dt>
-                        <span v-text="$t('influSuccessApp.socialNetworkLink.influencerInfo')">Influencer Info</span>
+                        <span v-text="$t('influSuccessApp.socialNetworkLink.influencer')">Influencer Info</span>
                     </dt>
                     <dd>
-                        <div v-if="socialNetworkLink.influencerInfo">
-                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: socialNetworkLink.influencerInfo.id}}">{{socialNetworkLink.influencerInfo.id}}</router-link>
+                        <div v-if="socialNetworkLink.influencer">
+                            <router-link :to="{name: 'InfluencerInfoView', params: {influencerInfoId: socialNetworkLink.influencer.id}}">{{socialNetworkLink.influencer.id}}</router-link>
                         </div>
                     </dd>
                 </dl>

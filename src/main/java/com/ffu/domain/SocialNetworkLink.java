@@ -1,13 +1,12 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * A SocialNetworkLink.
@@ -27,13 +26,35 @@ public class SocialNetworkLink implements Serializable {
     @Column(name = "link", nullable = false)
     private String link;
 
+
+    @NotNull
+    @Column
+    private Long follower;
+
+    @NotNull
+    @Column
+    private Long following;
+
+    @NotNull
+    @Column
+    private Long publication;
+
+
+    @Column(name= "rate_engagement", scale = 2)
+    private BigDecimal rateEngagement;
+
+
+    @Column(name = "social_network_user_id")
+    private Long socialNetworkUserId;
+
+
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn( nullable = false)
     private SocialNetwork socialNetwork;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "socialNetworkLinks", allowSetters = true)
-    private InfluencerInfo influencerInfo;
+    @JsonIgnoreProperties(value = "socialNetworkLinks")
+    private Influencer influencer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -53,8 +74,49 @@ public class SocialNetworkLink implements Serializable {
         return this;
     }
 
+
+    public Long getFollower() {
+        return this.follower;
+    }
+
+    public void setFollower(Long follower) {
+        this.follower = follower;
+    }
+
+    public Long getFollowing() {
+        return this.following;
+    }
+
+    public void setFollowing(Long following) {
+        this.following = following;
+    }
+
+    public Long getPublication() {
+        return this.publication;
+    }
+
+    public void setPublication(Long publication) {
+        this.publication = publication;
+    }
+
+    public BigDecimal getrateEngagement() {
+        return this.rateEngagement;
+    }
+
+    public void setRateEngagement(BigDecimal rateEngagement) {
+        this.rateEngagement = rateEngagement;
+    }
+    
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public Long getSocialNetworkUserId() {
+        return socialNetworkUserId;
+    }
+
+    public void setSocialNetworkUserId(Long socialNetworkUserId) {
+        this.socialNetworkUserId = socialNetworkUserId;
     }
 
     public SocialNetwork getSocialNetwork() {
@@ -70,17 +132,17 @@ public class SocialNetworkLink implements Serializable {
         this.socialNetwork = socialNetwork;
     }
 
-    public InfluencerInfo getInfluencerInfo() {
-        return influencerInfo;
+    public Influencer getInfluencer() {
+        return influencer;
     }
 
-    public SocialNetworkLink influencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public SocialNetworkLink Influencer(Influencer influencer) {
+        this.influencer = influencer;
         return this;
     }
 
-    public void setInfluencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public void setInfluencer(Influencer influencer) {
+        this.influencer = influencer;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

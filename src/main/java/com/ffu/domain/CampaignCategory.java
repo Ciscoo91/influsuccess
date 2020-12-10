@@ -1,13 +1,13 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import com.ffu.domain.enumeration.CampaignCategoryEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * A CampaignCategory.
@@ -17,57 +17,49 @@ import java.io.Serializable;
 public class CampaignCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
-
     @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Id
+    @Column(length = 50)
+    @Enumerated(EnumType.STRING)
+    private CampaignCategoryEnum name;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = "categories", allowSetters = true)
-    private InfluencerInfo influencerInfo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "influencer_category",
+        joinColumns = {@JoinColumn(name = "category_name", referencedColumnName = "name")},
+        inverseJoinColumns = {@JoinColumn(name = "influencer_id", referencedColumnName = "id")})
+    private Set<Influencer> influencers;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "categories", allowSetters = true)
     private Campaign campaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    public CampaignCategoryEnum getName() {
         return name;
     }
 
-    public CampaignCategory name(String name) {
+    public CampaignCategory name(CampaignCategoryEnum name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
+    public void setName(CampaignCategoryEnum name) {
         this.name = name;
     }
 
-    public InfluencerInfo getInfluencerInfo() {
-        return influencerInfo;
+    public Set<Influencer> getInfluencers() {
+        return influencers;
     }
 
-    public CampaignCategory influencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public CampaignCategory Influencers(Set<Influencer> influencers) {
+        this.influencers = influencers;
         return this;
     }
 
-    public void setInfluencerInfo(InfluencerInfo influencerInfo) {
-        this.influencerInfo = influencerInfo;
+    public void setInfluencers(Set<Influencer> influencers) {
+        this.influencers = influencers;
     }
 
     public Campaign getCampaign() {
@@ -92,7 +84,7 @@ public class CampaignCategory implements Serializable {
         if (!(o instanceof CampaignCategory)) {
             return false;
         }
-        return id != null && id.equals(((CampaignCategory) o).id);
+        return name != null && name.equals(((CampaignCategory) o).name);
     }
 
     @Override
@@ -104,7 +96,6 @@ public class CampaignCategory implements Serializable {
     @Override
     public String toString() {
         return "CampaignCategory{" +
-            "id=" + getId() +
             ", name='" + getName() + "'" +
             "}";
     }

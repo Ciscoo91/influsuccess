@@ -17,7 +17,7 @@
         "title": "Campaign Category"
       },
       "name": "Name",
-      "influencerInfo": "Influencer Info",
+      "influencer": "Influencer ",
       "campaign": "Campaign"
     }
   }

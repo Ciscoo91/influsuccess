@@ -16,9 +16,9 @@ export default class CampaignManagementComponent extends Vue {
   private campaignService: () => CampaignService;
 
   public campaigns: ICampaign[] = [];
-  public isFetching: boolean = false;
+  public isFetching = false;
   public fields: string[] = ['title', 'description', 'status', 'socialNetworks'];
-  public currentPage: number = 1;
+  public currentPage = 1;
   public optionsPerPage: any[] = [
     { value: 3, text: '3' },
     { value: 5, text: '5' },
@@ -26,10 +26,10 @@ export default class CampaignManagementComponent extends Vue {
     { value: 20, text: '20' },
   ];
   public perPage = 3;
-  public title: string = '';
-  public userLogin: string = '';
+  public title = '';
+  public userLogin = '';
   public status: CampaignStatus = CampaignStatus.OPENED;
-  public sort: string = `id,${Sort.ASC}`;
+  public sort = `id,${Sort.ASC}`;
 
   public campaignPageable = null;
   private campaignSelected: ICampaign;

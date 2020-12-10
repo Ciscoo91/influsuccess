@@ -8,6 +8,7 @@ import { VueTelInput } from 'vue-tel-input';
 import { Authority } from '@/shared/security/authority';
 import { UserExtra } from '@/shared/model/user-extra.model';
 import moment from 'moment';
+import { ICountry } from '@/shared/model/country.model';
 
 const loginPattern = helpers.regex('alpha', /^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$/);
 const validations: any = {
@@ -96,6 +97,18 @@ export default class Register extends Vue {
   public errorEmailExists = '';
   public errorUserExists = '';
   public success = false;
+  public countries: ICountry[];
+
+  public mounted(): void {
+    this.registerService()
+      .getCountries()
+      .then(
+        res => {
+          this.countries = res;
+        },
+        err => {}
+      );
+  }
 
   public register(): void {
     this.error = null;

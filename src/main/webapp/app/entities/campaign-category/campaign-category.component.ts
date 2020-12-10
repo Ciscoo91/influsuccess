@@ -43,7 +43,7 @@ export default class CampaignCategory extends mixins(AlertMixin) {
   }
 
   public prepareRemove(instance: ICampaignCategory): void {
-    this.removeId = instance.id;
+    this.removeId = instance.name;
     if (<any>this.$refs.removeEntity) {
       (<any>this.$refs.removeEntity).show();
     }

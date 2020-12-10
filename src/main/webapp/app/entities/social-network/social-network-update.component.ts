@@ -52,13 +52,13 @@ export default class SocialNetworkUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
-    if (this.socialNetwork.id) {
+    if (this.socialNetwork.name) {
       this.socialNetworkService()
         .update(this.socialNetwork)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('influSuccessApp.socialNetwork.updated', { param: param.id });
+          const message = this.$t('influSuccessApp.socialNetwork.updated', { param: param.name });
           this.alertService().showAlert(message, 'info');
         });
     } else {
@@ -67,7 +67,7 @@ export default class SocialNetworkUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('influSuccessApp.socialNetwork.created', { param: param.id });
+          const message = this.$t('influSuccessApp.socialNetwork.created', { param: param.name });
           this.alertService().showAlert(message, 'success');
         });
     }

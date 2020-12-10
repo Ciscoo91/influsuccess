@@ -20,14 +20,14 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="country" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
             <column name="birthday" type="date">
                 <constraints nullable="false" />
             </column>
             <column name="phone" type="varchar(15)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
+            </column>
+            <column name="country_code" type="varchar(50)">
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -43,7 +43,7 @@
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
             <column name="email" type="varchar(191)">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_email"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_email"/>
             </column>
             <column name="user_extra_id" type="bigint"/>
             <column name="image_url" type="varchar(256)"/>
@@ -111,7 +111,7 @@
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="jhi_user_discussion"
-                                 constraintName="fk_user_discussion_id"
+                                 constraintName="fk_user_discussion_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 

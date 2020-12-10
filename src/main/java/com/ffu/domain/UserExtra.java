@@ -2,10 +2,18 @@ package com.ffu.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * A UserExtra.
@@ -21,8 +29,9 @@ public class UserExtra implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "country", nullable = false)
-    private String country;
+    @ManyToOne
+    @JoinColumn(name = "country_code")
+    private Country country;
 
     @NotNull
     @Column(name = "birthday", nullable = false)
@@ -41,16 +50,16 @@ public class UserExtra implements Serializable {
         this.id = id;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public UserExtra country(String country) {
+    public UserExtra country(Country country) {
         this.country = country;
         return this;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

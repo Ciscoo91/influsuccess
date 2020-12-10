@@ -1,14 +1,5 @@
 package com.ffu.repository.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ffu.config.Constants;
-
-import javax.persistence.Column;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 public class UserSearchDTO {
 
     private String login;

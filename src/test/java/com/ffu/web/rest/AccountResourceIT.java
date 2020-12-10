@@ -1,12 +1,8 @@
 package com.ffu.web.rest;
 
-import static com.ffu.web.rest.AccountResourceIT.TEST_USER_LOGIN;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import com.ffu.InfluSuccessApp;
 import com.ffu.config.Constants;
+import com.ffu.domain.Country;
 import com.ffu.domain.User;
 import com.ffu.repository.AuthorityRepository;
 import com.ffu.repository.UserRepository;
@@ -18,9 +14,6 @@ import com.ffu.service.dto.UserExtraDTO;
 import com.ffu.service.mapper.UserExtraMapper;
 import com.ffu.web.rest.vm.KeyAndPasswordVM;
 import com.ffu.web.rest.vm.ManagedUserVM;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,11 +21,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.*;
+
+import javax.persistence.EntityManager;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static com.ffu.web.rest.AccountResourceIT.TEST_USER_LOGIN;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link AccountResource} REST controller.
@@ -61,18 +64,29 @@ public class AccountResourceIT {
     @Autowired
     private MockMvc restAccountMockMvc;
 
+    @Autowired
+    private EntityManager em;
+
     private UserExtraDTO userExtraDTO;
+
+    private Country country;
 
     @BeforeEach
     private void fillUserExtraDTO() {
         this.userExtraDTO = new UserExtraDTO();
         userExtraDTO.setBirthday(LocalDate.now());
-        userExtraDTO.setCountry("country");
+        country = new Country();
+        country.setName("BB");
+        country.setCode("AA");
+        em.persist(country);
+        em.flush();
+        userExtraDTO.setCountry(country);
         userExtraDTO.setPhone("1");
     }
 
     @Test
     @WithUnauthenticatedMockUser
+    @Transactional
     public void testNonAuthenticatedUser() throws Exception {
         restAccountMockMvc
             .perform(get("/api/authenticate").accept(MediaType.APPLICATION_JSON))
@@ -81,6 +95,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testAuthenticatedUser() throws Exception {
         restAccountMockMvc
             .perform(
@@ -98,6 +113,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testGetExistingAccount() throws Exception {
         Set<String> authorities = new HashSet<>();
         authorities.add(AuthoritiesConstants.ADMIN);
@@ -127,6 +143,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testGetUnknownAccount() throws Exception {
         restAccountMockMvc
             .perform(get("/api/account").accept(MediaType.APPLICATION_PROBLEM_JSON))
@@ -711,6 +728,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testRequestPasswordResetWrongEmail() throws Exception {
         restAccountMockMvc
             .perform(post("/api/account/reset-password/init").content("password-reset-wrong-email@example.com"))

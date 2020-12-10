@@ -14,11 +14,11 @@
                                  referencedColumnNames="name"
                                  referencedTableName="social_network"/>
 
-        <addForeignKeyConstraint baseColumnNames="influencer_info_id"
+        <addForeignKeyConstraint baseColumnNames="influencer_id"
                                  baseTableName="social_network_link"
-                                 constraintName="fk_social_network_link_influencer_info_id"
+                                 constraintName="fk_social_network_link_influencer_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="influencer_info"/>
+                                 referencedTableName="influencer"/>
 
     </changeSet>
 </databaseChangeLog>

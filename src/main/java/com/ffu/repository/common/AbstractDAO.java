@@ -15,6 +15,7 @@ public class AbstractDAO {
     protected EntityManager entityManager;
 
     protected Page getResultPageable(Root root, CriteriaQuery criteriaQuery, Long count, Pageable pageable, CriteriaBuilder builder) {
+     
         criteriaQuery.orderBy(QueryUtils.toOrders(pageable.getSort(), root, builder));
 
         TypedQuery typedQuery = entityManager.createQuery(criteriaQuery);

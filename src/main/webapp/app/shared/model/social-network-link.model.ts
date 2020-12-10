@@ -1,13 +1,11 @@
-import { ISocialNetwork } from '@/shared/model/social-network.model';
-import { IInfluencerInfo } from '@/shared/model/influencer-info.model';
+import { SocialNetworkEnum } from '@/shared/model/social-network.model';
 
 export interface ISocialNetworkLink {
   id?: number;
   link?: string;
-  socialNetwork?: ISocialNetwork;
-  influencerInfo?: IInfluencerInfo;
+  socialNetworkName?: SocialNetworkEnum;
 }
 
 export class SocialNetworkLink implements ISocialNetworkLink {
-  constructor(public id?: number, public link?: string, public socialNetwork?: ISocialNetwork, public influencerInfo?: IInfluencerInfo) {}
+  constructor(public id?: number, public link?: string, public socialNetworkName?: SocialNetworkEnum) {}
 }
