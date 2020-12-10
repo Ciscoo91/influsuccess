@@ -1,7 +1,5 @@
 package com.ffu.service.Scrapper;
 
-import com.ffu.domain.CampaignCategory;
-import com.ffu.domain.Country;
 import com.ffu.domain.Influencer;
 import com.ffu.domain.SocialNetworkLink;
 import com.ffu.repository.InfluencerRepository;
