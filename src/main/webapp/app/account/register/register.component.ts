@@ -42,9 +42,8 @@ const validations: any = {
         alpha,
       },
       phone: {
-        minLength: minLength(10),
-        maxLength: maxLength(10),
-        numeric,
+        required,
+        maxLength: maxLength(15),
       },
     },
 
@@ -80,7 +79,8 @@ const validations: any = {
 export default class Register extends Vue {
   @Inject('registerService') private registerService: () => RegisterService;
   @Inject('loginService') private loginService: () => LoginService;
-  public role: Authority = undefined;
+  public roles: string[] = ['ROLE_INFLUENCER', 'ROLE_ADVERTISER'];
+  public role: Authority = null;
 
   public registerAccount: any = {
     login: undefined,
@@ -136,5 +136,11 @@ export default class Register extends Vue {
 
   public openLogin(): void {
     this.loginService().openLogin((<any>this).$root);
+  }
+
+  public onSelect(event) {
+    console.log(this.$v);
+    console.log(this.$v.role.$invalid);
+    console.log(this.$v.registerAccount.userExtra.phone.$invalid);
   }
 }

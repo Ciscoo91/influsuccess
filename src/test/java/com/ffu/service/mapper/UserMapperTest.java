@@ -13,14 +13,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Unit tests for {@link UserMapper}.
  */
 public class UserMapperTest {
-
     private static final String DEFAULT_LOGIN = "johndoe";
     private static final Long DEFAULT_ID = 1L;
 
@@ -52,7 +50,7 @@ public class UserMapperTest {
         UserExtraDTO  userExtraDTO= new UserExtraDTO();
         userExtraDTO.setBirthday(LocalDate.now());
         userExtraDTO.setCountry(country);
-        userExtraDTO.setPhone(Long.valueOf("1"));
+        userExtraDTO.setPhone("1");
 
         userDto = new UserDTO(user, userExtraDTO);
     }

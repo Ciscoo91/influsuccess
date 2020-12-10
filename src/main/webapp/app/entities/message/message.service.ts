@@ -88,6 +88,23 @@ export default class MessageService {
     });
   }
 
+  public getAllNewMessageCount(userId: number): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      axios
+        .get(`${baseApiUrl}/alllNewMessageCount`, {
+          params: {
+            userId: userId,
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   public saveMessageChat(entity: MessageChat, selectedDiscussionId: number) {
     return new Promise<MessageChat>((resolve, reject) => {
       axios
