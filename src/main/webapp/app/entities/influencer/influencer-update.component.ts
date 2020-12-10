@@ -11,20 +11,20 @@ import CampaignCategoryService from '../campaign-category/campaign-category.serv
 import { ICampaignCategory } from '@/shared/model/campaign-category.model';
 
 import AlertService from '@/shared/alert/alert.service';
-import { IInfluencerInfo, InfluencerInfo } from '@/shared/model/influencer-info.model';
-import InfluencerInfoService from './influencer-info.service';
+import { IInfluencer, Influencer } from '@/shared/model/influencer.model';
+import InfluencerService from './influencer.service';
 
 const validations: any = {
-  influencerInfo: {},
+  influencer: {},
 };
 
 @Component({
   validations,
 })
-export default class InfluencerInfoUpdate extends Vue {
+export default class InfluencerUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
-  @Inject('influencerInfoService') private influencerInfoService: () => InfluencerInfoService;
-  public influencerInfo: IInfluencerInfo = new InfluencerInfo();
+  @Inject('influencerService') private influencerService: () => InfluencerService;
+  public influencer: IInfluencer = new Influencer();
 
   @Inject('userService') private userService: () => UserService;
 
@@ -42,8 +42,8 @@ export default class InfluencerInfoUpdate extends Vue {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      if (to.params.influencerInfoId) {
-        vm.retrieveInfluencerInfo(to.params.influencerInfoId);
+      if (to.params.influencerId) {
+        vm.retrieveInfluencer(to.params.influencerId);
       }
       vm.initRelationships();
     });
@@ -61,32 +61,32 @@ export default class InfluencerInfoUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
-    if (this.influencerInfo.id) {
-      this.influencerInfoService()
-        .update(this.influencerInfo)
+    if (this.influencer.id) {
+      this.influencerService()
+        .update(this.influencer)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('influSuccessApp.influencerInfo.updated', { param: param.id });
+          const message = this.$t('influSuccessApp.influencer.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
         });
     } else {
-      this.influencerInfoService()
-        .create(this.influencerInfo)
+      this.influencerService()
+        .create(this.influencer)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('influSuccessApp.influencerInfo.created', { param: param.id });
+          const message = this.$t('influSuccessApp.influencer.created', { param: param.id });
           this.alertService().showAlert(message, 'success');
         });
     }
   }
 
-  public retrieveInfluencerInfo(influencerInfoId): void {
-    this.influencerInfoService()
-      .find(influencerInfoId)
+  public retrieveInfluencer(influencerId): void {
+    this.influencerService()
+      .find(influencerId)
       .then(res => {
-        this.influencerInfo = res;
+        this.influencer = res;
       });
   }
 

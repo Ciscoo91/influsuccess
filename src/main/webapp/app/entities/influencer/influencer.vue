@@ -74,5 +74,5 @@
     </div>
 </template>
 
-<script lang="ts" src="./influencer-info.component.ts">
+<script lang="ts" src="./influencer.component.ts">
 </script>

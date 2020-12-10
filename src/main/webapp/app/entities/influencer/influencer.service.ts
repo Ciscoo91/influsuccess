@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import { IInfluencerInfo } from '@/shared/model/influencer-info.model';
+import { IInfluencer } from '@/shared/model/influencer.model';
 
 const baseApiUrl = 'api/influencer-infos';
 
-export default class InfluencerInfoService {
-  public find(id: number): Promise<IInfluencerInfo> {
-    return new Promise<IInfluencerInfo>((resolve, reject) => {
+export default class InfluencerService {
+  public find(id: number): Promise<IInfluencer> {
+    return new Promise<IInfluencer>((resolve, reject) => {
       axios
         .get(`${baseApiUrl}/${id}`)
         .then(res => {
@@ -44,8 +44,8 @@ export default class InfluencerInfoService {
     });
   }
 
-  public create(entity: IInfluencerInfo): Promise<IInfluencerInfo> {
-    return new Promise<IInfluencerInfo>((resolve, reject) => {
+  public create(entity: IInfluencer): Promise<IInfluencer> {
+    return new Promise<IInfluencer>((resolve, reject) => {
       axios
         .post(`${baseApiUrl}`, entity)
         .then(res => {
@@ -57,8 +57,8 @@ export default class InfluencerInfoService {
     });
   }
 
-  public update(entity: IInfluencerInfo): Promise<IInfluencerInfo> {
-    return new Promise<IInfluencerInfo>((resolve, reject) => {
+  public update(entity: IInfluencer): Promise<IInfluencer> {
+    return new Promise<IInfluencer>((resolve, reject) => {
       axios
         .put(`${baseApiUrl}`, entity)
         .then(res => {

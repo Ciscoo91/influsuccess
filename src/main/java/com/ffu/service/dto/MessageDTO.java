@@ -18,6 +18,8 @@ public class MessageDTO {
 
     private String senderLogin;
 
+    private Long discussionId;
+
     private String createdBy;
 
     private Instant createdDate;
@@ -66,6 +68,14 @@ public class MessageDTO {
 
     public void setSenderLogin(String senderLogin) {
         this.senderLogin = senderLogin;
+    }
+
+    public Long getDiscussionId() {
+        return this.discussionId;
+    }
+
+    public void setDiscussionId(Long discussionId) {
+        this.discussionId = discussionId;
     }
 
     public String getCreatedBy() {

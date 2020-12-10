@@ -48,6 +48,7 @@ public class InfluencerResourceIT {
      */
     public static Influencer createEntity(EntityManager em) {
         Influencer influencer = new Influencer();
+        influencer.setUsername("test");
         return influencer;
     }
     /**
@@ -58,6 +59,7 @@ public class InfluencerResourceIT {
      */
     public static Influencer createUpdatedEntity(EntityManager em) {
         Influencer influencer = new Influencer();
+        influencer.setUsername("test2");
         return influencer;
     }
 
@@ -66,62 +68,30 @@ public class InfluencerResourceIT {
         influencer = createEntity(em);
     }
 
+   
     @Test
     @Transactional
-    public void createInfluencerInfo() throws Exception {
-        int databaseSizeBeforeCreate = influencerRepository.findAll().size();
-        // Create the InfluencerInfo
-        restInfluencerInfoMockMvc.perform(post("/api/influencer-infos")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(influencer)))
-            .andExpect(status().isCreated());
-
-        // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerRepository.findAll();
-        assertThat(influencerList).hasSize(databaseSizeBeforeCreate + 1);
-    }
-
-    @Test
-    @Transactional
-    public void createInfluencerInfoWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = influencerRepository.findAll().size();
-
-        // Create the InfluencerInfo with an existing ID
-        influencer.setId(1L);
-
-        // An entity with an existing ID cannot be created, so this API call must fail
-        restInfluencerInfoMockMvc.perform(post("/api/influencer-infos")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(influencer)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerRepository.findAll();
-        assertThat(influencerList).hasSize(databaseSizeBeforeCreate);
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllInfluencerInfos() throws Exception {
+    public void getAllInfluencers() throws Exception {
         // Initialize the database
         influencerRepository.saveAndFlush(influencer);
 
         // Get all the influencerInfoList
-        restInfluencerInfoMockMvc.perform(get("/api/influencer-infos?sort=id,desc"))
+        restInfluencerInfoMockMvc.perform(get("/api/influencers?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(influencer.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(influencer.getId().intValue())))
+            .andExpect(jsonPath("$.[*].username").value(hasItem(influencer.getUsername())));
+
     }
 
     @Test
     @Transactional
-    public void getInfluencerInfo() throws Exception {
+    public void getInfluencer() throws Exception {
         // Initialize the database
         influencerRepository.saveAndFlush(influencer);
 
         // Get the influencerInfo
-        restInfluencerInfoMockMvc.perform(get("/api/influencer-infos/{id}", influencer.getId()))
+        restInfluencerInfoMockMvc.perform(get("/api/influencers/{id}", influencer.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(influencer.getId().intValue()));
@@ -130,59 +100,20 @@ public class InfluencerResourceIT {
     @Transactional
     public void getNonExistingInfluencerInfo() throws Exception {
         // Get the influencerInfo
-        restInfluencerInfoMockMvc.perform(get("/api/influencer-infos/{id}", Long.MAX_VALUE))
+        restInfluencerInfoMockMvc.perform(get("/api/influencers/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateInfluencerInfo() throws Exception {
-        // Initialize the database
-        influencerRepository.saveAndFlush(influencer);
-
-        int databaseSizeBeforeUpdate = influencerRepository.findAll().size();
-
-        // Update the influencerInfo
-        Influencer updatedInfluencer = influencerRepository.findById(influencer.getId()).get();
-        // Disconnect from session so that the updates on updatedInfluencerInfo are not directly saved in db
-        em.detach(updatedInfluencer);
-
-        restInfluencerInfoMockMvc.perform(put("/api/influencer-infos")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedInfluencer)))
-            .andExpect(status().isOk());
-
-        // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerRepository.findAll();
-        assertThat(influencerList).hasSize(databaseSizeBeforeUpdate);
-    }
-
-    @Test
-    @Transactional
-    public void updateNonExistingInfluencerInfo() throws Exception {
-        int databaseSizeBeforeUpdate = influencerRepository.findAll().size();
-
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restInfluencerInfoMockMvc.perform(put("/api/influencer-infos")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(influencer)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the InfluencerInfo in the database
-        List<Influencer> influencerList = influencerRepository.findAll();
-        assertThat(influencerList).hasSize(databaseSizeBeforeUpdate);
-    }
-
-    @Test
-    @Transactional
-    public void deleteInfluencerInfo() throws Exception {
+    public void deleteInfluencer() throws Exception {
         // Initialize the database
         influencerRepository.saveAndFlush(influencer);
 
         int databaseSizeBeforeDelete = influencerRepository.findAll().size();
 
         // Delete the influencerInfo
-        restInfluencerInfoMockMvc.perform(delete("/api/influencer-infos/{id}", influencer.getId())
+        restInfluencerInfoMockMvc.perform(delete("/api/influencers/{id}", influencer.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

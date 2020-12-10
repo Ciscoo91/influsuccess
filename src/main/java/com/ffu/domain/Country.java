@@ -26,7 +26,7 @@ public class Country implements Serializable {
     @Column(length = 50)
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "country")
     private Set<UserExtra> userExtras;
 
     @ManyToMany(fetch = FetchType.EAGER)

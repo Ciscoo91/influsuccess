@@ -13,7 +13,7 @@ public interface CampaignMapper {
 
     @Mapping(source="user.id", target = "userId")
     @Mapping(source="user.login", target = "userLogin")
-    CampaignDTO toDto(Campaign save);
+    CampaignDTO toDto(Campaign campaign);
 
     public default Campaign campaignFromId(Long id) {
         if (id == null) {

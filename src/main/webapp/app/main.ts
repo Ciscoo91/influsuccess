@@ -39,7 +39,7 @@ import SocialNetworkService from '@/entities/social-network/social-network.servi
 import DiscussionService from '@/entities/discussion/discussion.service';
 import MessageService from '@/entities/message/message.service';
 import SocialNetworkLinkService from '@/entities/social-network-link/social-network-link.service';
-import InfluencerInfoService from '@/entities/influencer-info/influencer-info.service';
+import InfluencerService from '@/entities/influencer/influencer.service';
 import InfluencerDashboardService from '@/dashboard/influencer/influencerDashboard.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
@@ -112,7 +112,7 @@ new Vue({
     socialNetworkService: () => new SocialNetworkService(),
     userExtraService: () => new UserExtraService(),
     campaignService: () => new CampaignService(),
-    influencerInfoService: () => new InfluencerInfoService(),
+    influencerService: () => new InfluencerService(),
     socialNetworkLinkService: () => new SocialNetworkLinkService(),
     messageService: () => new MessageService(),
     discussionService: () => new DiscussionService(),

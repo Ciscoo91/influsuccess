@@ -2,10 +2,10 @@ import { mixins } from 'vue-class-component';
 
 import { Component, Vue, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
-import { IInfluencer } from '@/shared/model/influencer-info.model';
+import { IInfluencer } from '@/shared/model/influencer.model';
 import AlertMixin from '@/shared/alert/alert.mixin';
 
-import InfluencerService from './influencer-info.service';
+import InfluencerService from './influencer.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],

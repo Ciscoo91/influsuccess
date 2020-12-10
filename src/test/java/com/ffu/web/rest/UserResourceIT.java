@@ -2,6 +2,7 @@ package com.ffu.web.rest;
 
 import com.ffu.InfluSuccessApp;
 import com.ffu.domain.Authority;
+import com.ffu.domain.Country;
 import com.ffu.domain.User;
 import com.ffu.domain.UserExtra;
 import com.ffu.repository.UserRepository;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -114,8 +116,20 @@ public class UserResourceIT {
     @BeforeEach
     public void initTest() {
         user = createEntity(em);
-        userExtra = UserExtraResourceIT.createEntity(em);
+        
+       Country country = new Country();
+        country.setName("BB");
+        country.setCode("AA");
+        em.persist(country);
+        em.flush();
+
+        userExtra = new UserExtra();
+        userExtra.setBirthday(LocalDate.now());
+        userExtra.setPhone(Long.valueOf("029953210210"));
+        userExtra.setCountry(country);
         em.persist(userExtra);
+        em.flush();
+
         user.setUserExtra(userExtra);
         user.setLogin(DEFAULT_LOGIN);
         user.setEmail(DEFAULT_EMAIL);

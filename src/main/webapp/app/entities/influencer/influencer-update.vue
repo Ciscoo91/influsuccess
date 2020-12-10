@@ -29,5 +29,5 @@
         </div>
     </div>
 </template>
-<script lang="ts" src="./influencer-info-update.component.ts">
+<script lang="ts" src="./influencer-update.component.ts">
 </script>

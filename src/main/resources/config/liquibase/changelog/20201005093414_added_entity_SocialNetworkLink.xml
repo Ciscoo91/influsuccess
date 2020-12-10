@@ -49,7 +49,7 @@
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
-    <changeSet id="20200612152306-1-data" author="jhipster" >
+    <changeSet id="20200612152306-1-data" author="jhipster" context="!test" >
     <loadData
         file="config/liquibase/data/social_network_link.csv"
         separator=","

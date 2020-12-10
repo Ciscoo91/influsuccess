@@ -30,6 +30,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
 
+import javax.persistence.EntityManager;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static com.ffu.web.rest.AccountResourceIT.TEST_USER_LOGIN;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -62,6 +64,9 @@ public class AccountResourceIT {
     @Autowired
     private MockMvc restAccountMockMvc;
 
+    @Autowired
+    private EntityManager em;
+
     private UserExtraDTO userExtraDTO;
 
     private Country country;
@@ -73,12 +78,15 @@ public class AccountResourceIT {
         country = new Country();
         country.setName("BB");
         country.setCode("AA");
+        em.persist(country);
+        em.flush();
         userExtraDTO.setCountry(country);
         userExtraDTO.setPhone(Long.valueOf("1"));
     }
 
     @Test
     @WithUnauthenticatedMockUser
+    @Transactional
     public void testNonAuthenticatedUser() throws Exception {
         restAccountMockMvc.perform(get("/api/authenticate")
             .accept(MediaType.APPLICATION_JSON))
@@ -87,6 +95,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testAuthenticatedUser() throws Exception {
         restAccountMockMvc.perform(get("/api/authenticate")
             .with(request -> {
@@ -99,6 +108,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testGetExistingAccount() throws Exception {
         Set<String> authorities = new HashSet<>();
         authorities.add(AuthoritiesConstants.ADMIN);
@@ -128,6 +138,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testGetUnknownAccount() throws Exception {
         restAccountMockMvc.perform(get("/api/account")
             .accept(MediaType.APPLICATION_PROBLEM_JSON))
@@ -735,6 +746,7 @@ public class AccountResourceIT {
     }
 
     @Test
+    @Transactional
     public void testRequestPasswordResetWrongEmail() throws Exception {
         restAccountMockMvc.perform(
             post("/api/account/reset-password/init")

@@ -9,7 +9,8 @@ import com.ffu.repository.SocialNetworkLinkRepository;
 import com.ffu.repository.SocialNetworkRepository;
 import com.ffu.service.dto.ScrapperRequestDTO;
 import com.ffu.service.dto.ScrapperResponseDTO;
-import com.ffu.web.rest.errors.ScrappingErrorException;
+import com.ffu.service.errors.ScrappingErrorException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +109,7 @@ public abstract class AbstractScrapper {
 
         for (int i = 0; i < 1; i++) {
             Set<Document> sitesToVisit = this.googleLinksScrapper(
-                scrapperRequestDTO.getCategory().getName() + " "
+                scrapperRequestDTO.getCategory().getName().toString() + " "
                     + scrapperRequestDTO.getSocialNetwork().getName().toString() + " "
                     + "influencers" + " "
                     + scrapperRequestDTO.getCountry().getName(),

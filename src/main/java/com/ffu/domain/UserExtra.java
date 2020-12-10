@@ -22,6 +22,7 @@ public class UserExtra implements Serializable {
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "country_code")
     private Country country;
 
     @NotNull

@@ -8,13 +8,15 @@ import com.ffu.service.dto.MessageChat;
 import org.mapstruct.*;
 
 
-@Mapper(uses = UserMapper.class, componentModel = "spring")
+@Mapper(uses = {UserMapper.class, DiscussionMapper.class}, componentModel = "spring")
 public abstract class MessageMapper {
 
     @Mapping(source = "sender.id", target = "senderId")
     @Mapping(source = "sender.login", target = "senderLogin")
+    @Mapping(source = "discussion.id", target = "discussionId")
     public abstract MessageDTO toDto(Message message);
 
+    @Mapping(source = "discussionId", target = "discussion")
     public abstract Message toEntity(MessageDTO messageDTO);
 
     @Mapping(source = "message.sender.id", target = "participantId")

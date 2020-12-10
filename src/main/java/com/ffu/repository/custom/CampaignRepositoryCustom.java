@@ -7,6 +7,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CampaignRepositoryCustom {
-
     Page<Campaign> getCampaignPageable(CampaignSearchDTO campaignSearchDTO, Pageable pageable);
 }

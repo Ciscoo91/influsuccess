@@ -27,11 +27,11 @@ const CampaignUpdate = () => import('@/entities/campaign/campaign-update.vue');
 // prettier-ignore
 const CampaignDetails = () => import('@/entities/campaign/campaign-details.vue');
 // prettier-ignore
-const InfluencerInfo = () => import('@/entities/influencer-info/influencer-info.vue');
+const Influencer = () => import('@/entities/influencer/influencer.vue');
 // prettier-ignore
-const InfluencerInfoUpdate = () => import('@/entities/influencer-info/influencer-info-update.vue');
+const InfluencerUpdate = () => import('@/entities/influencer/influencer-update.vue');
 // prettier-ignore
-const InfluencerInfoDetails = () => import('@/entities/influencer-info/influencer-info-details.vue');
+const InfluencerDetails = () => import('@/entities/influencer/influencer-details.vue');
 // prettier-ignore
 const SocialNetworkLink = () => import('@/entities/social-network-link/social-network-link.vue');
 // prettier-ignore
@@ -150,27 +150,27 @@ export default [
     meta: { authorities: [Authority.ADVERTISER] },
   },
   {
-    path: '/influencer-info',
-    name: 'InfluencerInfo',
-    component: InfluencerInfo,
+    path: '/influencer',
+    name: 'Influencer',
+    component: Influencer,
     meta: { authorities: [Authority.ADVERTISER] },
   },
   {
-    path: '/influencer-info/new',
-    name: 'InfluencerInfoCreate',
-    component: InfluencerInfoUpdate,
+    path: '/influencer/new',
+    name: 'InfluencerCreate',
+    component: InfluencerUpdate,
     meta: { authorities: [Authority.ADVERTISER] },
   },
   {
-    path: '/influencer-info/:influencerInfoId/edit',
-    name: 'InfluencerInfoEdit',
-    component: InfluencerInfoUpdate,
+    path: '/influencer/:influencerId/edit',
+    name: 'InfluencerEdit',
+    component: InfluencerUpdate,
     meta: { authorities: [Authority.ADVERTISER] },
   },
   {
-    path: '/influencer-info/:influencerInfoId/view',
-    name: 'InfluencerInfoView',
-    component: InfluencerInfoDetails,
+    path: '/influencer/:influencerId/view',
+    name: 'InfluencerView',
+    component: InfluencerDetails,
     meta: { authorities: [Authority.ADVERTISER] },
   },
   {

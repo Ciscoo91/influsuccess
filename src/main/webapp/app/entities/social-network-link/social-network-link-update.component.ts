@@ -5,8 +5,8 @@ import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vue
 import SocialNetworkService from '../social-network/social-network.service';
 import { ISocialNetwork } from '@/shared/model/social-network.model';
 
-import InfluencerInfoService from '../influencer-info/influencer-info.service';
-import { IInfluencerInfo } from '@/shared/model/influencer-info.model';
+import InfluencerService from '../influencer/influencer.service';
+import { IInfluencer } from '@/shared/model/influencer.model';
 
 import AlertService from '@/shared/alert/alert.service';
 import { ISocialNetworkLink, SocialNetworkLink } from '@/shared/model/social-network-link.model';
@@ -32,9 +32,9 @@ export default class SocialNetworkLinkUpdate extends Vue {
 
   public socialNetworks: ISocialNetwork[] = [];
 
-  @Inject('influencerInfoService') private influencerInfoService: () => InfluencerInfoService;
+  @Inject('influencerService') private influencerService: () => InfluencerService;
 
-  public influencerInfos: IInfluencerInfo[] = [];
+  public influencers: IInfluencer[] = [];
   public isSaving = false;
   public currentLanguage = '';
 
@@ -98,10 +98,10 @@ export default class SocialNetworkLinkUpdate extends Vue {
       .then(res => {
         this.socialNetworks = res.data;
       });
-    this.influencerInfoService()
+    this.influencerService()
       .retrieve()
       .then(res => {
-        this.influencerInfos = res.data;
+        this.influencers = res.data;
       });
   }
 }
