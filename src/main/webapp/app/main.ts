@@ -56,6 +56,7 @@ Vue.component('infinite-loading', InfiniteLoading);
 
 /* add fa to library font-awesone */
 import { faEdit, faTable } from '@fortawesome/free-solid-svg-icons';
+import BillingService from './account/billing/billing.service';
 library.add(faEdit);
 library.add(faTable);
 
@@ -120,6 +121,7 @@ new Vue({
     accountService: () => accountService,
     advDashboardService: () => new AdvDashboardService(),
     influencerDashboardService: () => new InfluencerDashboardService(),
+    billingService: () => new BillingService(),
   },
   i18n,
   store,

@@ -123,3 +123,7 @@ jhipster:
 # ===================================================================
 
 # application:
+stripe:
+    keys:
+        public: pk_test_51Hw9O7DWZJJd9ekJ5JZPEGFWDeLx70lulEkBdhpxjcNigd2uxw3PFs4PHOXmTaO1ZmA04DtWFpbc1B5J7ridHa3u00FGGbiWxw
+        secret: sk_test_51Hw9O7DWZJJd9ekJxelJ5Ttg3icnwyNTQZwIiQN60HBvVdn0EahIsk3rgZn79pIzkgF6exPfP3un5LlIWJxDWlq100kPRjt17N

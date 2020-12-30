@@ -31,6 +31,12 @@
             <span class="text-white bold font-weight-bold" v-text="$t('global.menu.dashboard')">Dashboard</span>
           </span>
         </b-nav-item>
+        <b-nav-item to="/account/billing" exact>
+          <span>
+            <!-- <font-awesome-icon icon="home" /> -->
+            <span class="text-white bold font-weight-bold" v-text="$t('global.menu.billing')">Tarif</span>
+          </span>
+        </b-nav-item>
 
         <b-nav-item-dropdown
           right
