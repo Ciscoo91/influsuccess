@@ -41,6 +41,7 @@ import MessageService from '@/entities/message/message.service';
 import SocialNetworkLinkService from '@/entities/social-network-link/social-network-link.service';
 import InfluencerService from '@/entities/influencer/influencer.service';
 import InfluencerDashboardService from '@/dashboard/influencer/influencerDashboard.service';
+import SearchFormService from '@/dashboard/partials/searchForm.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -120,6 +121,7 @@ new Vue({
     accountService: () => accountService,
     advDashboardService: () => new AdvDashboardService(),
     influencerDashboardService: () => new InfluencerDashboardService(),
+    searchFormService: () => new SearchFormService(),
   },
   i18n,
   store,

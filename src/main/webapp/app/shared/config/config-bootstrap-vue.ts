@@ -35,6 +35,8 @@ import {
   BSpinner,
   BFormSelect,
   BFormTextarea,
+  BCardFooter,
+  BCardBody,
 } from 'bootstrap-vue';
 
 export function initBootstrapVue(vue) {
@@ -75,4 +77,6 @@ export function initBootstrapVue(vue) {
   vue.component('b-spinner', BSpinner);
   vue.component('b-form-select', BFormSelect);
   vue.component('b-form-textarea', BFormTextarea);
+  vue.component('b-card-footer', BCardFooter);
+  vue.component('b-card-body', BCardBody);
 }
