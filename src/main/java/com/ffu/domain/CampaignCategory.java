@@ -1,10 +1,8 @@
 package com.ffu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ffu.domain.enumeration.CampaignCategoryEnum;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -17,11 +15,9 @@ import java.util.Set;
 public class CampaignCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @NotNull
     @Id
     @Column(length = 50)
-    @Enumerated(EnumType.STRING)
-    private CampaignCategoryEnum name;
+    private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -36,16 +32,16 @@ public class CampaignCategory implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public CampaignCategoryEnum getName() {
+    public String getName() {
         return name;
     }
 
-    public CampaignCategory name(CampaignCategoryEnum name) {
+    public CampaignCategory name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(CampaignCategoryEnum name) {
+    public void setName(String name) {
         this.name = name;
     }
 

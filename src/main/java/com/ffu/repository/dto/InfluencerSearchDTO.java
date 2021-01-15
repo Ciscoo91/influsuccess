@@ -1,21 +1,16 @@
 package com.ffu.repository.dto;
 
-import com.ffu.domain.enumeration.CampaignCategoryEnum;
-import com.ffu.domain.enumeration.SocialNetworkEnum;
 
 public class InfluencerSearchDTO {
-
     private String username;
 
-    private SocialNetworkEnum socialNetworkName;
+    private String socialNetworkName;
 
-    private CampaignCategoryEnum campaignCategoryEnum;
+    private String campaignCategoryEnum;
 
     private String countryCode;
 
     private Long totalFollowerMin;
-
-
 
     public String getUsername() {
         return this.username;
@@ -25,19 +20,19 @@ public class InfluencerSearchDTO {
         this.username = username;
     }
 
-    public SocialNetworkEnum getSocialNetworkName() {
+    public String getSocialNetworkName() {
         return this.socialNetworkName;
     }
 
-    public void setSocialNetworkName(SocialNetworkEnum socialNetworkName) {
+    public void setSocialNetworkName(String socialNetworkName) {
         this.socialNetworkName = socialNetworkName;
     }
 
-    public CampaignCategoryEnum getCampaignCategoryEnum() {
+    public String getCampaignCategoryEnum() {
         return this.campaignCategoryEnum;
     }
 
-    public void setCampaignCategoryEnum(CampaignCategoryEnum campaignCategoryEnum) {
+    public void setCampaignCategoryEnum(String campaignCategoryEnum) {
         this.campaignCategoryEnum = campaignCategoryEnum;
     }
 
@@ -56,6 +51,4 @@ public class InfluencerSearchDTO {
     public void setTotalFollowerMin(Long totalFollowerMin) {
         this.totalFollowerMin = totalFollowerMin;
     }
-
-
 }

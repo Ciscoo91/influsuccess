@@ -1,6 +1,7 @@
 import Component from 'vue-class-component';
 import SearchFormService from '@/dashboard/partials/searchForm.service';
 import { Inject, Vue } from 'vue-property-decorator';
+import { influencerSearchDTO } from '@/shared/model/searchForm.model';
 
 @Component({})
 export default class SearchForm extends Vue {
@@ -17,40 +18,47 @@ export default class SearchForm extends Vue {
   public itemsPerPage: number[] = [5, 10, 20];
   public itemsPerPageSelected: number = 5;
   public showResults: boolean = false;
+  public isLoading: boolean = true;
+  private results: any[] = [];
+  public resultsToShow: any[] = [];
+  public page: number = 1;
+  public currentPage: number = 1;
+  public totalCards: number = 0;
+  public previousPage: number = 1;
 
-  created() {
-    this.getAllCountries();
+  onSubmit() {
+    this.getInfluencersPaegeable(1);
   }
 
-  public results: any[] = [
-    {
-      id: 1,
-      name: 'John Doe',
-      followers: 12300,
-      socialMedias: ['instagram', 'facebook', 'twitter'],
-      image: 'https://source.unsplash.com/MTZTGvDsHFY/100X200',
-      country: 'France',
-      categories: ['sport', 'lifestyle', 'food'],
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      followers: 300000,
-      socialMedias: ['instagram', 'facebook', 'snapchat'],
-      image: 'https://source.unsplash.com/mEZ3PoFGs_k/100X200',
-      country: 'England',
-      categories: ['sport', 'lifestyle', 'food'],
-    },
-    {
-      id: 3,
-      name: 'Earl Thomas',
-      followers: 17800,
-      socialMedias: ['instagram', 'facebook', 'snapchat'],
-      image: 'https://source.unsplash.com/OhKElOkQ3RE/100X200',
-      country: 'China',
-      categories: ['sport', 'lifestyle', 'food'],
-    },
-  ];
+  changeItemsToShow(from: number, to: number) {
+    this.resultsToShow = this.results.slice(from, to);
+  }
+
+  public getInfluencersPaegeable(page) {
+    const requestBody = new influencerSearchDTO();
+    requestBody.campaignCategoryEnum = '';
+    requestBody.countryCode = '';
+    requestBody.socialNetworkName = '';
+    requestBody.username = '';
+    requestBody.totalFollowersMin = 0;
+
+    const pageable = new URLSearchParams({
+      size: this.itemsPerPageSelected.toString(),
+      page: (page - 1).toString(),
+    });
+
+    this.searchFormService()
+      .getInfluencersPaegeable(requestBody, pageable)
+      .then(res => {
+        console.log(res);
+        this.isLoading = false;
+        this.results = res.data.content;
+        this.currentPage = res.data.pageable.pageNumber + 1;
+        this.totalCards = res.data.totalElements;
+        this.showResults = true;
+      })
+      .catch(err => console.error(err));
+  }
 
   private getAllCountries() {
     this.searchFormService()
@@ -59,5 +67,28 @@ export default class SearchForm extends Vue {
         const data = res;
         console.log(data);
       });
+  }
+
+  public getInfluencerById(id: number) {
+    this.searchFormService()
+      .getInfluencer(id)
+      .then(res => console.log(res));
+  }
+
+  public getAllInfluencers() {
+    this.searchFormService()
+      .getAllInfluencers()
+      .then(res => console.log(res.data));
+  }
+
+  public loadPage(page: number): void {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.getInfluencersPaegeable(page);
+    }
+  }
+
+  public checkPage(event) {
+    console.log(event);
   }
 }

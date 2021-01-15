@@ -2,14 +2,13 @@ package com.ffu.service.dto;
 
 import javax.validation.constraints.NotBlank;
 
-import com.ffu.domain.enumeration.SocialNetworkEnum;
 
 public class SocialNetworkLinkDTO {
     @NotBlank
     private String link;
-    
+
     @NotBlank
-    private SocialNetworkEnum socialNetworkName;
+    private String socialNetworkName;
 
 
     public String getLink() {
@@ -20,12 +19,13 @@ public class SocialNetworkLinkDTO {
         this.link = link;
     }
 
-    public SocialNetworkEnum getSocialNetworkName() {
+    public String getSocialNetworkName() {
         return this.socialNetworkName;
     }
 
-    public void setSocialNetworkName(SocialNetworkEnum socialNetworkName) {
+    public void setSocialNetworkName(String socialNetworkName) {
         this.socialNetworkName = socialNetworkName;
     }
-    
+
 }
+

@@ -14,7 +14,7 @@ public class InfluencerDTO {
 
    @NotBlank
     private String username;
-    
+
     private String email;
 
     private Long totalFollowers;
@@ -25,7 +25,7 @@ public class InfluencerDTO {
 
     private Set<CampaignCategory> campaignCategories;
 
-    private Set<Country> countries;
+    private Set<CountryDTO> countries;
 
     public Long getId() {
         return this.id;
@@ -85,11 +85,11 @@ public class InfluencerDTO {
         this.campaignCategories = campaignCategories;
     }
 
-    public Set<Country> getCountries() {
+    public Set<CountryDTO> getCountries() {
         return this.countries;
     }
 
-    public void setCountries(Set<Country> countries) {
+    public void setCountries(Set<CountryDTO> countries) {
         this.countries = countries;
     }
 

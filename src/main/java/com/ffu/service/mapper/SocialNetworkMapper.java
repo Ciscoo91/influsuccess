@@ -1,7 +1,6 @@
 package com.ffu.service.mapper;
 
 import com.ffu.domain.SocialNetwork;
-import com.ffu.domain.enumeration.SocialNetworkEnum;
 
 import org.mapstruct.Mapper;
 
@@ -9,7 +8,7 @@ import org.mapstruct.Mapper;
 public interface SocialNetworkMapper {
 
 
-    public default SocialNetwork socialNetworkFromId(SocialNetworkEnum name) {
+    public default SocialNetwork socialNetworkFromId(String name) {
         if (name == null) {
             return null;
         }

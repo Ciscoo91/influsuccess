@@ -11,11 +11,11 @@ public class SocialNetworkTest {
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(SocialNetwork.class);
         SocialNetwork socialNetwork1 = new SocialNetwork();
-       socialNetwork1.setName(SocialNetworkEnum.Instagram);
+       socialNetwork1.setName(SocialNetworkEnum.Instagram.name());
         SocialNetwork socialNetwork2 = new SocialNetwork();
         socialNetwork2.setName(socialNetwork1.getName());
         assertThat(socialNetwork1).isEqualTo(socialNetwork2);
-        socialNetwork2.setName(SocialNetworkEnum.Facebook);
+        socialNetwork2.setName(SocialNetworkEnum.Facebook.name());
         assertThat(socialNetwork1).isNotEqualTo(socialNetwork2);
        socialNetwork1.setName(null);
         assertThat(socialNetwork1).isNotEqualTo(socialNetwork2);

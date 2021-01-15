@@ -62,19 +62,19 @@ public class ScrapperService {
                             socialNetwork -> {
                                 scrapperRequestDTO.setSocialNetwork(socialNetwork);
                                 switch (socialNetwork.getName()) {
-                                    case Instagram:
+                                    case "Instagram":
                                         instaScrapper.scrape(scrapperRequestDTO);
                                         break;
-                                    case Tiktok:
+                                    case "Tiktok":
                                         tiktokScrapper.scrape(scrapperRequestDTO);
                                         break;
-                                    case Snapchat:
+                                    case "Snapchat":
                                         snapchatScrapper.scrape(scrapperRequestDTO);
                                         break;
-                                    case Youtube:
+                                    case "Youtube":
                                         youtubeScrapper.scrape(scrapperRequestDTO);
                                         break;
-                                    case Twitter:
+                                    case "Twitter":
                                         twitterScrappper.scrape(scrapperRequestDTO);
                                         break;
                                     default:

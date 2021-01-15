@@ -8,11 +8,12 @@ import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 @Component
-@Mapper(uses = {SocialNetworkLinkMapper.class}, componentModel = "spring")
+@Mapper(uses = {SocialNetworkLinkMapper.class, CountryMapper.class}, componentModel = "spring")
 public interface  InfluencerMapper {
 
     @Mapping(target = "totalFollowers", expression =
      "java(influencer.getSocialNetworkLinks().stream().mapToLong(SocialNetworkLink::getFollower).sum())")
+
     public InfluencerDTO toDto(Influencer influencer);
 
     public Influencer toEntity(InfluencerDTO influencerDTO);

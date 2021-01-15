@@ -58,22 +58,22 @@ public class InstaScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
                 long publications = jsonUser.get("edge_owner_to_timeline_media").get("count").asLong();
                 Long id = jsonUser.get("id").asLong();
 
-                
+
                 int i =0;
                 long likeCount = 0;
 
                 Iterator<Entry<String, JsonNode>> edges = jsonUser.get("edge_owner_to_timeline_media").get("edges")
                         .fields();
-                        
+
                     while(edges.hasNext()){
                         i++;
                       likeCount+= edges.next().getValue().get("node").get("edge_liked_by").get("count").asLong();
                     }
 
                     BigDecimal rateEngagement = BigDecimal.valueOf(((likeCount/i)/publications)*100).setScale(2, RoundingMode.HALF_UP);
-              
+
                     Optional<SocialNetworkLink> socialNetworkLinkOptional =
-                            socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(influencer.getId(), SocialNetworkEnum.Instagram);
+                            socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(influencer.getId(), SocialNetworkEnum.Instagram.name());
                         if (socialNetworkLinkOptional.isPresent()) {
                             SocialNetworkLink socialNetworkLink = socialNetworkLinkOptional.get();
                             socialNetworkLink.setSocialNetworkUserId(id);

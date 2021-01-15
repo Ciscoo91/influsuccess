@@ -56,7 +56,7 @@ public class TikTokScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
                         Long id = jsonUser.get("id").asLong();
 
                         Optional<SocialNetworkLink> socialNetworkLinkOptional =
-                            socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(influencer.getId(), SocialNetworkEnum.Tiktok);
+                            socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(influencer.getId(), SocialNetworkEnum.Tiktok.name());
                         if (socialNetworkLinkOptional.isPresent()) {
                             SocialNetworkLink socialNetworkLink = socialNetworkLinkOptional.get();
                             socialNetworkLink.setSocialNetworkUserId(id);
@@ -68,7 +68,7 @@ public class TikTokScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
                         }
                        /* String[] tmp = signature.split(" ");
                             for (String string : tmp) {
-                                if(string.contains("Snapchat") && 
+                                if(string.contains("Snapchat") &&
                                 !socialNetworkLinkRepository.findByInfluencer_idAndSocialNetwork_name(id, SocialNetworkEnum.Snapchat).isPresent()){
                                     SocialNetworkLink snapSocialNetworkLink = new SocialNetworkLink();
                                     snapSocialNetworkLink.setInfluencer(influencer);
@@ -76,7 +76,7 @@ public class TikTokScrapper extends com.ffu.service.Scrapper.AbstractScrapper {
                                     snapSocialNetworkLink.setFollowing(0);
                                     snapSocialNetworkLink.setPublication(0);
                                     snapSocialNetworkLink.setLink("https://www.snapchat.com/add/" + string.split(":")[1]);
-                                    snapSocialNetworkLink.setSocialNetwork(socialNetworkRepository.findByName(SocialNetworkEnum.Snapchat).get());
+                                    snapSocialNetworkLink.setSocialNetwork(socialNetworkRepository.findByName(SocialNetworkEnum.Snapchat.name()).get());
                                    snapSocialNetworkLink = socialNetworkLinkRepository.saveAndFlush(snapSocialNetworkLink);
                                     influencer.addSocialNetworkLinks(snapSocialNetworkLink);
                                 }
