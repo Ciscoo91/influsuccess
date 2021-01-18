@@ -41,6 +41,15 @@ import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench';
 import { faChartPie } from '@fortawesome/free-solid-svg-icons/faChartPie';
 
+// social network icons
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faPinterest } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { faSnapchat } from '@fortawesome/free-brands-svg-icons';
+
 import VueCookie from 'vue-cookie';
 import Vuelidate from 'vuelidate';
 import Vue2Filters from 'vue2-filters';
@@ -249,7 +258,14 @@ export function initFortAwesome(vue) {
     faUser,
     faUserPlus,
     faWrench,
-    faChartPie
+    faChartPie,
+    faFacebook,
+    faSnapchat,
+    faTiktok,
+    faTwitter,
+    faLinkedin,
+    faInstagram,
+    faPinterest
   );
 }
 

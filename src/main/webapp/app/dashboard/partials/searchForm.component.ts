@@ -15,26 +15,24 @@ export default class SearchForm extends Vue {
   public paltformSelected: string = '';
   public categories: any[] = ['healthy', 'workout', 'vegan'];
   public categorySelected: string = '';
-  public itemsPerPage: number[] = [5, 10, 20];
-  public itemsPerPageSelected: number = 5;
+  public itemsPerPage: number[] = [6, 12, 22];
+  public itemsPerPageSelected: number = this.itemsPerPage[0];
   public showResults: boolean = false;
   public isLoading: boolean = true;
-  private results: any[] = [];
-  public resultsToShow: any[] = [];
-  public page: number = 1;
+  public results: any[] = [];
   public currentPage: number = 1;
   public totalCards: number = 0;
   public previousPage: number = 1;
 
+  created() {
+    this.getInfluencersPaegeable();
+  }
+
   onSubmit() {
-    this.getInfluencersPaegeable(1);
+    this.getInfluencersPaegeable();
   }
 
-  changeItemsToShow(from: number, to: number) {
-    this.resultsToShow = this.results.slice(from, to);
-  }
-
-  public getInfluencersPaegeable(page) {
+  public getInfluencersPaegeable() {
     const requestBody = new influencerSearchDTO();
     requestBody.campaignCategoryEnum = '';
     requestBody.countryCode = '';
@@ -44,7 +42,7 @@ export default class SearchForm extends Vue {
 
     const pageable = new URLSearchParams({
       size: this.itemsPerPageSelected.toString(),
-      page: (page - 1).toString(),
+      page: (this.currentPage - 1).toString(),
     });
 
     this.searchFormService()
@@ -84,7 +82,7 @@ export default class SearchForm extends Vue {
   public loadPage(page: number): void {
     if (page !== this.previousPage) {
       this.previousPage = page;
-      this.getInfluencersPaegeable(page);
+      this.getInfluencersPaegeable();
     }
   }
 
