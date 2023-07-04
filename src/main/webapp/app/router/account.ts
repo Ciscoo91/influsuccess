@@ -7,6 +7,10 @@ const ResetPasswordFinish = () => import('@/account/reset-password/finish/reset-
 const ChangePassword = () => import('@/account/change-password/change-password.vue');
 const Settings = () => import('@/account/settings/settings.vue');
 const Billing = () => import('@/account/billing/billing.vue');
+// const first_step_form = () => import('@/account/billing/forms/first_step_form.component.vue');
+// const second_step_form = () => import('@/account/billing/forms/second_step_form.component.vue');
+const FirstStepForm = () => '@/account/billing/forms/first_step_form.vue';
+const SecondStepForm = () => '@/account/billing/forms/second_step_form.vue';
 
 export default [
   {
@@ -45,6 +49,18 @@ export default [
     path: '/account/billing',
     name: 'Billing',
     component: Billing,
+    // meta: { authorities: [Authority.ADVERTISER, Authority.INFLUENCER] },
+  },
+  {
+    path: '/account/billing/success',
+    name: 'successBilling',
+    component: FirstStepForm,
+    meta: { authorities: [Authority.ADVERTISER, Authority.INFLUENCER] },
+  },
+  {
+    path: '/account/billing/cancel',
+    name: 'cancelBilling',
+    component: SecondStepForm,
     meta: { authorities: [Authority.ADVERTISER, Authority.INFLUENCER] },
   },
 ];

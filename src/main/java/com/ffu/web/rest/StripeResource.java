@@ -2,95 +2,70 @@ package com.ffu.web.rest;
 
 
 import com.ffu.service.StripeService;
-import com.stripe.model.Coupon;
-import com.sun.mail.iap.Response;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
+import com.ffu.service.dto.PaymentRequestDTO;
+import com.ffu.service.utils.CreateCheckoutSessionRequest;
+import com.stripe.exception.StripeException;
+import com.stripe.param.checkout.SessionCreateParams;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
+
+
+@RestController
+@RequestMapping("/api")
 public class StripeResource {
-    @Value("${stripe.keys.public}")
-    private String API_PUBLIC_KEY;
 
-    private StripeService stripeService;
+    @Autowired
+    StripeService stripeService;
 
-    public StripeResource(StripeService stripeService) {
-        this.stripeService = stripeService;
+    @PostMapping
+    public ResponseEntity<String> completePayment(@RequestBody PaymentRequestDTO paymentRequestDTO) throws StripeException {
+        String chargeId = stripeService.charge(paymentRequestDTO);
+        return chargeId!=null? new ResponseEntity<String>(chargeId, HttpStatus.OK): new ResponseEntity<String>("Please check the credit card details entered", HttpStatus.BAD_REQUEST);
     }
 
-    /*========== REST APIs for Handling Payments ===================*/
-
-    @PostMapping("/create-subscription")
-    public @ResponseBody
-    Response createSubscription(String email, String token, String plan, String coupon) {
-        //validate data
-        if (token == null || plan.isEmpty()) {
-            return new Response("Stripe payment token is missing. Please, try again later.", false);
-        }
-
-        //create customer first
-        String customerId = stripeService.createCustomer(email, token);
-
-        if (customerId == null) {
-            return new Response("An error occurred while trying to create a customer.", false);
-        }
-
-        //create subscription
-        String subscriptionId = stripeService.createSubscription(customerId, plan, coupon);
-        if (subscriptionId == null) {
-            return new Response("An error occurred while trying to create a subscription.", false);
-        }
-
-        // Ideally you should store customerId and subscriptionId along with customer object here.
-        // These values are required to update or cancel the subscription at later stage.
-
-        return new Response("Success! Your subscription id is " + subscriptionId, true);
+    @ExceptionHandler
+    public String handleError(StripeException ex) {
+        return ex.getMessage();
     }
 
-    @PostMapping("/cancel-subscription")
-    public @ResponseBody
-    Response cancelSubscription(String subscriptionId) {
-        boolean status = stripeService.cancelSubscription(subscriptionId);
-        if (!status) {
-            return new Response("Failed to cancel the subscription. Please, try later.", false );
+    @PostMapping("/create-cehckout-session")
+    public ResponseEntity<Json> createCheckoutSession(PaymentRequestDTO paymentRequestDTO) {
+        CreateCheckoutSessionRequest req = gson.fromJson(request.body(), CreateCheckoutSessionRequest.class);
+
+        // See https://stripe.com/docs/api/checkout/sessions/create
+        // for additional parameters to pass.
+        // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
+        // the actual Session ID is returned in the query parameter when your customer
+        // is redirected to the success page.
+        SessionCreateParams params = new SessionCreateParams.Builder()
+            .setSuccessUrl("https://example.com/success.html?session_id={CHECKOUT_SESSION_ID}")
+            .setCancelUrl("https://example.com/canceled.html")
+            .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
+            .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
+            .addLineItem(new SessionCreateParams.LineItem.Builder()
+                // For metered billing, do not pass quantity
+                .setQuantity(1L)
+                .setPrice(req.getPriceId())
+                .build()
+            )
+            .build();
+
+        try {
+            Session session = Session.create(params);
+            Map<String, Object> responseData = new HashMap<>();
+            responseData.put("sessionId", session.getId());
+            return gson.toJson(responseData);
+        } catch(Exception e) {
+            Map<String, Object> messageData = new HashMap<>();
+            messageData.put("message", e.getMessage());
+            Map<String, Object> responseData = new HashMap<>();
+            responseData.put("error", messageData);
+            response.status(400);
+            return gson.toJson(responseData);
         }
-        return new Response("Subscription cancelled successfully.", true);
-    }
-
-    @PostMapping("/coupon-validator")
-    public @ResponseBody
-    Response couponValidator(String code) {
-        Coupon coupon = stripeService.retrieveCoupon(code);
-        if (coupon != null && coupon.getValid()) {
-            String details = (coupon.getPercentOff() == null ? "$" + (coupon.getAmountOff() / 100) : coupon.getPercentOff() + "%") +
-                " OFF " + coupon.getDuration();
-            return new Response(details, true);
-        } else {
-            return new Response("This coupon code is not available. This may be because it has expired or has " +
-                "already been applied to your account.", false);
-        }
-    }
-
-    @PostMapping("/create-charge")
-    public @ResponseBody
-    Response createCharge(String email, String token) {
-        //validate data
-        if (token == null) {
-            return new Response("Stripe payment token is missing. Please, try again later.", false);
-        }
-
-        //create charge
-        String chargeId = stripeService.createCharge(email, token, 999); //$9.99 USD
-        if (chargeId == null) {
-            return new Response("An error occurred while trying to create a charge.", false);
-        }
-
-        // You may want to store charge id along with order information
-
-        return new Response("Success! Your charge id is " + chargeId, true);
     }
 }
